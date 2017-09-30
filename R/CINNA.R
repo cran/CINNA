@@ -5,27 +5,26 @@
 #' and convert them as "igraph" objects.
 #' @param x An igraph or a network object
 #' @param directed Whether to create a directed graph(default=TRUE)
-#' @param bipartite.proj Whether the bipartite network must be projected or not(default=FALSE)
-#' @param num.proj Numbers 1 or 2 which shows the number of projects for bipartite graphs.(default=1)
+#' @param bipartite_proj Whether the bipartite network must be projected or not(default=FALSE)
+#' @param num_proj Numbers 1 or 2 which shows the number of projects for bipartite graphs.(default=1)
 #' @details
 #' This function seperates different components of an "igraph" or a "network" object and
 #' illustrates them as a list of independent graphs. If the input graph was bipartite and the
-#' "bipartite.proj" was TRUE, it will project it and you can decide in which project you want
+#' "bipartite_proj" was TRUE, it will project it and you can decide in which project you want
 #' to continue to work with.
-#' @seealso \code{\link[igraph]{induced.subgraph}},\code{\link[igraph]{components}}
+#' @seealso \code{\link[igraph]{induced.subgraph}}, \code{\link[igraph]{components}}
 #' @return a list including the componets of the input as igraph objects
 #' @author Minoo Ashtiani, Mohieddin Jafari
 #' @examples
 #'
 #' data(zachary)
 #'
-#' graph.extract.components(zachary)
-#'
+#' graph_extract_components(zachary)
 #'
 #' @export
 #' @importFrom igraph is_igraph
 #' @importFrom igraph is_bipartite
-#' @importFrom igraph bipartite.projection
+#' @importFrom igraph bipartite_projection
 #' @importFrom igraph simplify
 #' @importFrom igraph is_simple
 #' @importFrom igraph clusters
@@ -35,28 +34,29 @@
 #' @importFrom network as.edgelist
 #' @importFrom network network
 
-graph.extract.components <- function( x, directed = TRUE,bipartite.proj=FALSE ,num.proj=1){
+graph_extract_components <- function( x, directed = TRUE,bipartite_proj=FALSE ,num_proj=1){
 
-  if(!(class(x)%in%"igraph"|| class(x)%in%"network")) stop("The input is not an igraph or a
+  if (!(class(x)%in%"igraph"|| class(x)%in%"network")) stop("The input is not an igraph or a
                                                            network object")
 
-  if(is_igraph(x)){
+  if (is_igraph(x)){
 
-  if( bipartite.proj){
+  if ( bipartite_proj){
 
-  if(is_bipartite(x)){
+  if (is_bipartite(x)){
 
-        x<-bipartite.projection(x)[[num.proj]]
+        x <- bipartite_projection(x)[[num_proj]]
 
         if (!is_simple(x))   x<-simplify(x)
 
         cl <- clusters(x)
 
-        graph.splitting <- function(k, x, cl){
+        graph_splitting <- function(k, x, cl){
+
           induced.subgraph(x, cl$membership == k)
         }
 
-        components<-sapply(1:max(cl$membership), graph.splitting, x = x, cl = cl, simplify = FALSE)
+        components <- sapply(1:max(cl$membership), graph_splitting, x = x, cl = cl, simplify = FALSE)
 
         }
 
@@ -72,17 +72,17 @@ graph.extract.components <- function( x, directed = TRUE,bipartite.proj=FALSE ,n
         induced.subgraph(x, cl$membership == k)
       }
 
-      components<-sapply(1:max(cl$membership), graph_splitting, x = x, cl = cl, simplify = FALSE)
+      components <- sapply(1:max(cl$membership), graph_splitting, x = x, cl = cl, simplify = FALSE)
 
       }
 
       }
 
-  if( is.network(x)){
+  if ( is.network(x)){
 
-    edgelist<-as.edgelist(x)
+    edgelist <- as.edgelist(x)
 
-    x<-graph_from_edgelist(edgelist, directed = TRUE)
+    x <- graph_from_edgelist(edgelist, directed = TRUE)
 
     if (!is_simple(x))  gr<-simplify(x)
 
@@ -92,7 +92,7 @@ graph.extract.components <- function( x, directed = TRUE,bipartite.proj=FALSE ,n
     induced.subgraph(x, cl$membership == k)
     }
 
-    components<-sapply(1:max(cl$membership), graph_splitting, x = x, cl = cl, simplify = FALSE)
+    components <- sapply(1:max(cl$membership), graph_splitting, x = x, cl = cl, simplify = FALSE)
 
    }
 
@@ -139,14 +139,14 @@ graph.extract.components <- function( x, directed = TRUE,bipartite.proj=FALSE ,n
 #' @importFrom igraph graph_from_adjacency_matrix
 #' @importFrom plyr .
 
-misc.extract.components <- function( x ,directed = TRUE, mode = "directed",
+misc_extract_components <- function( x ,directed = TRUE, mode = "directed",
                                      weighted = NULL, unibipartite = FALSE,
                                      diag = TRUE){
-    if(ncol(x)%in%2) {
+    if (ncol(x)%in%2) {
 
-    if(unibipartite%in%FALSE){
+    if (unibipartite%in%FALSE){
 
-      x<-graph_from_edgelist(x, directed = directed)
+      x <- graph_from_edgelist(x, directed = directed)
 
       if (!is_simple(x))   x<-simplify(x)
 
@@ -158,23 +158,23 @@ misc.extract.components <- function( x ,directed = TRUE, mode = "directed",
 
       }
 
-      components<-sapply(1:max(cl$membership), graph_splitting, x = x, cl = cl, simplify = FALSE)
+      components <- sapply(1:max(cl$membership), graph_splitting, x = x, cl = cl, simplify = FALSE)
 
       return(components)
 
       }
     else{
 
-      el<-cbind(x,1)
+      el <- cbind(x,1)
 
-      incidence.mat<-el[rep(seq_len(nrow(el)), el[,'1']), c(colnames(el)[1], colnames(el)[2])] %>%
+      incidence_mat <- el[rep(seq_len(nrow(el)), el[,'1']), c(colnames(el)[1], colnames(el)[2])] %>%
       {split(.[,colnames(el)[2]], .[,colnames(el)[1]])} %>%
         mtabulate()
 
-      x<-graph_from_incidence_matrix(incidence.mat,directed=directed)
+      x <- graph_from_incidence_matrix(incidence_mat, directed=directed)
 
 
-    if (!is_simple(x))   x<-simplify(x)
+    if (!is_simple(x))   x <- simplify(x)
 
       cl <- clusters(x)
 
@@ -184,16 +184,16 @@ misc.extract.components <- function( x ,directed = TRUE, mode = "directed",
 
       }
 
-      components<-sapply(1:max(cl$membership), graph_splitting, x = x, cl = cl, simplify = FALSE)
+      components <- sapply(1:max(cl$membership), graph_splitting, x = x, cl = cl, simplify = FALSE)
 
       return(components)
 
      }
 
      }
-   if(ncol(x)>2||class(x)%in%"dgCMatrix") {
+   if (ncol(x)>2||class(x)%in%"dgCMatrix") {
 
-    x<-graph_from_adjacency_matrix(x, mode = mode, weighted = weighted, diag = diag,
+    x <- graph_from_adjacency_matrix(x, mode = mode, weighted = weighted, diag = diag,
                                    add.colnames = NULL, add.rownames = NA)
 
     if (!is_simple(x))   x<-simplify(x)
@@ -206,7 +206,7 @@ misc.extract.components <- function( x ,directed = TRUE, mode = "directed",
 
     }
 
-    components<-sapply(1:max(cl$membership), graph_splitting, x = x, cl = cl, simplify = FALSE)
+    components <- sapply(1:max(cl$membership), graph_splitting, x = x, cl = cl, simplify = FALSE)
 
     return(components)
 
@@ -221,13 +221,13 @@ misc.extract.components <- function( x ,directed = TRUE, mode = "directed",
 #' apply projection before extracting the components.
 #' @param x An igraph or a network object
 #' @param directed Whether to create a directed graph(default=TRUE)
-#' @param bipartite.proj Whether the bipartite network must be projected or not(default=FALSE)
-#' @param num.proj A number which shows the number of projects especifically for
+#' @param bipartite_proj Whether the bipartite network must be projected or not(default=FALSE)
+#' @param num_proj A number which shows the number of projects especifically for
 #' bipartite graphs.(default=1)
 #' @details
 #' This function distinguishes the largest component of an "igraph" or a "network" object and
 #' illustrates them as a list which contains the edgelist of the giant component. If the input
-#' graph was bipartite and the "bipartite.proj" was TRUE, it will projet it and you can decide
+#' graph was bipartite and the "bipartite_proj" was TRUE, it will projet it and you can decide
 #' to which project you want to continue to work with that.
 #' @seealso \code{\link[igraph]{induced.subgraph}},\code{\link[igraph]{clusters}}
 #' @return the giant componet of the input as igraph object
@@ -238,12 +238,12 @@ misc.extract.components <- function( x ,directed = TRUE, mode = "directed",
 #' # a graph with 4 vertices
 #'
 #' data(zachary)
-#' giant.component.extract(zachary)
+#' giant_component_extract(zachary)
 #'
 #' @export
 #' @importFrom igraph is_igraph
 #' @importFrom igraph is_bipartite
-#' @importFrom igraph bipartite.projection
+#' @importFrom igraph bipartite_projection
 #' @importFrom igraph is_simple
 #' @importFrom igraph simplify
 #' @importFrom igraph clusters
@@ -255,25 +255,25 @@ misc.extract.components <- function( x ,directed = TRUE, mode = "directed",
 #' @importFrom network network
 
 
-giant.component.extract<- function( x, directed = TRUE,bipartite.proj=FALSE ,num.proj=1){
+giant_component_extract <- function( x, directed = TRUE, bipartite_proj=FALSE ,num_proj=1){
 
-  if(!(class(x)%in%"igraph"|| class(x)%in%"network")) stop("The input is not an igraph or a network object")
+  if (!(class(x)%in%"igraph"|| class(x)%in%"network")) stop("The input is not an igraph or a network object")
 
-  if(is_igraph(x)) {
+  if (is_igraph(x)){
 
-    if( bipartite.proj){
+    if ( bipartite_proj){
 
-    if(is_bipartite(x)){
+    if (is_bipartite(x)){
 
-        x<-bipartite.projection(x)[[num.proj]]
+        x <- bipartite_projection(x)[[num_proj]]
 
-        if (!is_simple(x))   x<-simplify(x)
+        if (!is_simple(x))   x <- simplify(x)
 
         cl <- clusters(x)
 
-        giant.comp<-induced.subgraph(x, which(cl$membership == which.max(cl$csize)))
+        giant_comp <- induced.subgraph(x, which(cl$membership == which.max(cl$csize)))
 
-        giant.comp.edgelist<-as_edgelist(giant.comp, names = TRUE)
+        giant_comp_edgelist <- as_edgelist(giant_comp, names = TRUE)
 
       }
 
@@ -287,31 +287,31 @@ giant.component.extract<- function( x, directed = TRUE,bipartite.proj=FALSE ,num
 
       cl <- clusters(x)
 
-      giant.comp<-induced.subgraph(x, which(cl$membership == which.max(cl$csize)))
+      giant_comp <- induced.subgraph(x, which(cl$membership == which.max(cl$csize)))
 
-      giant.comp.edgelist<-as_edgelist(giant.comp, names = TRUE)
-
-    }
+      giant_comp_edgelist <- as_edgelist(giant_comp, names = TRUE)
 
     }
 
-  if( is.network(x)){
+    }
+
+  if ( is.network(x)){
 
     edgelist<-as.edgelist(x)
 
-    x<-graph_from_edgelist(edgelist, directed = directed)
+    x <- graph_from_edgelist(edgelist, directed = directed)
 
     if (!is_simple(x))  gr<-simplify(x)
 
     cl <- clusters(x)
 
-    giant.comp<-induced.subgraph(x, which(cl$membership == which.max(cl$csize)))
+    giant_comp <- induced.subgraph(x, which(cl$membership == which.max(cl$csize)))
 
-    giant.comp.edgelist<-as_edgelist(giant.comp, names = TRUE)
+    giant_comp_edgelist <- as_edgelist(giant_comp, names = TRUE)
 
    }
 
-    result<-list(giant.comp,giant.comp.edgelist)
+    result <- list(giant_comp,giant_comp_edgelist)
 
     return(result)
 
@@ -325,220 +325,217 @@ giant.component.extract<- function( x, directed = TRUE,bipartite.proj=FALSE ,num
 #' @details
 #' This function represents a list including the names of centrality measures which are applicable
 #' for the input graph based on the topology
-#' @seealso \code{\link[CINNA]{calculate.centralities}}
+#' @seealso \code{\link[CINNA]{calculate_centralities}}
 #' @return a list including the name of centrality measures which are suitable for the input graph
 #' @author Minoo Ashtiani, Mohieddin Jafari
 #' @examples
 #'
 #' data("zachary")
-#' proper.centralities(zachary)
+#' proper_centralities(zachary)
 #'
 #' @export
 #' @importFrom igraph is.igraph
 #' @importFrom igraph is_directed
 #' @importFrom igraph is.weighted
 
-proper.centralities<-function(x){
+proper_centralities<-function(x){
 
-  if(!is.igraph(x)) stop(" Error: x must be a class of igraph object ")
+  if (!is.igraph(x)) stop(" Error: x must be a class of igraph object ")
 
-  if(is_directed(x) && is_weighted(x) ){
+  if (is_directed(x) && is_weighted(x)){
 
-    proper.centralities<-c("Alpha Centrality",
-                           "Bonacich power centralities of positions",
-                           "Burt's Constraint",
-                           "Page Rank",
-                           "Average Distance",
-                           "Barycenter Centrality",
-                           "BottleNeck Centrality",
-                           "Centroid value",
-                           "Closeness Centrality (Freeman)",
-                           "ClusterRank",
-                           "Decay Centrality",
-                           "Degree Centrality",
-                           "Diffusion Degree",
-                           "DMNC - Density of Maximum Neighborhood Component",
-                           "Eccentricity Centrality",
-                           "eigenvector centralities",
-                           "Flow Betweenness Centrality",
-                           "Information Centrality",
-                           "K-core Decomposition",
-                           "Geodesic K-Path Centrality",
-                           "Katz Centrality (Katz Status Index)",
-                           "Kleinberg's authority centrality scores",
-                           "Kleinberg's hub centrality scores",
-                           "clustering coefficient",
-                           "Lin Centrality",
-                           "Load Centrality",
-                           "Lobby Index (Centrality)",
-                           "Markov Centrality",
-                           "Radiality Centrality",
-                           "Shortest-Paths Betweenness Centrality",
-                           "Stress Centrality",
-                           "Current-Flow Closeness Centrality",
-                           "Closeness centrality (Latora)",
-                           "Communicability Betweenness Centrality",
-                           "Community Centrality",
-                           "Cross-Clique Connectivity",
-                           "Entropy Centrality",
-                           "EPC - Edge Percolated Component",
-                           "Laplacian Centrality",
-                           "Leverage Centrality",
-                           "MNC - Maximum Neighborhood Component",
-                           "Hubbell Index",
-                           "Semi Local Centrality",
-                           "Closeness Vitality",
-                           "Residual Closeness Centrality"
+    proper_centralities <- c("Alpha Centrality",
+                             "Burt's Constraint",
+                             "Page Rank" ,
+                             "Average Distance",
+                             "Barycenter Centrality" ,
+                             "BottleNeck Centrality",
+                             "Centroid value" ,
+                             "Closeness Centrality (Freeman)" ,
+                             "ClusterRank" ,
+                             "Decay Centrality",
+                             "Degree Centrality" ,
+                             "Diffusion Degree",
+                             "DMNC - Density of Maximum Neighborhood Component" ,
+                             "Eccentricity Centrality" ,
+                             "eigenvector centralities" ,
+                             "K-core Decomposition" ,
+                             "Geodesic K-Path Centrality" ,
+                             "Katz Centrality (Katz Status Index)" ,
+                             "Kleinberg's authority centrality scores",
+                             "Kleinberg's hub centrality scores" ,
+                             "clustering coefficient" ,
+                             "Lin Centrality" ,
+                             "Lobby Index (Centrality)" ,
+                             "Markov Centrality" ,
+                             "Radiality Centrality",
+                             "Shortest-Paths Betweenness Centrality" ,
+                             "Current-Flow Closeness Centrality",
+                             "Closeness centrality (Latora)" ,
+                             "Communicability Betweenness Centrality",
+                             "Community Centrality" ,
+                             "Cross-Clique Connectivity" ,
+                             "Entropy Centrality" ,
+                             "EPC - Edge Percolated Component" ,
+                             "Laplacian Centrality" ,
+                             "Leverage Centrality" ,
+                             "MNC - Maximum Neighborhood Component" ,
+                             "Hubbell Index" ,
+                             "Semi Local Centrality",
+                             "Closeness Vitality" ,
+                             "Residual Closeness Centrality",
+                             "Stress Centrality",
+                             "Load Centrality",
+                             "Flow Betweenness Centrality",
+                             "Information Centrality"
     )
   }
 
-  if(!is_directed(x) && is_weighted(x) ) {
+  if (!is_directed(x) && is_weighted(x)) {
 
-    proper.centralities<-c("subgraph centrality scores",
-                           "Burt's Constraint",
-                           "Topological Coefficient",
-                           "Average Distance",
-                           "Barycenter Centrality",
-                           "BottleNeck Centrality",
-                           "Centroid value",
-                           "Closeness Centrality (Freeman)",
-                           "ClusterRank",
-                           "Decay Centrality",
-                           "Degree Centrality",
-                           "Diffusion Degree",
-                           "DMNC - Density of Maximum Neighborhood Component",
-                           "Eccentricity Centrality",
-                           "eigenvector centralities",
-                           "Flow Betweenness Centrality",
-                           "Information Centrality",
-                           "K-core Decomposition",
-                           "Geodesic K-Path Centrality",
-                           "Katz Centrality (Katz Status Index)",
-                           "Kleinberg's authority centrality scores",
-                           "Kleinberg's hub centrality scores",
-                           "clustering coefficient",
-                           "Lin Centrality",
-                           "Load Centrality",
-                           "Lobby Index (Centrality)",
-                           "Markov Centrality",
-                           "Radiality Centrality",
-                           "Shortest-Paths Betweenness Centrality",
-                           "Stress Centrality",
-                           "Current-Flow Closeness Centrality",
-                           "Closeness centrality (Latora)",
-                           "Communicability Betweenness Centrality",
-                           "Community Centrality",
-                           "Cross-Clique Connectivity",
-                           "Entropy Centrality",
-                           "EPC - Edge Percolated Component",
-                           "Laplacian Centrality",
-                           "Leverage Centrality",
-                           "MNC - Maximum Neighborhood Component",
-                           "Hubbell Index",
-                           "Semi Local Centrality",
-                           "Closeness Vitality",
-                           "Residual Closeness Centrality"
+    proper_centralities<-c(    "subgraph centrality scores",
+                               "Topological Coefficient",
+                               "Average Distance",
+                               "Barycenter Centrality" ,
+                               "BottleNeck Centrality",
+                               "Centroid value" ,
+                               "Closeness Centrality (Freeman)" ,
+                               "ClusterRank" ,
+                               "Decay Centrality",
+                               "Degree Centrality" ,
+                               "Diffusion Degree",
+                               "DMNC - Density of Maximum Neighborhood Component" ,
+                               "Eccentricity Centrality" ,
+                               "eigenvector centralities" ,
+                               "K-core Decomposition" ,
+                               "Geodesic K-Path Centrality" ,
+                               "Katz Centrality (Katz Status Index)" ,
+                               "Kleinberg's authority centrality scores",
+                               "Kleinberg's hub centrality scores" ,
+                               "clustering coefficient" ,
+                               "Lin Centrality" ,
+                               "Lobby Index (Centrality)" ,
+                               "Markov Centrality" ,
+                               "Radiality Centrality",
+                               "Shortest-Paths Betweenness Centrality" ,
+                               "Current-Flow Closeness Centrality",
+                               "Closeness centrality (Latora)" ,
+                               "Communicability Betweenness Centrality",
+                               "Community Centrality" ,
+                               "Cross-Clique Connectivity" ,
+                               "Entropy Centrality" ,
+                               "EPC - Edge Percolated Component" ,
+                               "Laplacian Centrality" ,
+                               "Leverage Centrality" ,
+                               "MNC - Maximum Neighborhood Component" ,
+                               "Hubbell Index" ,
+                               "Semi Local Centrality",
+                               "Closeness Vitality" ,
+                               "Residual Closeness Centrality",
+                               "Stress Centrality",
+                               "Load Centrality",
+                               "Flow Betweenness Centrality",
+                               "Information Centrality"
     )
 
   }
 
-  if(!is_directed(x) && !is_weighted(x) ) {
-    proper.centralities<-c("Bonacich power centralities of positions",
-                           "subgraph centrality scores",
-                           "Topological Coefficient",
-                           "Average Distance",
-                           "Barycenter Centrality",
-                           "BottleNeck Centrality",
-                           "Centroid value",
-                           "Closeness Centrality (Freeman)",
-                           "ClusterRank",
-                           "Decay Centrality",
-                           "Degree Centrality",
-                           "Diffusion Degree",
-                           "DMNC - Density of Maximum Neighborhood Component",
-                           "Eccentricity Centrality",
-                           "eigenvector centralities",
-                           "Flow Betweenness Centrality",
-                           "Information Centrality",
-                           "K-core Decomposition",
-                           "Geodesic K-Path Centrality",
-                           "Katz Centrality (Katz Status Index)",
-                           "Kleinberg's authority centrality scores",
-                           "Kleinberg's hub centrality scores",
-                           "clustering coefficient",
-                           "Lin Centrality",
-                           "Load Centrality",
-                           "Lobby Index (Centrality)",
-                           "Markov Centrality",
-                           "Radiality Centrality",
-                           "Shortest-Paths Betweenness Centrality",
-                           "Stress Centrality",
-                           "Current-Flow Closeness Centrality",
-                           "Closeness centrality (Latora)",
-                           "Communicability Betweenness Centrality",
-                           "Community Centrality",
-                           "Cross-Clique Connectivity",
-                           "Entropy Centrality",
-                           "EPC - Edge Percolated Component",
-                           "Laplacian Centrality",
-                           "Leverage Centrality",
-                           "MNC - Maximum Neighborhood Component",
-                           "Hubbell Index",
-                           "Semi Local Centrality",
-                           "Closeness Vitality",
-                           "Residual Closeness Centrality"
+  if (!is_directed(x) && !is_weighted(x)) {
+    proper_centralities <- c( "subgraph centrality scores",
+                              "Topological Coefficient",
+                              "Average Distance",
+                              "Barycenter Centrality" ,
+                              "BottleNeck Centrality",
+                              "Centroid value" ,
+                              "Closeness Centrality (Freeman)" ,
+                              "ClusterRank" ,
+                              "Decay Centrality",
+                              "Degree Centrality" ,
+                              "Diffusion Degree",
+                              "DMNC - Density of Maximum Neighborhood Component" ,
+                              "Eccentricity Centrality" ,
+                              "eigenvector centralities" ,
+                              "K-core Decomposition" ,
+                              "Geodesic K-Path Centrality" ,
+                              "Katz Centrality (Katz Status Index)" ,
+                              "Kleinberg's authority centrality scores",
+                              "Kleinberg's hub centrality scores" ,
+                              "clustering coefficient" ,
+                              "Lin Centrality" ,
+                              "Lobby Index (Centrality)" ,
+                              "Markov Centrality" ,
+                              "Radiality Centrality",
+                              "Shortest-Paths Betweenness Centrality" ,
+                              "Current-Flow Closeness Centrality",
+                              "Closeness centrality (Latora)" ,
+                              "Communicability Betweenness Centrality",
+                              "Community Centrality" ,
+                              "Cross-Clique Connectivity" ,
+                              "Entropy Centrality" ,
+                              "EPC - Edge Percolated Component" ,
+                              "Laplacian Centrality" ,
+                              "Leverage Centrality" ,
+                              "MNC - Maximum Neighborhood Component" ,
+                              "Hubbell Index" ,
+                              "Semi Local Centrality",
+                              "Closeness Vitality" ,
+                              "Residual Closeness Centrality",
+                              "Stress Centrality",
+                              "Load Centrality",
+                              "Flow Betweenness Centrality",
+                              "Information Centrality"
     )
   }
 
-  if(is_directed(x) && !is_weighted(x) ) {
-    proper.centralities<-c("Bonacich power centralities of positions",
-                           "Alpha Centrality",
-                           "Page Rank",
-                           "Average Distance",
-                           "Barycenter Centrality",
-                           "BottleNeck Centrality",
-                           "Centroid value",
-                           "Closeness Centrality (Freeman)",
-                           "ClusterRank",
-                           "Decay Centrality",
-                           "Degree Centrality",
-                           "Diffusion Degree",
-                           "DMNC - Density of Maximum Neighborhood Component",
-                           "Eccentricity Centrality",
-                           "eigenvector centralities",
-                           "Flow Betweenness Centrality",
-                           "Information Centrality",
-                           "K-core Decomposition",
-                           "Geodesic K-Path Centrality",
-                           "Katz Centrality (Katz Status Index)",
-                           "Kleinberg's authority centrality scores",
-                           "Kleinberg's hub centrality scores",
-                           "clustering coefficient",
-                           "Lin Centrality",
-                           "Load Centrality",
-                           "Lobby Index (Centrality)",
-                           "Markov Centrality",
-                           "Radiality Centrality",
-                           "Shortest-Paths Betweenness Centrality",
-                           "Stress Centrality",
-                           "Current-Flow Closeness Centrality",
-                           "Closeness centrality (Latora)",
-                           "Communicability Betweenness Centrality",
-                           "Community Centrality",
-                           "Cross-Clique Connectivity",
-                           "Entropy Centrality",
-                           "EPC - Edge Percolated Component",
-                           "Laplacian Centrality",
-                           "Leverage Centrality",
-                           "MNC - Maximum Neighborhood Component",
-                           "Hubbell Index",
-                           "Semi Local Centrality",
-                           "Closeness Vitality",
-                           "Residual Closeness Centrality"
+  if (is_directed(x) && !is_weighted(x) ) {
+    proper_centralities <- c("Alpha Centrality" ,
+                             "Bonacich power centralities of positions" ,
+                             "Page Rank" ,
+                             "Average Distance",
+                             "Barycenter Centrality" ,
+                             "BottleNeck Centrality",
+                             "Centroid value" ,
+                             "Closeness Centrality (Freeman)" ,
+                             "ClusterRank" ,
+                             "Decay Centrality",
+                             "Degree Centrality" ,
+                             "Diffusion Degree",
+                             "DMNC - Density of Maximum Neighborhood Component" ,
+                             "Eccentricity Centrality" ,
+                             "eigenvector centralities" ,
+                             "K-core Decomposition" ,
+                             "Geodesic K-Path Centrality" ,
+                             "Katz Centrality (Katz Status Index)" ,
+                             "Kleinberg's authority centrality scores",
+                             "Kleinberg's hub centrality scores" ,
+                             "clustering coefficient" ,
+                             "Lin Centrality" ,
+                             "Lobby Index (Centrality)" ,
+                             "Markov Centrality" ,
+                             "Radiality Centrality",
+                             "Shortest-Paths Betweenness Centrality" ,
+                             "Current-Flow Closeness Centrality",
+                             "Closeness centrality (Latora)" ,
+                             "Communicability Betweenness Centrality",
+                             "Community Centrality" ,
+                             "Cross-Clique Connectivity" ,
+                             "Entropy Centrality" ,
+                             "EPC - Edge Percolated Component" ,
+                             "Laplacian Centrality" ,
+                             "Leverage Centrality" ,
+                             "MNC - Maximum Neighborhood Component" ,
+                             "Hubbell Index" ,
+                             "Semi Local Centrality",
+                             "Closeness Vitality" ,
+                             "Residual Closeness Centrality",
+                             "Stress Centrality",
+                             "Load Centrality",
+                             "Flow Betweenness Centrality",
+                             "Information Centrality"
     )
   }
 
-  print(proper.centralities)
+  print(proper_centralities)
 
 }
 
@@ -546,7 +543,8 @@ proper.centralities<-function(x){
 #'
 #' @description This function computes multitude centrality measures of an igraph object.
 #' @param x the component of a network as an igraph object
-#' @param except A vector including names of centrality measures which could be omitted from the calculations.
+#' @param except A vector containing names of centrality measures which could be omitted from the calculations.
+#' @param include A vector including names of centrality measures which should be computed.
 #' @param weights A character scalar specifying the edge attribute to use.(default=NULL)
 #' @details
 #' This function calculates various types of centrality measures which are applicable to the network topology
@@ -582,8 +580,6 @@ proper.centralities<-function(x){
 #' Bonacich, P. (1987). Power and Centrality: A Family of Measures. American Journal of Sociology, 92(5), 1170–1182.
 #'
 #' Burt, R. S. (2004). Structural Holes and Good Ideas. American Journal of Sociology, 110(2), 349–399.
-#'
-#' Harary, F. Graph Theory. Reading, MA: Addison-Wesley, p. 35, 1994.
 #'
 #' Batagelj, V., & Zaversnik, M. (2003). An O(m) Algorithm for Cores Decomposition of Networks, 1–9. Retrieved from
 #'
@@ -689,8 +685,8 @@ proper.centralities<-function(x){
 #' @examples
 #'
 #' data("zachary")
-#' p<-proper.centralities(zachary)
-#' calculate.centralities(zachary,p[4:44])
+#' p <- proper_centralities(zachary)
+#' calculate_centralities(zachary, include = "Degree Centrality")
 #'
 #' @export
 #' @importFrom igraph is_directed
@@ -747,299 +743,388 @@ proper.centralities<-function(x){
 #' @importFrom centiserve bottleneck
 #' @importFrom centiserve averagedis
 
-calculate.centralities<-function( x, except=NULL , weights = NULL){
+calculate_centralities <- function( x, except = NULL, include = NULL, weights = NULL){
 
   if(!(class(x)%in%"igraph" && is_connected(x) )) stop("The input is not an igraph object
                                                        or may not be connected.")
+  y <- as_edgelist(x)
+  y <- network(y)
 
-  y<-as_edgelist(x)
-  y<-network(y)
+  if (is_directed(x) && is_weighted(x) ){
 
-  if(is_directed(x) && is_weighted(x) ){
-
-    centFuncs <- list(
-      "Alpha Centrality"=function(x) alpha.centrality(x, weights = NULL),
-      "Bonacich power centralities of positions"=function(x)bonpow(x),
-      "Burt's Constraint"=function(x)constraint(x, weights = NULL),
-      "Page Rank"=function(x)page_rank(x)$vector,
-      "Average Distance"=function(x)averagedis(x, weights = NULL),
-      "Barycenter Centrality"=function(x)barycenter(x, weights = NULL),
-      "BottleNeck Centrality"=function(x)bottleneck(x),
-      "Centroid value"=function(x)centroid(x, weights = NULL),
-      "Closeness Centrality (Freeman)"=function(x)closeness.freeman(x, weights = NULL),
-      "ClusterRank"=function(x)clusterrank(x),
-      "Decay Centrality"=function(x)decay(x, weights = NULL),
-      "Degree Centrality"=function(x)centr_degree(x)$res,
-      "Diffusion Degree"=function(x)diffusion.degree(x),
-      "DMNC - Density of Maximum Neighborhood Component"=function(x)dmnc(x),
-      "Eccentricity Centrality"=function(x)eccentricity(x),
-      "eigenvector centralities"=function(x)eigen_centrality(x, weights = NULL)$vector,
-      "K-core Decomposition"=function(x)coreness(x),
-      "Geodesic K-Path Centrality"=function(x)geokpath(x, weights = NULL),
-      "Katz Centrality (Katz Status Index)"=function(x)katzcent(x),
-      "Kleinberg's authority centrality scores"=function(x)authority_score(x, weights = NULL)$vector,
-      "Kleinberg's hub centrality scores"=function(x)hub_score(x, weights = NULL)$vector,
-      "clustering coefficient"=function(x)transitivity(x, weights = NULL,type="local"),
-      "Lin Centrality"=function(x)lincent(x, weights = NULL),
-      "Lobby Index (Centrality)"=function(x)lobby(x),
-      "Markov Centrality"=function(x)markovcent(x),
-      "Radiality Centrality"=function(x)radiality(x, weights = NULL),
-      "Shortest-Paths Betweenness Centrality"=function(x)betweenness(x),
-      "Current-Flow Closeness Centrality"=function(x)closeness.currentflow(x, weights = NULL),
-      "Closeness centrality (Latora)"=function(x)closeness.latora(x, weights = NULL),
-      "Communicability Betweenness Centrality"=function(x)communibet(x),
-      "Community Centrality"=function(x)communitycent(x),
-      "Cross-Clique Connectivity"=function(x)crossclique(x),
-      "Entropy Centrality"=function(x)entropy(x, weights = NULL),
-      "EPC - Edge Percolated Component"=function(x)epc(x),
-      "Laplacian Centrality"=function(x)laplacian(x),
-      "Leverage Centrality"=function(x)leverage(x),
-      "MNC - Maximum Neighborhood Component"=function(x)mnc(x),
-      "Hubbell Index"=function(x)hubbell(x, weights = NULL),
-      "Semi Local Centrality"=function(x)semilocal(x),
-      "Closeness Vitality"=function(x)closeness.vitality(x, weights = NULL),
-      "Residual Closeness Centrality"=function(x)closeness.residual(x, weights = NULL),
-      "Stress Centrality"=function(x)stresscent(y),
-      "Load Centrality"=function(x)loadcent(y),
-      "Flow Betweenness Centrality"=function(x)flowbet(y),
-      "Information Centrality"=function(x)infocent(y)
+    centrality_funcs <- list(
+      "Alpha Centrality" = function(x) alpha.centrality(x, weights = NULL),
+      "Burt's Constraint" = function(x)constraint(x, weights = NULL),
+      "Page Rank" = function(x)page_rank(x)$vector,
+      "Average Distance" = function(x)averagedis(x, weights = NULL),
+      "Barycenter Centrality" = function(x)barycenter(x, weights = NULL),
+      "BottleNeck Centrality" = function(x)bottleneck(x),
+      "Centroid value" = function(x)centroid(x, weights = NULL),
+      "Closeness Centrality (Freeman)" = function(x)closeness.freeman(x, weights = NULL),
+      "ClusterRank" = function(x)clusterrank(x),
+      "Decay Centrality" = function(x)decay(x, weights = NULL),
+      "Degree Centrality" = function(x)centr_degree(x)$res,
+      "Diffusion Degree" = function(x)diffusion.degree(x),
+      "DMNC - Density of Maximum Neighborhood Component" = function(x)dmnc(x),
+      "Eccentricity Centrality" = function(x)eccentricity(x),
+      "eigenvector centralities" = function(x)eigen_centrality(x, weights = NULL)$vector,
+      "K-core Decomposition" = function(x)coreness(x),
+      "Geodesic K-Path Centrality" = function(x)geokpath(x, weights = NULL),
+      "Katz Centrality (Katz Status Index)" = function(x)katzcent(x),
+      "Kleinberg's authority centrality scores" = function(x)authority_score(x, weights = NULL)$vector,
+      "Kleinberg's hub centrality scores" = function(x)hub_score(x, weights = NULL)$vector,
+      "clustering coefficient" = function(x)transitivity(x, weights = NULL,type="local"),
+      "Lin Centrality" = function(x)lincent(x, weights = NULL),
+      "Lobby Index (Centrality)" = function(x)lobby(x),
+      "Markov Centrality" = function(x)markovcent(x),
+      "Radiality Centrality" = function(x)radiality(x, weights = NULL),
+      "Shortest-Paths Betweenness Centrality" = function(x)betweenness(x),
+      "Current-Flow Closeness Centrality" = function(x)closeness.currentflow(x, weights = NULL),
+      "Closeness centrality (Latora)" = function(x)closeness.latora(x, weights = NULL),
+      "Communicability Betweenness Centrality" = function(x)communibet(x),
+      "Community Centrality" = function(x)communitycent(x),
+      "Cross-Clique Connectivity" = function(x)crossclique(x),
+      "Entropy Centrality" = function(x)entropy(x, weights = NULL),
+      "EPC - Edge Percolated Component" = function(x)epc(x),
+      "Laplacian Centrality" = function(x)laplacian(x),
+      "Leverage Centrality" = function(x)leverage(x),
+      "MNC - Maximum Neighborhood Component" = function(x)mnc(x),
+      "Hubbell Index" = function(x)hubbell(x, weights = NULL),
+      "Semi Local Centrality" = function(x)semilocal(x),
+      "Closeness Vitality" = function(x)closeness.vitality(x, weights = NULL),
+      "Residual Closeness Centrality" = function(x)closeness.residual(x, weights = NULL),
+      "Stress Centrality" = function(x)stresscent(y),
+      "Load Centrality" = function(x)loadcent(y),
+      "Flow Betweenness Centrality" = function(x)flowbet(y),
+      "Information Centrality" = function(x)infocent(y)
     )
 
-    centFuncs <- centFuncs[setdiff(names(centFuncs), except)]
+    if (!is.null(include)){
 
-    n <- names(centFuncs)
+      centrality_funcs <- centrality_funcs[intersect(names(centrality_funcs), include)]
 
-    warningsText <- ""
-    result <- lapply(setNames(n, n),
-                     function(functionName, x) {
-                       f <- centFuncs[[functionName]]
-                       tryCatch(f(x),
-                                error = function(e) {
-                                warningsText <- paste0(warningsText,
-                                "\nError in ", functionName, ":\n", e$message)
-                                return(NULL)
-                                })
-                                }, x)
+      n <- names(centrality_funcs)
 
-    if (nchar(warningsText) > 0)
-    warning(warningsText)
-    return(result)
+      warningsText <- ""
+      result <- lapply(setNames(n, n),
+                       function(functionName, x) {
+                         f <- centrality_funcs[[functionName]]
+                         tryCatch(f(x),
+                                  error = function(e) {
+                                    warningsText <- paste0(warningsText,
+                                                           "\nError in ", functionName, ":\n", e$message)
+                                    return(NULL)
+                                  })
+                       }, x)
+
+      if (nchar(warningsText) > 0)
+        warning(warningsText)
+      return(result)
+    }
+    else{
+      centrality_funcs <- centrality_funcs[setdiff(names(centrality_funcs), except)]
+
+      n <- names(centrality_funcs)
+
+      warningsText <- ""
+      result <- lapply(setNames(n, n),
+                       function(functionName, x) {
+                         f <- centrality_funcs[[functionName]]
+                         tryCatch(f(x),
+                                  error = function(e) {
+                                    warningsText <- paste0(warningsText,
+                                                           "\nError in ", functionName, ":\n", e$message)
+                                    return(NULL)
+                                  })
+                       }, x)
+
+      if (nchar(warningsText) > 0)
+        warning(warningsText)
+      return(result)
+    }
   }
 
-  if(!is_directed(x) && is_weighted(x) ){
+  if (!is_directed(x) && is_weighted(x)){
 
-    centFuncs <- list(
-      "subgraph centrality scores"=function(x)subgraph.centrality(x),
-      "Topological Coefficient"=function(x)topocoefficient(x),
-      "Burt's Constraint"=function(x)constraint(x, weights = NULL),
-      "Average Distance"=function(x)averagedis(x, weights = NULL),
-      "Barycenter Centrality"=function(x)barycenter(x, weights = NULL),
-      "BottleNeck Centrality"=function(x)bottleneck(x),
-      "Centroid value"=function(x)centroid(x, weights = NULL),
-      "Closeness Centrality (Freeman)"=function(x)closeness.freeman(x, weights = NULL),
-      "ClusterRank"=function(x)clusterrank(x),
-      "Decay Centrality"=function(x)decay(x, weights = NULL),
-      "Degree Centrality"=function(x)centr_degree(x)$res,
-      "Diffusion Degree"=function(x)diffusion.degree(x),
-      "DMNC - Density of Maximum Neighborhood Component"=function(x)dmnc(x),
-      "Eccentricity Centrality"=function(x)eccentricity(x),
-      "eigenvector centralities"=function(x)eigen_centrality(x, weights = NULL)$vector,
-      "K-core Decomposition"=function(x)coreness(x),
-      "Geodesic K-Path Centrality"=function(x)geokpath(x, weights = NULL),
-      "Katz Centrality (Katz Status Index)"=function(x)katzcent(x),
-      "Kleinberg's authority centrality scores"=function(x)authority_score(x, weights = NULL)$vector,
-      "Kleinberg's hub centrality scores"=function(x)hub_score(x, weights = NULL)$vector,
-      "clustering coefficient"=function(x)transitivity(x, weights = NULL,type="local"),
-      "Lin Centrality"=function(x)lincent(x, weights = NULL),
-      "Lobby Index (Centrality)"=function(x)lobby(x),
-      "Markov Centrality"=function(x)markovcent(x),
-      "Radiality Centrality"=function(x)radiality(x, weights = NULL),
-      "Shortest-Paths Betweenness Centrality"=function(x)betweenness(x),
-      "Current-Flow Closeness Centrality"=function(x)closeness.currentflow(x, weights = NULL),
-      "Closeness centrality (Latora)"=function(x)closeness.latora(x, weights = NULL),
-      "Communicability Betweenness Centrality"=function(x)communibet(x),
-      "Community Centrality"=function(x)communitycent(x),
-      "Cross-Clique Connectivity"=function(x)crossclique(x),
-      "Entropy Centrality"=function(x)entropy(x, weights = NULL),
-      "EPC - Edge Percolated Component"=function(x)epc(x),
-      "Laplacian Centrality"=function(x)laplacian(x),
-      "Leverage Centrality"=function(x)leverage(x),
-      "MNC - Maximum Neighborhood Component"=function(x)mnc(x),
-      "Hubbell Index"=function(x)hubbell(x, weights = NULL),
-      "Semi Local Centrality"=function(x)semilocal(x),
-      "Closeness Vitality"=function(x)closeness.vitality(x, weights = NULL),
-      "Residual Closeness Centrality"=function(x)closeness.residual(x, weights = NULL),
-      "Stress Centrality"=function(x)stresscent(y),
-      "Load Centrality"=function(x)loadcent(y),
-      "Flow Betweenness Centrality"=function(x)flowbet(y),
-      "Information Centrality"=function(x)infocent(y)
+    centrality_funcs <- list(
+      "subgraph centrality scores" = function(x)subgraph.centrality(x),
+      "Topological Coefficient" = function(x)topocoefficient(x),
+      "Average Distance" = function(x)averagedis(x, weights = NULL),
+      "Barycenter Centrality" = function(x)barycenter(x, weights = NULL),
+      "BottleNeck Centrality" = function(x)bottleneck(x),
+      "Centroid value" = function(x)centroid(x, weights = NULL),
+      "Closeness Centrality (Freeman)" = function(x)closeness.freeman(x, weights = NULL),
+      "ClusterRank" = function(x)clusterrank(x),
+      "Decay Centrality" = function(x)decay(x, weights = NULL),
+      "Degree Centrality" = function(x)centr_degree(x)$res,
+      "Diffusion Degree" = function(x)diffusion.degree(x),
+      "DMNC - Density of Maximum Neighborhood Component" = function(x)dmnc(x),
+      "Eccentricity Centrality" = function(x)eccentricity(x),
+      "eigenvector centralities" = function(x)eigen_centrality(x, weights = NULL)$vector,
+      "K-core Decomposition" = function(x)coreness(x),
+      "Geodesic K-Path Centrality" = function(x)geokpath(x, weights = NULL),
+      "Katz Centrality (Katz Status Index)" = function(x)katzcent(x),
+      "Kleinberg's authority centrality scores" = function(x)authority_score(x, weights = NULL)$vector,
+      "Kleinberg's hub centrality scores" = function(x)hub_score(x, weights = NULL)$vector,
+      "clustering coefficient" = function(x)transitivity(x, weights = NULL,type="local"),
+      "Lin Centrality" = function(x)lincent(x, weights = NULL),
+      "Lobby Index (Centrality)" = function(x)lobby(x),
+      "Markov Centrality" = function(x)markovcent(x),
+      "Radiality Centrality" = function(x)radiality(x, weights = NULL),
+      "Shortest-Paths Betweenness Centrality" = function(x)betweenness(x),
+      "Current-Flow Closeness Centrality" = function(x)closeness.currentflow(x, weights = NULL),
+      "Closeness centrality (Latora)" = function(x)closeness.latora(x, weights = NULL),
+      "Communicability Betweenness Centrality" = function(x)communibet(x),
+      "Community Centrality" = function(x)communitycent(x),
+      "Cross-Clique Connectivity" = function(x)crossclique(x),
+      "Entropy Centrality" = function(x)entropy(x, weights = NULL),
+      "EPC - Edge Percolated Component" = function(x)epc(x),
+      "Laplacian Centrality" = function(x)laplacian(x),
+      "Leverage Centrality" = function(x)leverage(x),
+      "MNC - Maximum Neighborhood Component" = function(x)mnc(x),
+      "Hubbell Index" = function(x)hubbell(x, weights = NULL),
+      "Semi Local Centrality" = function(x)semilocal(x),
+      "Closeness Vitality" = function(x)closeness.vitality(x, weights = NULL),
+      "Residual Closeness Centrality" = function(x)closeness.residual(x, weights = NULL),
+      "Stress Centrality" = function(x)stresscent(y),
+      "Load Centrality" = function(x)loadcent(y),
+      "Flow Betweenness Centrality" = function(x)flowbet(y),
+      "Information Centrality" = function(x)infocent(y)
     )
 
-    centFuncs <- centFuncs[setdiff(names(centFuncs), except)]
+    if (!is.null(include)){
 
-    n <- names(centFuncs)
+      centrality_funcs <- centrality_funcs[intersect(names(centrality_funcs), include)]
 
-    warningsText <- ""
-    result <- lapply(setNames(n, n),
-                     function(functionName, x) {
-                       f <- centFuncs[[functionName]]
-                       tryCatch(f(x),
-                                error = function(e) {
-                                warningsText <<- paste0(warningsText,
-                                                          "\nError in ", functionName, ":\n", e$message)
-                                  return(NULL)
-                                })
-                                }, x)
+      n <- names(centrality_funcs)
 
-    if (nchar(warningsText) > 0)
-      warning(warningsText)
+      warningsText <- ""
+      result <- lapply(setNames(n, n),
+                       function(functionName, x) {
+                         f <- centrality_funcs[[functionName]]
+                         tryCatch(f(x),
+                                  error = function(e) {
+                                    warningsText <- paste0(warningsText,
+                                                           "\nError in ", functionName, ":\n", e$message)
+                                    return(NULL)
+                                  })
+                       }, x)
+
+      if (nchar(warningsText) > 0)
+        warning(warningsText)
       return(result)
+    }
+    else{
+      centrality_funcs <- centrality_funcs[setdiff(names(centrality_funcs), except)]
+
+      n <- names(centrality_funcs)
+
+      warningsText <- ""
+      result <- lapply(setNames(n, n),
+                       function(functionName, x) {
+                         f <- centrality_funcs[[functionName]]
+                         tryCatch(f(x),
+                                  error = function(e) {
+                                    warningsText <- paste0(warningsText,
+                                                           "\nError in ", functionName, ":\n", e$message)
+                                    return(NULL)
+                                  })
+                       }, x)
+
+      if (nchar(warningsText) > 0)
+        warning(warningsText)
+      return(result)
+    }
   }
 
   if(!is_directed(x) && !is_weighted(x)) {
 
-    centFuncs <- list(
-      "subgraph centrality scores"=function(x)subgraph.centrality(x),
-      "Topological Coefficient"=function(x)topocoefficient(x),
-      "Bonacich power centralities of positions"=function(x)bonpow(x),
-      "Burt's Constraint"=function(x)constraint(x),
-      "Average Distance"=function(x)averagedis(x, weights = NULL),
-      "Barycenter Centrality"=function(x)barycenter(x, weights = NULL),
-      "BottleNeck Centrality"=function(x)bottleneck(x),
-      "Centroid value"=function(x)centroid(x, weights = NULL),
-      "Closeness Centrality (Freeman)"=function(x)closeness.freeman(x, weights = NULL),
-      "ClusterRank"=function(x)clusterrank(x),
-      "Decay Centrality"=function(x)decay(x, weights = NULL),
-      "Degree Centrality"=function(x)centr_degree(x)$res,
-      "Diffusion Degree"=function(x)diffusion.degree(x),
-      "DMNC - Density of Maximum Neighborhood Component"=function(x)dmnc(x),
-      "Eccentricity Centrality"=function(x)eccentricity(x),
-      "eigenvector centralities"=function(x)eigen_centrality(x, weights = NULL)$vector,
-      "K-core Decomposition"=function(x)coreness(x),
-      "Geodesic K-Path Centrality"=function(x)geokpath(x, weights = NULL),
-      "Katz Centrality (Katz Status Index)"=function(x)katzcent(x),
-      "Kleinberg's authority centrality scores"=function(x)authority_score(x, weights = NULL)$vector,
-      "Kleinberg's hub centrality scores"=function(x)hub_score(x, weights = NULL)$vector,
-      "clustering coefficient"=function(x)transitivity(x, weights = NULL,type="local"),
-      "Lin Centrality"=function(x)lincent(x, weights = NULL),
-      "Lobby Index (Centrality)"=function(x)lobby(x),
-      "Markov Centrality"=function(x)markovcent(x),
-      "Radiality Centrality"=function(x)radiality(x, weights = NULL),
-      "Shortest-Paths Betweenness Centrality"=function(x)betweenness(x),
-      "Current-Flow Closeness Centrality"=function(x)closeness.currentflow(x, weights = NULL),
-      "Closeness centrality (Latora)"=function(x)closeness.latora(x, weights = NULL),
-      "Communicability Betweenness Centrality"=function(x)communibet(x),
-      "Community Centrality"=function(x)communitycent(x),
-      "Cross-Clique Connectivity"=function(x)crossclique(x),
-      "Entropy Centrality"=function(x)entropy(x, weights = NULL),
-      "EPC - Edge Percolated Component"=function(x)epc(x),
-      "Laplacian Centrality"=function(x)laplacian(x),
-      "Leverage Centrality"=function(x)leverage(x),
-      "MNC - Maximum Neighborhood Component"=function(x)mnc(x),
-      "Hubbell Index"=function(x)hubbell(x, weights = NULL),
-      "Semi Local Centrality"=function(x)semilocal(x),
-      "Closeness Vitality"=function(x)closeness.vitality(x, weights = NULL),
-      "Residual Closeness Centrality"=function(x)closeness.residual(x, weights = NULL),
-      "Stress Centrality"=function(x)stresscent(y),
-      "Load Centrality"=function(x)loadcent(y),
-      "Flow Betweenness Centrality"=function(x)flowbet(y),
-      "Information Centrality"=function(x)infocent(y)
+    centrality_funcs <- list(
+      "subgraph centrality scores" = function(x)subgraph.centrality(x),
+      "Topological Coefficient" = function(x)topocoefficient(x),
+      "Average Distance" = function(x)averagedis(x, weights = NULL),
+      "Barycenter Centrality" = function(x)barycenter(x, weights = NULL),
+      "BottleNeck Centrality" = function(x)bottleneck(x),
+      "Centroid value" = function(x)centroid(x, weights = NULL),
+      "Closeness Centrality (Freeman)" = function(x)closeness.freeman(x, weights = NULL),
+      "ClusterRank" = function(x)clusterrank(x),
+      "Decay Centrality" = function(x)decay(x, weights = NULL),
+      "Degree Centrality" = function(x)centr_degree(x)$res,
+      "Diffusion Degree" = function(x)diffusion.degree(x),
+      "DMNC - Density of Maximum Neighborhood Component" = function(x)dmnc(x),
+      "Eccentricity Centrality" = function(x)eccentricity(x),
+      "eigenvector centralities" = function(x)eigen_centrality(x, weights = NULL)$vector,
+      "K-core Decomposition" = function(x)coreness(x),
+      "Geodesic K-Path Centrality" = function(x)geokpath(x, weights = NULL),
+      "Katz Centrality (Katz Status Index)" = function(x)katzcent(x),
+      "Kleinberg's authority centrality scores" = function(x)authority_score(x, weights = NULL)$vector,
+      "Kleinberg's hub centrality scores" = function(x)hub_score(x, weights = NULL)$vector,
+      "clustering coefficient" = function(x)transitivity(x, weights = NULL,type="local"),
+      "Lin Centrality" = function(x)lincent(x, weights = NULL),
+      "Lobby Index (Centrality)" = function(x)lobby(x),
+      "Markov Centrality" = function(x)markovcent(x),
+      "Radiality Centrality" = function(x)radiality(x, weights = NULL),
+      "Shortest-Paths Betweenness Centrality" = function(x)betweenness(x),
+      "Current-Flow Closeness Centrality" = function(x)closeness.currentflow(x, weights = NULL),
+      "Closeness centrality (Latora)" = function(x)closeness.latora(x, weights = NULL),
+      "Communicability Betweenness Centrality" = function(x)communibet(x),
+      "Community Centrality" = function(x)communitycent(x),
+      "Cross-Clique Connectivity" = function(x)crossclique(x),
+      "Entropy Centrality" = function(x)entropy(x, weights = NULL),
+      "EPC - Edge Percolated Component" = function(x)epc(x),
+      "Laplacian Centrality" = function(x)laplacian(x),
+      "Leverage Centrality" = function(x)leverage(x),
+      "MNC - Maximum Neighborhood Component" = function(x)mnc(x),
+      "Hubbell Index" = function(x)hubbell(x, weights = NULL),
+      "Semi Local Centrality" = function(x)semilocal(x),
+      "Closeness Vitality" = function(x)closeness.vitality(x, weights = NULL),
+      "Residual Closeness Centrality" = function(x)closeness.residual(x, weights = NULL),
+      "Stress Centrality" = function(x)stresscent(y),
+      "Load Centrality" = function(x)loadcent(y),
+      "Flow Betweenness Centrality" = function(x)flowbet(y),
+      "Information Centrality" = function(x)infocent(y)
     )
 
-    centFuncs <- centFuncs[setdiff(names(centFuncs), except)]
+    if (!is.null(include)){
 
-    n <- names(centFuncs)
+      centrality_funcs <- centrality_funcs[intersect(names(centrality_funcs), include)]
 
-    warningsText <- ""
-    result <- lapply(setNames(n, n),
-                     function(functionName, x) {
-                       f <- centFuncs[[functionName]]
-                       tryCatch(f(x),
-                                error = function(e) {
-                                  warningsText <<- paste0(warningsText,
-                                                          "\nError in ", functionName, ":\n", e$message)
-                                  return(NULL)
-                                })
-                                }, x)
+      n <- names(centrality_funcs)
 
-    if (nchar(warningsText) > 0)
-      warning(warningsText)
+      warningsText <- ""
+      result <- lapply(setNames(n, n),
+                       function(functionName, x) {
+                         f <- centrality_funcs[[functionName]]
+                         tryCatch(f(x),
+                                  error = function(e) {
+                                    warningsText <- paste0(warningsText,
+                                                           "\nError in ", functionName, ":\n", e$message)
+                                    return(NULL)
+                                  })
+                       }, x)
+
+      if (nchar(warningsText) > 0)
+        warning(warningsText)
       return(result)
+    }
+    else{
+      centrality_funcs <- centrality_funcs[setdiff(names(centrality_funcs), except)]
 
+      n <- names(centrality_funcs)
+
+      warningsText <- ""
+      result <- lapply(setNames(n, n),
+                       function(functionName, x) {
+                         f <- centrality_funcs[[functionName]]
+                         tryCatch(f(x),
+                                  error = function(e) {
+                                    warningsText <- paste0(warningsText,
+                                                           "\nError in ", functionName, ":\n", e$message)
+                                    return(NULL)
+                                  })
+                       }, x)
+
+      if (nchar(warningsText) > 0)
+        warning(warningsText)
+      return(result)
+    }
   }
 
   if(is_directed(x) && !is_weighted(x) ) {
 
-    centFuncs <- list(
-
-      "Alpha Centrality"=function(x) alpha.centrality(x, weights = NULL),
-      "Bonacich power centralities of positions"=function(x)bonpow(x),
-      "Page Rank"=function(x)page_rank(x, weights = NULL)$vector,
-      "Average Distance"=function(x)averagedis(x, weights = NULL),
-      "Barycenter Centrality"=function(x)barycenter(x, weights = NULL),
-      "BottleNeck Centrality"=function(x)bottleneck(x),
-      "Centroid value"=function(x)centroid(x, weights = NULL),
-      "Closeness Centrality (Freeman)"=function(x)closeness.freeman(x, weights = NULL),
-      "ClusterRank"=function(x)clusterrank(x),
-      "Decay Centrality"=function(x)decay(x, weights = NULL),
-      "Degree Centrality"=function(x)centr_degree(x)$res,
-      "Diffusion Degree"=function(x)diffusion.degree(x),
-      "DMNC - Density of Maximum Neighborhood Component"=function(x)dmnc(x),
-      "Eccentricity Centrality"=function(x)eccentricity(x),
-      "eigenvector centralities"=function(x)eigen_centrality(x, weights = NULL)$vector,
-      "K-core Decomposition"=function(x)coreness(x),
-      "Geodesic K-Path Centrality"=function(x)geokpath(x, weights = NULL),
-      "Katz Centrality (Katz Status Index)"=function(x)katzcent(x),
-      "Kleinberg's authority centrality scores"=function(x)authority_score(x, weights = NULL)$vector,
-      "Kleinberg's hub centrality scores"=function(x)hub_score(x, weights = NULL)$vector,
-      "clustering coefficient"=function(x)transitivity(x, weights = NULL,type="local"),
-      "Lin Centrality"=function(x)lincent(x, weights = NULL),
-      "Lobby Index (Centrality)"=function(x)lobby(x),
-      "Markov Centrality"=function(x)markovcent(x),
-      "Radiality Centrality"=function(x)radiality(x, weights = NULL),
-      "Shortest-Paths Betweenness Centrality"=function(x)betweenness(x),
-      "Current-Flow Closeness Centrality"=function(x)closeness.currentflow(x, weights = NULL),
-      "Closeness centrality (Latora)"=function(x)closeness.latora(x, weights = NULL),
-      "Communicability Betweenness Centrality"=function(x)communibet(x),
-      "Community Centrality"=function(x)communitycent(x),
-      "Cross-Clique Connectivity"=function(x)crossclique(x),
-      "Entropy Centrality"=function(x)entropy(x, weights = NULL),
-      "EPC - Edge Percolated Component"=function(x)epc(x),
-      "Laplacian Centrality"=function(x)laplacian(x),
-      "Leverage Centrality"=function(x)leverage(x),
-      "MNC - Maximum Neighborhood Component"=function(x)mnc(x),
-      "Hubbell Index"=function(x)hubbell(x, weights = NULL),
-      "Semi Local Centrality"=function(x)semilocal(x),
-      "Closeness Vitality"=function(x)closeness.vitality(x, weights = NULL),
-      "Residual Closeness Centrality"=function(x)closeness.residual(x, weights = NULL),
-      "Stress Centrality"=function(x)stresscent(y),
-      "Load Centrality"=function(x)loadcent(y),
-      "Flow Betweenness Centrality"=function(x)flowbet(y),
-      "Information Centrality"=function(x)infocent(y)
+    centrality_funcs <- list(
+      "Alpha Centrality" = function(x) alpha.centrality(x, weights = NULL),
+      "Bonacich power centralities of positions" = function(x)bonpow(x),
+      "Page Rank" = function(x)page_rank(x)$vector,
+      "Average Distance" = function(x)averagedis(x, weights = NULL),
+      "Barycenter Centrality" = function(x)barycenter(x, weights = NULL),
+      "BottleNeck Centrality" = function(x)bottleneck(x),
+      "Centroid value" = function(x)centroid(x, weights = NULL),
+      "Closeness Centrality (Freeman)" = function(x)closeness.freeman(x, weights = NULL),
+      "ClusterRank" = function(x)clusterrank(x),
+      "Decay Centrality" = function(x)decay(x, weights = NULL),
+      "Degree Centrality" = function(x)centr_degree(x)$res,
+      "Diffusion Degree" = function(x)diffusion.degree(x),
+      "DMNC - Density of Maximum Neighborhood Component" = function(x)dmnc(x),
+      "Eccentricity Centrality" = function(x)eccentricity(x),
+      "eigenvector centralities" = function(x)eigen_centrality(x, weights = NULL)$vector,
+      "K-core Decomposition" = function(x)coreness(x),
+      "Geodesic K-Path Centrality" = function(x)geokpath(x, weights = NULL),
+      "Katz Centrality (Katz Status Index)" = function(x)katzcent(x),
+      "Kleinberg's authority centrality scores" = function(x)authority_score(x, weights = NULL)$vector,
+      "Kleinberg's hub centrality scores" = function(x)hub_score(x, weights = NULL)$vector,
+      "clustering coefficient" = function(x)transitivity(x, weights = NULL,type="local"),
+      "Lin Centrality" = function(x)lincent(x, weights = NULL),
+      "Lobby Index (Centrality)" = function(x)lobby(x),
+      "Markov Centrality" = function(x)markovcent(x),
+      "Radiality Centrality" = function(x)radiality(x, weights = NULL),
+      "Shortest-Paths Betweenness Centrality" = function(x)betweenness(x),
+      "Current-Flow Closeness Centrality" = function(x)closeness.currentflow(x, weights = NULL),
+      "Closeness centrality (Latora)" = function(x)closeness.latora(x, weights = NULL),
+      "Communicability Betweenness Centrality" = function(x)communibet(x),
+      "Community Centrality" = function(x)communitycent(x),
+      "Cross-Clique Connectivity" = function(x)crossclique(x),
+      "Entropy Centrality" = function(x)entropy(x, weights = NULL),
+      "EPC - Edge Percolated Component" = function(x)epc(x),
+      "Laplacian Centrality" = function(x)laplacian(x),
+      "Leverage Centrality" = function(x)leverage(x),
+      "MNC - Maximum Neighborhood Component" = function(x)mnc(x),
+      "Hubbell Index" = function(x)hubbell(x, weights = NULL),
+      "Semi Local Centrality" = function(x)semilocal(x),
+      "Closeness Vitality" = function(x)closeness.vitality(x, weights = NULL),
+      "Residual Closeness Centrality" = function(x)closeness.residual(x, weights = NULL),
+      "Stress Centrality" = function(x)stresscent(y),
+      "Load Centrality" = function(x)loadcent(y),
+      "Flow Betweenness Centrality" = function(x)flowbet(y),
+      "Information Centrality" = function(x)infocent(y)
     )
 
-    centFuncs <- centFuncs[setdiff(names(centFuncs), except)]
+    if (!is.null(include)){
 
-    n <- names(centFuncs)
+      centrality_funcs <- centrality_funcs[intersect(names(centrality_funcs), include)]
 
-    warningsText <- ""
-    result <- lapply(setNames(n, n),
-                     function(functionName, x) {
-                       f <- centFuncs[[functionName]]
-                       tryCatch(f(x),
-                                error = function(e) {
-                                  warningsText <- paste0(warningsText,
-                                                         "\nError in ", functionName, ":\n", e$message)
-                                  return(NULL)
-                                })
-                                }, x)
+      n <- names(centrality_funcs)
 
-    if (nchar(warningsText) > 0)
-      warning(warningsText)
+      warningsText <- ""
+      result <- lapply(setNames(n, n),
+                       function(functionName, x) {
+                         f <- centrality_funcs[[functionName]]
+                         tryCatch(f(x),
+                                  error = function(e) {
+                                    warningsText <- paste0(warningsText,
+                                                           "\nError in ", functionName, ":\n", e$message)
+                                    return(NULL)
+                                  })
+                       }, x)
+
+      if (nchar(warningsText) > 0)
+        warning(warningsText)
       return(result)
-  }
+    }
+    else{
+      centrality_funcs <- centrality_funcs[setdiff(names(centrality_funcs), except)]
 
+      n <- names(centrality_funcs)
+
+      warningsText <- ""
+      result <- lapply(setNames(n, n),
+                       function(functionName, x) {
+                         f <- centrality_funcs[[functionName]]
+                         tryCatch(f(x),
+                                  error = function(e) {
+                                    warningsText <- paste0(warningsText,
+                                                           "\nError in ", functionName, ":\n", e$message)
+                                    return(NULL)
+                                  })
+                       }, x)
+
+      if (nchar(warningsText) > 0)
+        warning(warningsText)
+      return(result)
+    }
+  }
 }
+
 
 #' @title Ranking centrality measure based on contributions
 #'
@@ -1073,20 +1158,20 @@ calculate.centralities<-function( x, except=NULL , weights = NULL){
 #' @importFrom ggplot2 element_text
 #' @importFrom ggplot2 element_rect
 
-pca.centralities<-function( x , scale.unit = TRUE, cut.off = 80, ncp = 5,graph = FALSE, axes = c(1,2)){
+pca_centralities <- function( x , scale.unit = TRUE, cut.off = 80, ncp = 5,graph = FALSE, axes = c(1,2)){
 
-  x<-x[!sapply(x,is.null)]
+  x <- x[!sapply(x,is.null)]
 
-  x<-as.data.frame(x)
+  x <- as.data.frame(x)
 
   x <- na.omit(x)
 
-  res.pca <- PCA(x, scale.unit = scale.unit, ncp = ncp, graph = graph, axes = axes)
+  res_pca <- PCA(x, scale.unit = scale.unit, ncp = ncp, graph = graph, axes = axes)
 
-  PCs <- table(res.pca$eig$"cumulative percentage of variance" > cut.off)["FALSE"] + 1
+  PCs <- table(res_pca$eig[,"cumulative percentage of variance"] > cut.off)["FALSE"] + 1
   if(PCs %in% NA) PCs=1
 
-  fviz_contrib(res.pca, choice = "var", axes = PCs, color = "black", fill = "turquoise")+
+  fviz_contrib(res_pca, choice = "var", axes = PCs, color = "black", fill = "turquoise")+
     labs(x="\nCentrality measures", y="Contributions\n") +
     theme_grey() +ggtitle("Contribution of variables via PCA")+
     theme(axis.text.x=element_text(angle=45, vjust=0.5),plot.title = element_text(hjust = 0.5)
@@ -1099,11 +1184,11 @@ pca.centralities<-function( x , scale.unit = TRUE, cut.off = 80, ncp = 5,graph =
 #' @description This function demonstrates the input graph in which the size of nodes
 #' indicates calculated centrality value.
 #' @param x an igraph object
-#' @param computed.centrality.value A vector containing the values of calculated centrality measure for each node.
+#' @param computed_centrality_value A vector containing the values of calculated centrality measure for each node.
 #' @param centrality.type	The type of centrality which should be calculated.
 #' @details
 #' This function represents the graph in which size of nodes are based on computed centrality value. If the values of wanted centrality
-#' measure were computed then by placing them in computed.centrality.value argument to use it for drawing the plot. Otherwise, by only giving the
+#' measure were computed then by placing them in computed_centrality_value argument to use it for drawing the plot. Otherwise, by only giving the
 #' name of favorite centrality measure in centrality.type argument, this function will calculate it and  then demonstrates the corresponding graph.
 #' @return a plot illustrating the graph
 #' @author Minoo Ashtiani, Mohieddin Jafari
@@ -1159,17 +1244,17 @@ pca.centralities<-function( x , scale.unit = TRUE, cut.off = 80, ncp = 5,graph =
 #' @importFrom igraph layout_in_circle
 #' @importFrom graphics plot
 
-visualize.graph<-function( x , computed.centrality.value=NULL , centrality.type="Degree Centrality"){
+visualize_graph <- function( x , computed_centrality_value=NULL , centrality.type="Degree Centrality"){
 
-  if(is.null(computed.centrality.value)){
+  if (is.null(computed_centrality_value)){
 
-    if(!(class(x)%in%"igraph" && is_connected(x) )) stop("The input is not an igraph object
+    if (!(class(x)%in%"igraph" && is_connected(x) )) stop("The input is not an igraph object
                                                        or may not be connected.")
 
-    y<-as_edgelist(x)
-    y<-network(y)
+    y <- as_edgelist(x)
+    y <- network(y)
 
-    centFuncs <- list(
+    centrality_funcs <- list(
       "subgraph centrality scores"=function(x)subgraph.centrality(x),
       "Topological Coefficient"=function(x)topocoefficient(x),
       "Alpha Centrality"=function(x) alpha.centrality(x),
@@ -1217,16 +1302,15 @@ visualize.graph<-function( x , computed.centrality.value=NULL , centrality.type=
       "Load Centrality"=function(x)loadcent(y),
       "Flow Betweenness Centrality"=function(x)flowbet(y),
       "Information Centrality"=function(x)infocent(y)
-
     )
-    centFuncs <- centFuncs[intersect(names(centFuncs), centrality.type)]
+    centrality_funcs <- centrality_funcs[intersect(names(centrality_funcs), centrality.type)]
 
-    n <- names(centFuncs)
+    n <- names(centrality_funcs)
 
     warningsText <- ""
     result <- lapply(setNames(n, n),
                      function(functionName, x) {
-                       f <- centFuncs[[functionName]]
+                       f <- centrality_funcs[[functionName]]
                        tryCatch(f(x),
                                 error = function(e) {
                                 warningsText <- paste0(warningsText,
@@ -1238,12 +1322,11 @@ visualize.graph<-function( x , computed.centrality.value=NULL , centrality.type=
     if (nchar(warningsText) > 0)
         warning(warningsText)
 
-    result<-result[!sapply(result,is.null)]
+    result <- result[!sapply(result,is.null)]
 
-    result<-as.data.frame(result)
+    result <- as.data.frame(result)
 
-
-    result<-scale(result, center = FALSE, scale = TRUE)
+    result <- scale(result, center = FALSE, scale = TRUE)
 
     plot(x, vertex.size=result*10, layout= layout_in_circle(x,order(result*10) ) ,
          vertex.color="turquoise",vertex.frame.color="orange2")
@@ -1251,10 +1334,10 @@ visualize.graph<-function( x , computed.centrality.value=NULL , centrality.type=
 
   else{
 
-    computed.centrality.value<-scale(computed.centrality.value, center = FALSE, scale = TRUE)
+    computed_centrality_value<-scale(computed_centrality_value, center = FALSE, scale = TRUE)
 
-    plot(x, vertex.size=computed.centrality.value*10,
-         layout= layout_in_circle(x,order(computed.centrality.value*10) ) ,
+    plot(x, vertex.size=computed_centrality_value*10,
+         layout= layout_in_circle(x,order(computed_centrality_value*10) ) ,
          vertex.color="turquoise",vertex.frame.color="orange2")
 
   }
@@ -1289,34 +1372,34 @@ visualize.graph<-function( x , computed.centrality.value=NULL , centrality.type=
 #' @importFrom ggplot2 xlab
 #' @importFrom ggplot2 ylab
 
-visualize.association<-function( x , y, scale=TRUE){
+visualize_association <- function( x , y, scale=TRUE){
 
   xname <- substitute(x)
   yname <- substitute(y)
 
-  df<-as.data.frame(cbind(x,y))
+  df <- as.data.frame(cbind(x,y))
 
   names(df) <- c(xname, yname)
 
-  if(scale%in%TRUE){
+  if (scale%in%TRUE){
 
-    df<-scale(df, center = TRUE, scale = scale)
+    df <- scale(df, center = TRUE, scale = scale)
 
-    df<-as.data.frame(df)
+    df <- as.data.frame(df)
 
-    visualization<-ggplot(data=df,aes(x,y))+stat_summary(fun.data=mean_cl_normal,geom="point",fill="skyblue3",shape=21,colour="black",  size = 3)+
-      geom_smooth(method='lm',colour = 'red')+xlab(xname) +
+    visualization <- ggplot(data=df,aes(x,y)) + stat_summary(fun.data=mean_cl_normal,geom="point",fill="skyblue3",shape=21,colour="black",  size = 3) +
+      geom_smooth(method='lm',colour = 'red') + xlab(xname) +
       ylab(yname)
 
-    linear.regression<-lm(df[,2]~df[,1])
+    linear.regression <- lm(df[,2]~df[,1])
     return (list(linear.regression=linear.regression, visualization=visualization))
 
   }
 
-  else    visualization<-ggplot(data=df,aes(x,y))+stat_summary(fun.data=mean_cl_normal,geom="point",fill="skyblue3",shape=21,colour="black",  size = 3)+
+  else    visualization <- ggplot(data=df,aes(x,y))+stat_summary(fun.data=mean_cl_normal,geom="point",fill="skyblue3",shape=21,colour="black",  size = 3)+
     geom_smooth(method='lm',colour = 'red')+xlab(xname) +
     ylab(yname)
-  linear.regression<-lm(y~x)
+  linear.regression <- lm(y~x)
   return (list(linear.regression=linear.regression, visualization=visualization))
 
 }
@@ -1339,20 +1422,20 @@ visualize.association<-function( x , y, scale=TRUE){
 #' @export
 #' @importFrom GGally ggpairs
 
-visualize.pair.correlation<-function( x , y, scale=TRUE){
+visualize_pair_correlation <- function( x , y, scale=TRUE){
 
   xname <- substitute(x)
   yname <- substitute(y)
 
-  df<-as.data.frame(cbind(x,y))
+  df <- as.data.frame(cbind(x,y))
 
   names(df) <- c(xname, yname)
 
-  if(scale%in%TRUE){
+  if (scale%in%TRUE){
 
-    df<-scale(df, center = TRUE, scale = scale)
+    df <- scale(df, center = TRUE, scale = scale)
 
-    df<-as.data.frame(df)
+    df <- as.data.frame(df)
 
     ggpairs(df, columns=1:2)
 
@@ -1373,17 +1456,17 @@ visualize.pair.correlation<-function( x , y, scale=TRUE){
 #' @export
 #' @importFrom pheatmap pheatmap
 
-visualize.heatmap<-function( x, scale = TRUE  ){
+visualize_heatmap <- function( x, scale = TRUE  ){
 
   if(scale%in%TRUE){
 
-    x<-x[!sapply(x,is.null)]
+    x <- x[!sapply(x,is.null)]
 
-    d<-as.data.frame(x)
+    d <- as.data.frame(x)
 
-    x<-scale(d, center = TRUE, scale = scale)
+    x <- scale(d, center = TRUE, scale = scale)
 
-    rownames(x)<-rownames(d)
+    rownames(x)<- rownames(d)
 
     pheatmap(x, legend = TRUE, cluster_rows = TRUE, cluster_cols = TRUE, fontsize = 8)
 
@@ -1408,7 +1491,7 @@ visualize.heatmap<-function( x, scale = TRUE  ){
 #' @details
 #' This function illustrates pairwise correlation plot of computed centrality measures.
 #' The names of centralities shown in the result plot is abbreviated and compelete names
-#' can be seen in "proper.centralities" function.
+#' can be seen in "proper_centralities" function.
 #' Colors from red to blue indicate the intensity of correlation value. If two centrality
 #' measures have an inverse relationship then their correspnding color in plot have to be red
 #' and vice versa.
@@ -1419,21 +1502,21 @@ visualize.heatmap<-function( x, scale = TRUE  ){
 #' @export
 #' @importFrom corrplot corrplot.mixed
 
-visualize.correlations<-function(x, scale=TRUE,method = "pearson"){
+visualize_correlations <- function(x, scale=TRUE,method = "pearson"){
 
-  if(scale%in%TRUE){
+  if (scale%in%TRUE){
 
-    x<-x[!sapply(x,is.null)]
+    x <- x[!sapply(x,is.null)]
 
-    d<-as.data.frame(x)
+    d <- as.data.frame(x)
 
-    x<-scale(d, center = TRUE, scale = scale)
+    x <- scale(d, center = TRUE, scale = scale)
 
-    name<-unlist(lapply(strsplit(colnames(x), '.', fixed = TRUE), '[', 1))
+    name <- unlist(lapply(strsplit(colnames(x), '.', fixed = TRUE), '[', 1))
 
-    colnames(x)<-name
+    colnames(x) <- name
 
-    M<-cor(x,method = method)
+    M <- cor(x,method = method)
 
     corrplot.mixed(M,tl.cex	=0.75)
 
@@ -1441,17 +1524,17 @@ visualize.correlations<-function(x, scale=TRUE,method = "pearson"){
 
   else{
 
-    x<-x[!sapply(x,is.null)]
+    x <- x[!sapply(x,is.null)]
 
-    d<-as.data.frame(x)
+    d <- as.data.frame(x)
 
-    x<-as.matrix(d)
+    x <- as.matrix(d)
 
-    name<-unlist(lapply(strsplit(colnames(x), '.', fixed = TRUE), '[', 1))
+    name <- unlist(lapply(strsplit(colnames(x), '.', fixed = TRUE), '[', 1))
 
-    colnames(x)<-name
+    colnames(x) <- name
 
-    M<-cor(x,method = method)
+    M <- cor(x,method = method)
 
     corrplot.mixed(M,tl.cex	=0.75)
 
@@ -1465,7 +1548,7 @@ visualize.correlations<-function(x, scale=TRUE,method = "pearson"){
 #' on a centrality type.
 #' @param x an igraph object
 #' @param centrality.type	The type of centrality which should be considered.(default="Degree Centrality")
-#' @param computed.centrality.value A vector containing the values of calculated centrality measure for each node.(default=NULL)
+#' @param computed_centrality_value A vector containing the values of calculated centrality measure for each node.(default=NULL)
 #' @param k number of clusters(default=4)
 #' @details
 #' This function represents node dendrogram of a graph based on a centrality measure.
@@ -1474,8 +1557,6 @@ visualize.correlations<-function(x, scale=TRUE,method = "pearson"){
 #' @author Minoo Ashtiani, Mohieddin Jafari
 #' @references
 #' Galili, T. (2015). dendextend: an R package for visualizing, adjusting and comparing trees of hierarchical clustering. Bioinformatics, 31(22), 3718–3720.
-#'
-#' Gu, Z., Gu, L., Eils, R., Schlesner, M., & Brors, B. (2014). circlize implements and enhances circular visualization in R. Bioinformatics, 30(19), 2811–2812.
 #'
 #' @export
 #' @importFrom igraph alpha.centrality
@@ -1541,17 +1622,17 @@ visualize.correlations<-function(x, scale=TRUE,method = "pearson"){
 #' @importFrom stats na.omit
 #' @importFrom stats reorder
 
-visualize.dendogram<-function( x, centrality.type="Degree Centrality", computed.centrality.value=NULL , k=4){
+visualize_dendrogram <- function( x, centrality.type="Degree Centrality", computed_centrality_value=NULL , k=4){
 
-  if(is.null(computed.centrality.value)){
+  if (is.null(computed_centrality_value)){
 
-    if(!(class(x)%in%"igraph" && is_connected(x) )) stop("The input is not an igraph object
+    if (!(class(x)%in%"igraph" && is_connected(x) )) stop("The input is not an igraph object
                                                        or may not be connected.")
 
-    y<-as_edgelist(x)
-    y<-network(y)
+    y <- as_edgelist(x)
+    y <- network(y)
 
-    centFuncs <- list(
+    centrality_funcs <- list(
       "subgraph centrality scores"=function(x)subgraph.centrality(x),
       "Topological Coefficient"=function(x)topocoefficient(x),
       "Alpha Centrality"=function(x) alpha.centrality(x),
@@ -1601,14 +1682,14 @@ visualize.dendogram<-function( x, centrality.type="Degree Centrality", computed.
       "Information Centrality"=function(x)infocent(y)
 
     )
-    centFuncs <- centFuncs[intersect(names(centFuncs), centrality.type)]
+    centrality_funcs <- centrality_funcs[intersect(names(centrality_funcs), centrality.type)]
 
-    n <- names(centFuncs)
+    n <- names(centrality_funcs)
 
     warningsText <- ""
     result <- lapply(setNames(n, n),
                      function(functionName, x) {
-                       f <- centFuncs[[functionName]]
+                       f <- centrality_funcs[[functionName]]
                        tryCatch(f(x),
                                 error = function(e) {
                                   warningsText <- paste0(warningsText,
@@ -1620,13 +1701,13 @@ visualize.dendogram<-function( x, centrality.type="Degree Centrality", computed.
     if (nchar(warningsText) > 0)
       warning(warningsText)
 
-    result<-result[!sapply(result,is.null)]
+    result <-result[!sapply(result,is.null)]
 
-    result<-as.data.frame(result)
+    result <- as.data.frame(result)
 
     rownames(result) = V(x)$name
 
-    result<-scale(result, center = TRUE, scale = TRUE)
+    result <- scale(result, center = TRUE, scale = TRUE)
 
     dend <- result%>% dist %>% hclust %>% as.dendrogram %>%
     highlight_branches_col(viridis(100))  %>%
@@ -1639,10 +1720,10 @@ visualize.dendogram<-function( x, centrality.type="Degree Centrality", computed.
 
   else{
 
-    computed.centrality.value<-scale(computed.centrality.value, center = FALSE, scale = TRUE)
+    computed_centrality_value <- scale(computed_centrality_value, center = FALSE, scale = TRUE)
 
-    names(computed.centrality.value) = V(x)$name
-    dend <- computed.centrality.value%>% dist %>% hclust %>% as.dendrogram %>%
+    names(computed_centrality_value) = V(x)$name
+    dend <- computed_centrality_value%>% dist %>% hclust %>% as.dendrogram %>%
     highlight_branches_col(viridis(100))  %>%  set("branches_k_color", k=3)%>%
     set("labels_colors")%>%set("nodes_pch", 20)
 
@@ -1662,7 +1743,7 @@ visualize.dendogram<-function( x, centrality.type="Degree Centrality", computed.
 #' @param scale Whether the centrality values should be scaled or not(default=TRUE)
 #' @param file A character string naming the file to print into. If NULL the result would be printed to the exist directory(default=NULL)
 #' @author Minoo Ashtiani, Mohieddin Jafari
-#' @method print visualize.association
+#' @return  The resulted plot of \code{ \link[CINNA]{visualize_association}}function will be saved in the given directory.
 #' @importFrom ggplot2 ggplot
 #' @importFrom ggplot2 stat_summary
 #' @importFrom ggplot2 geom_smooth
@@ -1672,25 +1753,25 @@ visualize.dendogram<-function( x, centrality.type="Degree Centrality", computed.
 #' @importFrom ggplot2 ylab
 #' @importFrom ggplot2 ggsave
 
-print.visualize.association<-function( x , y, scale=TRUE, file=NULL){
+print_visualize_association<-function( x , y, scale = TRUE, file = NULL){
 
   xname <- substitute(x)
   yname <- substitute(y)
-  df<-as.data.frame(cbind(x,y))
+  df <- as.data.frame(cbind(x,y))
   names(df) <- c(xname, yname)
 
-  if(scale%in%TRUE){
+  if (scale%in%TRUE){
 
-    df<-scale(df, center = TRUE, scale = scale)
+    df <- scale(df, center = TRUE, scale = scale)
 
-    df<-as.data.frame(df)
+    df <- as.data.frame(df)
 
-    reg.plot<-ggplot(data=df,aes(x,y))+stat_summary(fun.data=mean_cl_normal,geom="point",
+    reg.plot <- ggplot(data=df,aes(x,y))+stat_summary(fun.data=mean_cl_normal,geom="point",
       fill="skyblue3",shape=21,colour="black",  size = 3)+
       geom_smooth(method='lm',colour = 'red')+xlab(xname) +
       ylab(yname)
 
-    if(is.null(file)){
+    if (is.null(file)){
 
       ggsave(filename=paste(getwd(),"/Linear regression plot between two centrality measure.pdf", sep = ""), plot=reg.plot)
     }
@@ -1701,11 +1782,11 @@ print.visualize.association<-function( x , y, scale=TRUE, file=NULL){
 
   else {
 
-    reg.plot<-ggplot(data=df,aes(x,y))+stat_summary(fun.data=mean_cl_normal,
-      geom="point",fill="skyblue3",shape=21,colour="black",  size = 3)+
+    reg.plot <- ggplot(data=df,aes(x,y))+stat_summary(fun.data=mean_cl_normal,
+      geom = "point",fill="skyblue3",shape=21,colour="black",  size = 3)+
       geom_smooth(method='lm',colour = 'red')+xlab(xname) + ylab(yname)
 
-    if(is.null(file)){
+    if (is.null(file)){
 
       ggsave(filename=paste(getwd(),"/Linear regression plot between two centrality measure.pdf", sep = ""), plot=reg.plot)
 
@@ -1716,7 +1797,6 @@ print.visualize.association<-function( x , y, scale=TRUE, file=NULL){
   }
 }
 
-
 #' @title Print pairwise correlation of centrality measure and histogram plot
 #'
 #' @description This function prints pairwise correlation of centrality measure and histogram plot.
@@ -1725,53 +1805,53 @@ print.visualize.association<-function( x , y, scale=TRUE, file=NULL){
 #' @param scale Whether the centrality values should be scaled or not(default=TRUE)
 #' @param file A character string naming the .pdf file to print into. If NULL the result would be printed to the exist directory.
 #' @author Minoo Ashtiani, Mohieddin Jafari
-#' @method print visualize.pair.correlation
+#' @return The resulted plot of \code{ \link[CINNA]{visualize_pair_correlation}}function will be saved in the given directory.
 #' @importFrom GGally ggpairs
 #' @importFrom grDevices dev.off
 #' @importFrom grDevices pdf
 
-print.visualize.pair.correlation<-function( x , y, scale=TRUE, file=NULL){
+print_visualize_pair_correlation <- function( x , y, scale=TRUE, file=NULL){
 
   xname <- substitute(x)
   yname <- substitute(y)
 
-  df<-as.data.frame(cbind(x,y))
+  df <- as.data.frame(cbind(x,y))
 
   names(df) <- c(xname, yname)
 
-  if(scale%in%TRUE){
+  if (scale%in%TRUE){
 
     df<-scale(df, center = TRUE, scale = scale)
 
     df<-as.data.frame(df)
 
-    if(is.null(file)){
+    if (is.null(file)){
 
-      variables<-paste( as.character(xname), "and", as.character(yname), sep = " ")
+      variables <- paste( as.character(xname), "and", as.character(yname), sep = " ")
       pdf(file=paste(getwd(),"/Pairwise correlation plot between ", variables,".pdf", sep = ""))
       g <-ggpairs(df, columns=1:2)
       print(g)
       dev.off()
     }
     else
-      pdf(file=file)
-    g <-ggpairs(df, columns=1:2)
+    pdf(file=file)
+    g <- ggpairs(df, columns=1:2)
     print(g)
     dev.off()
   }
 
   else{
 
-    if(is.null(file)){
+    if (is.null(file)){
       variables<-paste( as.character(xname), "and", as.character(yname), sep = " ")
       pdf(file=paste(getwd(),"/Pairwise correlation plot between ", variables,".pdf", sep = ""))
-      g <-ggpairs(df, columns=1:2)
+      g <- ggpairs(df, columns=1:2)
       print(g)
       dev.off()
     }
     else
-      pdf(file=file)
-    g <-ggpairs(df, columns=1:2)
+    pdf(file=file)
+    g <- ggpairs(df, columns=1:2)
     print(g)
     dev.off()
   }
@@ -1785,20 +1865,20 @@ print.visualize.pair.correlation<-function( x , y, scale=TRUE, file=NULL){
 #' @param file A character string naming the .pdf file to print into. If NULL
 #'  the result would be printed to the exist directory.(default=NULL)
 #' @author Minoo Ashtiani, Mohieddin Jafari
-#' @method print visualize.heatmap
+#' @return  The resulted plot of \code{ \link[CINNA]{visualize_heatmap}}function will be saved in the given directory.
 #' @importFrom pheatmap pheatmap
 
-print.visualize.heatmap<-function( x, scale = TRUE, file=NULL ){
+print_visualize_heatmap <- function( x, scale = TRUE, file=NULL ){
 
-  if(scale%in%TRUE){
+  if (scale%in%TRUE){
 
-    x<-x[!sapply(x,is.null)]
+    x <- x[!sapply(x,is.null)]
 
-    d<-as.data.frame(x)
+    d <- as.data.frame(x)
 
-    x<-scale(d, center = TRUE, scale = scale)
+    x <- scale(d, center = TRUE, scale = scale)
 
-    rownames(x)<-rownames(d)
+    rownames(x) <- rownames(d)
 
     if(is.null(file)){
 
@@ -1836,14 +1916,13 @@ print.visualize.heatmap<-function( x, scale = TRUE, file=NULL ){
 #' centrality measures.
 #' @param x an igraph object
 #' @param centrality.type	The type of centrality which should be calculated(default="Degree Centrality")
-#' @param computed.centrality.value A vector containing the values of calculated
+#' @param computed_centrality_value A vector containing the values of calculated
 #' centrality measure for each node(default=NULL)
 #' @param k number of clusters
 #' @param file A character string naming the .pdf file to print into.
 #' If NULL the result would be printed to the exist directory.(default=NULL)
 #' @author Minoo Ashtiani, Mohieddin Jafari
-#' @method print visualize.dendogram
-#' @importFrom igraph alpha.centrality
+#' @return  The resulted plot of \code{ \link[CINNA]{visualize_dendrogram}}function will be saved in the given directory.#' @importFrom igraph alpha.centrality
 #' @importFrom igraph bonpow
 #' @importFrom igraph constraint
 #' @importFrom igraph centr_degree
@@ -1896,19 +1975,17 @@ print.visualize.heatmap<-function( x, scale = TRUE, file=NULL ){
 #' @importFrom dendextend highlight_branches_col
 #' @importFrom viridis viridis
 
+print_visualize_dendrogram <- function( x, centrality.type="Degree Centrality",
+                                     computed_centrality_value=NULL , k=4, file=NULL){
 
-print.visualize.dendogram<-function( x, centrality.type="Degree Centrality",
-                                     computed.centrality.value=NULL , k=4, file=NULL){
+  if (is.null(computed_centrality_value)){
 
-  if(is.null(computed.centrality.value)){
-
-    if(!(class(x)%in%"igraph" && is_connected(x) )) stop("The input is not an igraph object
+    if (!(class(x)%in%"igraph" && is_connected(x) )) stop("The input is not an igraph object
                                                        or may not be connected.")
+    y <- as_edgelist(x)
+    y <- network(y)
 
-    y<-as_edgelist(x)
-    y<-network(y)
-
-    centFuncs <- list(
+    centrality_funcs <- list(
       "subgraph centrality scores"=function(x)subgraph.centrality(x),
       "Topological Coefficient"=function(x)topocoefficient(x),
       "Alpha Centrality"=function(x) alpha.centrality(x),
@@ -1958,14 +2035,14 @@ print.visualize.dendogram<-function( x, centrality.type="Degree Centrality",
       "Information Centrality"=function(x)infocent(y)
 
     )
-    centFuncs <- centFuncs[intersect(names(centFuncs), centrality.type)]
+    centrality_funcs <- centrality_funcs[intersect(names(centrality_funcs), centrality.type)]
 
-    n <- names(centFuncs)
+    n <- names(centrality_funcs)
 
     warningsText <- ""
     result <- lapply(setNames(n, n),
                      function(functionName, x) {
-                       f <- centFuncs[[functionName]]
+                       f <- centrality_funcs[[functionName]]
                        tryCatch(f(x),
                                 error = function(e) {
                                 warningsText <- paste0(warningsText,
@@ -1977,13 +2054,13 @@ print.visualize.dendogram<-function( x, centrality.type="Degree Centrality",
     if (nchar(warningsText) > 0)
       warning(warningsText)
 
-    result<-result[!sapply(result,is.null)]
+    result <- result[!sapply(result,is.null)]
 
-    result<-as.data.frame(result)
+    result <- as.data.frame(result)
 
     rownames(result) = V(x)$name
 
-    result<-scale(result, center = TRUE, scale = TRUE)
+    result <- scale(result, center = TRUE, scale = TRUE)
 
     dend <- result%>% dist %>% hclust %>% as.dendrogram %>%
       highlight_branches_col(viridis(100))  %>%  set("branches_k_color", k=3)%>%
@@ -2003,14 +2080,14 @@ print.visualize.dendogram<-function( x, centrality.type="Degree Centrality",
 
   else{
 
-    computed.centrality.value<-scale(computed.centrality.value, center = FALSE, scale = TRUE)
+    computed_centrality_value <- scale(computed_centrality_value, center = FALSE, scale = TRUE)
 
-    names(computed.centrality.value) = V(x)$name
-    dend <- computed.centrality.value%>% dist %>% hclust %>% as.dendrogram %>%
+    names(computed_centrality_value) = V(x)$name
+    dend <- computed_centrality_value%>% dist %>% hclust %>% as.dendrogram %>%
       highlight_branches_col(viridis(100))  %>%  set("branches_k_color", k=3)%>%
       set("labels_colors")%>%set("nodes_pch", 20)
 
-    if(is.null(file)){
+    if (is.null(file)){
       pdf(file=paste(getwd(),"/Centrality dendrogram.pdf", sep = ""), onefile=FALSE)
       circlize_dendrogram(dend, labels_track_height = NA, dend_track_height = .4)
       dev.off()
@@ -2021,7 +2098,6 @@ print.visualize.dendogram<-function( x, centrality.type="Degree Centrality",
     dev.off()
 
   }
-
 }
 
 #' @title Print centrality correlation plot
@@ -2029,33 +2105,33 @@ print.visualize.dendogram<-function( x, centrality.type="Degree Centrality",
 #' @description This function prints a plot including all pairwise correlation between
 #' centrality measures
 #' @param x a list indicating calculated centrality measures which is the output of
-#' "calculate.centralities" function
+#' "calculate_centralities" function
 #' @param scale Whether the centrality values should be scaled or not(default=TRUE)
 #' @param method   character string describing the type of correlation coefficient (or covariance)
 #' to be computed. The proper values are "pearson", "kendall", or "spearman". (default="pearson")
 #' @param file A character string naming the .pdf file to print into. If NULL the result would
 #' be printed to the exist directory.(default=NULL)
 #' @author Minoo Ashtiani, Mohieddin Jafari
-#' @method print visualize.correlations
+#' @return  The resulted plot of \code{ \link[CINNA]{visualize_correlations}}function will be saved in the given directory.#' @importFrom igraph alpha.centrality
 #' @importFrom corrplot corrplot.mixed
 
-print.visualize.correlations<-function(x, scale=TRUE,method = c("pearson", "kendall", "spearman"),file=NULL){
+print_visualize_correlations <- function(x, scale=TRUE,method = c("pearson", "kendall", "spearman"),file=NULL){
 
-  if(scale%in%TRUE){
+  if (scale%in%TRUE){
 
-    x<-x[!sapply(x,is.null)]
+    x <- x[!sapply(x,is.null)]
 
-    d<-as.data.frame(x)
+    d <- as.data.frame(x)
 
-    x<-scale(d, center = TRUE, scale = TRUE)
+    x <- scale(d, center = TRUE, scale = TRUE)
 
-    name<-unlist(lapply(strsplit(colnames(x), '.', fixed = TRUE), '[', 1))
+    name <- unlist(lapply(strsplit(colnames(x), '.', fixed = TRUE), '[', 1))
 
-    colnames(x)<-name
+    colnames(x) <- name
 
-    M<-cor(x,method = "pearson")
+    M <- cor(x,method = "pearson")
 
-    if(is.null(file)){
+    if (is.null(file)){
       pdf(file=paste(getwd(),"/Centrality correlation plot.pdf", sep = ""), onefile=FALSE)
       corrplot.mixed(M,tl.cex	=0.75)
       dev.off()
@@ -2067,19 +2143,19 @@ print.visualize.correlations<-function(x, scale=TRUE,method = c("pearson", "kend
   }
   else{
 
-    x<-x[!sapply(x,is.null)]
+    x <- x[!sapply(x,is.null)]
 
-    d<-as.data.frame(x)
+    d <- as.data.frame(x)
 
-    x<-as.matrix(d)
+    x <- as.matrix(d)
 
-    name<-unlist(lapply(strsplit(colnames(x), '.', fixed = TRUE), '[', 1))
+    name <- unlist(lapply(strsplit(colnames(x), '.', fixed = TRUE), '[', 1))
 
-    colnames(x)<-name
+    colnames(x) <- name
 
-    M<-cor(x,method = "pearson")
+    M <- cor(x,method = "pearson")
 
-    if(is.null(file)){
+    if (is.null(file)){
       pdf(file=paste(getwd(),"/Centrality correlation plot.pdf", sep = ""), onefile=FALSE)
       corrplot.mixed(M,tl.cex	=0.75)
       dev.off()
@@ -2096,11 +2172,11 @@ print.visualize.correlations<-function(x, scale=TRUE,method = c("pearson", "kend
 #'
 #' @description This function prints visualized based on centrality values graph.
 #' @param x an igraph object
-#' @param computed.centrality.value A vector containing the values of calculated centrality measure for each node(default=NULL)
+#' @param computed_centrality_value A vector containing the values of calculated centrality measure for each node(default=NULL)
 #' @param centrality.type	The type of centrality which should be calculated(default="Degree Centrality")
 #' @param file A character string naming the .pdf file to print into. If NULL the result would be printed to the exist directory.(default=NULL)
 #' @author Minoo Ashtiani, Mohieddin Jafari
-#' @method print visualize.graph
+#' @return  The resulted plot of \code{ \link[CINNA]{visualize_graph}}function will be saved in the given directory.#' @importFrom igraph alpha.centrality
 #' @importFrom igraph is.directed
 #' @importFrom igraph alpha.centrality
 #' @importFrom igraph bonpow
@@ -2151,17 +2227,17 @@ print.visualize.correlations<-function(x, scale=TRUE,method = c("pearson", "kend
 #' @importFrom centiserve averagedis
 
 
-print.visualize.graph<-function( x , computed.centrality.value=NULL , centrality.type="Degree Centrality",file=NULL){
+print_visualize_graph <- function( x , computed_centrality_value=NULL , centrality.type="Degree Centrality",file=NULL){
 
-  if(is.null(computed.centrality.value)){
+  if (is.null(computed_centrality_value)){
 
-    if(!(class(x)%in%"igraph" && is_connected(x) )) stop("The input is not an igraph object
+    if (!(class(x)%in%"igraph" && is_connected(x) )) stop("The input is not an igraph object
                                                        or may not be connected.")
 
-    y<-as_edgelist(x)
-    y<-network(y)
+    y <- as_edgelist(x)
+    y <- network(y)
 
-    centFuncs <- list(
+    centrality_funcs <- list(
       "subgraph centrality scores"=function(x)subgraph.centrality(x),
       "Topological Coefficient"=function(x)topocoefficient(x),
       "Alpha Centrality"=function(x) alpha.centrality(x),
@@ -2211,14 +2287,14 @@ print.visualize.graph<-function( x , computed.centrality.value=NULL , centrality
       "Information Centrality"=function(x)infocent(y)
 
     )
-    centFuncs <- centFuncs[intersect(names(centFuncs), centrality.type)]
+    centrality_funcs <- centrality_funcs[intersect(names(centrality_funcs), centrality.type)]
 
-    n <- names(centFuncs)
+    n <- names(centrality_funcs)
 
     warningsText <- ""
     result <- lapply(setNames(n, n),
                      function(functionName, x) {
-                       f <- centFuncs[[functionName]]
+                       f <- centrality_funcs[[functionName]]
                        tryCatch(f(x),
                                 error = function(e) {
                                   warningsText <- paste0(warningsText,
@@ -2246,10 +2322,10 @@ print.visualize.graph<-function( x , computed.centrality.value=NULL , centrality
 
   else{
 
-    computed.centrality.value<-scale(computed.centrality.value, center = FALSE, scale = TRUE)
+    computed_centrality_value<-scale(computed_centrality_value, center = FALSE, scale = TRUE)
 
     pdf(file=paste(getwd(),"/Graph centrality visualization.pdf", sep = ""), onefile=FALSE)
-    plot(x, vertex.size=computed.centrality.value*10, layout= layout_in_circle(x,order(computed.centrality.value*10) ) ,
+    plot(x, vertex.size=computed_centrality_value*10, layout= layout_in_circle(x,order(computed_centrality_value*10) ) ,
          vertex.color="turquoise",vertex.frame.color="orange2")
          dev.off()
   }
@@ -2264,22 +2340,21 @@ print.visualize.graph<-function( x , computed.centrality.value=NULL , centrality
 #' @param scale.unit	a boolean constant, whether data should be scaled to unit
 #' variance(default=TRUE)
 #' @param ncp	number of dimensions in final results (default=5)
-#' @return a list containing eigen values and contribution values.
+#' @return  The result values of \code{ \link[CINNA]{pca_centralities}}function will be saved in the given directory.#' @importFrom igraph alpha.centrality
 #' @author Minoo Ashtiani, Mohieddin Jafari
-#' @method summary pca.centralities
 #' @importFrom FactoMineR PCA
 
-summary.pca.centralities<-function( x , scale.unit = TRUE,ncp = 5){
+summary_pca_centralities <- function( x , scale.unit = TRUE,ncp = 5){
 
-  x<-x[!sapply(x,is.null)]
+  x <- x[!sapply(x,is.null)]
 
-  x<-as.data.frame(x)
+  x <- as.data.frame(x)
 
   x <- na.omit(x)
 
-  res.pca <- PCA(x, scale.unit = scale.unit, ncp = ncp, graph = FALSE)
+  res_pca <- PCA(x, scale.unit = scale.unit, ncp = ncp, graph = FALSE)
 
-  l<-list(eigen= res.pca$eig, contribution= res.pca$var$contrib)
+  l <- list(eigen= res_pca$eig, contribution= res_pca$var$contrib)
   print(l)
 
 }
@@ -2289,14 +2364,13 @@ summary.pca.centralities<-function( x , scale.unit = TRUE,ncp = 5){
 #' @description This function summarizes all components of the input which can be an "igraph" object or a "network" object
 #' @param x An igraph or a network object
 #' @param directed a boolean constant, Whether to create a directed graph(default=TRUE)
-#' @param bipartite.proj Whether the bipartite network must be projected or not(default=FALSE)
-#' @param num.proj A number which shows the number of projects especifically for bipartite graphs.(default=1)
-#' @return a list including summary of all componets
+#' @param bipartite_proj Whether the bipartite network must be projected or not(default=FALSE)
+#' @param num_proj A number which shows the number of projects especifically for bipartite graphs.(default=1)
 #' @author Minoo Ashtiani, Mohieddin Jafari
-#' @method summary graph.extract.components
+#' @return  The result values of \code{ \link[CINNA]{graph_extract_components}}function will be saved in the given directory.#' @importFrom igraph alpha.centrality
 #' @importFrom igraph is_igraph
 #' @importFrom igraph is_bipartite
-#' @importFrom igraph bipartite.projection
+#' @importFrom igraph bipartite_projection
 #' @importFrom igraph is_simple
 #' @importFrom igraph simplify
 #' @importFrom igraph clusters
@@ -2307,17 +2381,17 @@ summary.pca.centralities<-function( x , scale.unit = TRUE,ncp = 5){
 #' @importFrom network is.network
 #' @importFrom network network
 
-summary.graph.extract.components <- function( x, directed = TRUE,bipartite.proj=FALSE ,num.proj=1){
+summary_graph_extract_components <- function( x, directed = TRUE, bipartite_proj = FALSE , num_proj = 1){
 
-  if(!(class(x)%in%"igraph"|| class(x)%in%"network")) stop("The input is not an igraph or a network object")
+  if (!(class(x)%in%"igraph"|| class(x)%in%"network")) stop("The input is not an igraph or a network object")
 
-  if(is_igraph(x)) {
+  if (is_igraph(x)) {
 
-    if( bipartite.proj){
+    if (bipartite_proj){
 
-      if(is_bipartite(x)){
+      if (is_bipartite(x)){
 
-        x<-bipartite.projection(x)[[num.proj]]
+        x <- bipartite_projection(x)[[num_proj]]
 
         if (!is_simple(x))   x<-simplify(x)
 
@@ -2327,7 +2401,7 @@ summary.graph.extract.components <- function( x, directed = TRUE,bipartite.proj=
           induced.subgraph(x, cl$membership == k)
         }
 
-        components<-sapply(1:max(cl$membership), graph.splitting, x = x, cl = cl, simplify = FALSE)
+        components <- sapply(1:max(cl$membership), graph.splitting, x = x, cl = cl, simplify = FALSE)
 
       }
 
@@ -2343,7 +2417,7 @@ summary.graph.extract.components <- function( x, directed = TRUE,bipartite.proj=
         induced.subgraph(x, cl$membership == k)
       }
 
-      components<-sapply(1:max(cl$membership), graph_splitting, x = x, cl = cl, simplify = FALSE)
+      components <- sapply(1:max(cl$membership), graph_splitting, x = x, cl = cl, simplify = FALSE)
 
     }
 
@@ -2351,11 +2425,11 @@ summary.graph.extract.components <- function( x, directed = TRUE,bipartite.proj=
 
   if( is.network(x)){
 
-    edgelist<-as.edgelist(x)
+    edgelist <- as.edgelist(x)
 
-    x<-graph_from_edgelist(edgelist, directed = directed)
+    x <- graph_from_edgelist(edgelist, directed = directed)
 
-    if (!is_simple(x))  gr<-simplify(x)
+    if (!is_simple(x))  gr <- simplify(x)
 
     cl <- clusters(x)
 
@@ -2363,11 +2437,11 @@ summary.graph.extract.components <- function( x, directed = TRUE,bipartite.proj=
       induced.subgraph(x, cl$membership == k)
     }
 
-    components<-sapply(1:max(cl$membership), graph_splitting, x = x, cl = cl, simplify = FALSE)
+    components <- sapply(1:max(cl$membership), graph_splitting, x = x, cl = cl, simplify = FALSE)
 
   }
 
-  summary.list<-lapply(components, function(x) summary(x))
+  summary.list <- lapply(components, function(x) summary(x))
 
 }
 
@@ -2377,16 +2451,16 @@ summary.graph.extract.components <- function( x, directed = TRUE,bipartite.proj=
 #' @param x centrality measure calculation results
 #' @return a list concluding summary results for each centrality measure value
 #' @author Minoo Ashtiani, Mohieddin Jafari
-#' @method summary calculate.centralities
+#' @return  The result values of \code{ \link[CINNA]{calculate_centralities}}function will be saved in the given directory.#' @importFrom igraph alpha.centrality
 
-summary.calculate.centralities<-function(x){
+summary_calculate_centralities <- function(x){
 
-  x<-x[!sapply(x,is.null)]
+  x <- x[!sapply(x, is.null)]
 
   x <- na.omit(x)
 
-  summary.list<-lapply(x, function(x) summary(x))
-  return(summary.list)
+  summary_list <- lapply(x, function(x) summary(x))
+  return(summary_list)
 }
 
 
@@ -2407,56 +2481,55 @@ summary.calculate.centralities<-function(x){
 #' costs	The cost for every object after the final iteration
 #'
 #' @author Minoo Ashtiani, Mohieddin Jafari
-#' @method summary tsne.centralities
 #' @importFrom Rtsne Rtsne
 
 
-summary.tsne.centralities<-function( x , dims = 2, perplexity = 5, scale=TRUE){
+summary_tsne_centralities<-function( x , dims = 2, perplexity = 5, scale = TRUE){
 
-  x<-x[!sapply(x,is.null)]
+  x <- x[!sapply(x, is.null)]
 
-  x<-as.data.frame(x)
+  x <- as.data.frame(x)
 
   x <- na.omit(x)
 
-  if(scale%in%TRUE){
+  if (scale%in%TRUE){
 
-    x<-scale(x, center = TRUE, scale = scale)
+    x <- scale(x, center = TRUE, scale = scale)
 
-    x<-x[!duplicated(x), ]
+    x <- x[!duplicated(x), ]
 
     tsne.Y <- Rtsne(t(x), dims = dims, perplexity = perplexity)$Y
 
     rownames(tsne.Y)<-colnames(x)
 
-    cost<-Rtsne(t(x), dims = dims, perplexity = perplexity)$cost
+    cost <- Rtsne(t(x), dims = dims, perplexity = perplexity)$cost
 
-    names(cost)<-colnames(x)
+    names(cost) <- colnames(x)
 
-    tsne.cost<-sort(cost)
+    tsne_cost <- sort(cost)
 
-    res.tsne<-list(tsne.Y=tsne.Y,tsne.cost=tsne.cost)
-    return(res.tsne)
+    res_tsne <- list(tsne.Y = tsne.Y, tsne_cost = tsne_cost)
+    return(res_tsne)
 
   }
 
   else{
 
-    x<-x[!duplicated(x), ]
+    x <- x[!duplicated(x), ]
 
     tsne.Y <- Rtsne(t(x), dims = dims, perplexity = perplexity)$Y
 
-    rownames(tsne.Y)<-colnames(x)
+    rownames(tsne.Y) <- colnames(x)
 
-    cost<-Rtsne(t(x), dims = dims, perplexity = perplexity)$cost
+    cost <- Rtsne(t(x), dims = dims, perplexity = perplexity)$cost
 
-    names(cost)<-colnames(x)
+    names(cost) <- colnames(x)
 
-    tsne.cost<-sort(cost)
+    tsne_cost <- sort(cost)
 
-    res.tsne<-list(tsne.Y=tsne.Y,tsne.cost=tsne.cost)
+    res_tsne <- list(tsne.Y = tsne.Y,tsne_cost = tsne_cost)
 
-    return(res.tsne)
+    return(res_tsne)
 
   }
 }
@@ -2489,25 +2562,25 @@ summary.tsne.centralities<-function( x , dims = 2, perplexity = 5, scale=TRUE){
 #' @importFrom ggplot2 ggtitle
 #' @importFrom ggplot2 theme
 
-tsne.centralities<-function( x , dims = 2, perplexity = 5, scale=TRUE){
+tsne_centralities <- function( x , dims = 2, perplexity = 5, scale = TRUE){
 
-  x<-x[!sapply(x,is.null)]
+  x <- x[!sapply(x,is.null)]
 
-  x<-as.data.frame(x)
+  x <- as.data.frame(x)
 
   x <- na.omit(x)
 
-  if(scale%in%TRUE){
+  if (scale%in%TRUE){
 
-    x<-scale(x, center = TRUE, scale = scale)
+    x <- scale(x, center = TRUE, scale = scale)
 
-    x<-x[!duplicated(x), ]
+    x <- x[!duplicated(x), ]
 
-    cost<-Rtsne(t(x), dims = dims, perplexity = perplexity)$cost
+    cost <- Rtsne(t(x), dims = dims, perplexity = perplexity)$cost
 
-    names(cost)<-colnames(x)
+    names(cost) <- colnames(x)
 
-    df<-data.frame(sort(cost))
+    df <- data.frame(sort(cost))
 
     ggplot(data=df, aes(x=reorder(rownames(df), -cost), y=cost, fill=rownames(df))) +
       geom_bar(colour="black", fill="turquoise", width=.8, stat="identity") +
@@ -2520,13 +2593,13 @@ tsne.centralities<-function( x , dims = 2, perplexity = 5, scale=TRUE){
 
   else{
 
-    x<-x[!duplicated(x), ]
+    x <- x[!duplicated(x), ]
 
-    cost<-Rtsne(t(x), dims = dims, perplexity = perplexity)$cost
+    cost <- Rtsne(t(x), dims = dims, perplexity = perplexity)$cost
 
-    names(cost)<-colnames(x)
+    names(cost) <- colnames(x)
 
-    df<-data.frame(sort(cost))
+    df <- data.frame(sort(cost))
 
     ggplot(data=df, aes(x=reorder(rownames(df), -cost), y=cost, fill=rownames(df))) +
       geom_bar(colour="black", fill="turquoise", width=.8, stat="identity") +
