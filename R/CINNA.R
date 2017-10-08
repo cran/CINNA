@@ -1753,7 +1753,7 @@ visualize_dendrogram <- function( x, centrality.type="Degree Centrality", comput
 #' @importFrom ggplot2 ylab
 #' @importFrom ggplot2 ggsave
 
-print_visualize_association<-function( x , y, scale = TRUE, file = NULL){
+print.visualize_association<-function( x , y, scale = TRUE, file = NULL){
 
   xname <- substitute(x)
   yname <- substitute(y)
@@ -1810,7 +1810,7 @@ print_visualize_association<-function( x , y, scale = TRUE, file = NULL){
 #' @importFrom grDevices dev.off
 #' @importFrom grDevices pdf
 
-print_visualize_pair_correlation <- function( x , y, scale=TRUE, file=NULL){
+print.visualize_pair_correlation <- function( x , y, scale=TRUE, file=NULL){
 
   xname <- substitute(x)
   yname <- substitute(y)
@@ -1868,7 +1868,7 @@ print_visualize_pair_correlation <- function( x , y, scale=TRUE, file=NULL){
 #' @return  The resulted plot of \code{ \link[CINNA]{visualize_heatmap}}function will be saved in the given directory.
 #' @importFrom pheatmap pheatmap
 
-print_visualize_heatmap <- function( x, scale = TRUE, file=NULL ){
+print.visualize_heatmap <- function( x, scale = TRUE, file=NULL ){
 
   if (scale%in%TRUE){
 
@@ -1975,7 +1975,7 @@ print_visualize_heatmap <- function( x, scale = TRUE, file=NULL ){
 #' @importFrom dendextend highlight_branches_col
 #' @importFrom viridis viridis
 
-print_visualize_dendrogram <- function( x, centrality.type="Degree Centrality",
+print.visualize_dendrogram <- function( x, centrality.type="Degree Centrality",
                                      computed_centrality_value=NULL , k=4, file=NULL){
 
   if (is.null(computed_centrality_value)){
@@ -2115,7 +2115,7 @@ print_visualize_dendrogram <- function( x, centrality.type="Degree Centrality",
 #' @return  The resulted plot of \code{ \link[CINNA]{visualize_correlations}}function will be saved in the given directory.#' @importFrom igraph alpha.centrality
 #' @importFrom corrplot corrplot.mixed
 
-print_visualize_correlations <- function(x, scale=TRUE,method = c("pearson", "kendall", "spearman"),file=NULL){
+print.visualize_correlations <- function(x, scale=TRUE,method = c("pearson", "kendall", "spearman"),file=NULL){
 
   if (scale%in%TRUE){
 
@@ -2227,7 +2227,7 @@ print_visualize_correlations <- function(x, scale=TRUE,method = c("pearson", "ke
 #' @importFrom centiserve averagedis
 
 
-print_visualize_graph <- function( x , computed_centrality_value=NULL , centrality.type="Degree Centrality",file=NULL){
+print.visualize_graph <- function( x , computed_centrality_value=NULL , centrality.type="Degree Centrality",file=NULL){
 
   if (is.null(computed_centrality_value)){
 
@@ -2344,7 +2344,7 @@ print_visualize_graph <- function( x , computed_centrality_value=NULL , centrali
 #' @author Minoo Ashtiani, Mohieddin Jafari
 #' @importFrom FactoMineR PCA
 
-summary_pca_centralities <- function( x , scale.unit = TRUE,ncp = 5){
+summary.pca_centralities <- function( x , scale.unit = TRUE,ncp = 5){
 
   x <- x[!sapply(x,is.null)]
 
@@ -2381,7 +2381,7 @@ summary_pca_centralities <- function( x , scale.unit = TRUE,ncp = 5){
 #' @importFrom network is.network
 #' @importFrom network network
 
-summary_graph_extract_components <- function( x, directed = TRUE, bipartite_proj = FALSE , num_proj = 1){
+summary.graph_extract_components <- function( x, directed = TRUE, bipartite_proj = FALSE , num_proj = 1){
 
   if (!(class(x)%in%"igraph"|| class(x)%in%"network")) stop("The input is not an igraph or a network object")
 
@@ -2453,7 +2453,7 @@ summary_graph_extract_components <- function( x, directed = TRUE, bipartite_proj
 #' @author Minoo Ashtiani, Mohieddin Jafari
 #' @return  The result values of \code{ \link[CINNA]{calculate_centralities}}function will be saved in the given directory.#' @importFrom igraph alpha.centrality
 
-summary_calculate_centralities <- function(x){
+summary.calculate_centralities <- function(x){
 
   x <- x[!sapply(x, is.null)]
 
@@ -2484,7 +2484,7 @@ summary_calculate_centralities <- function(x){
 #' @importFrom Rtsne Rtsne
 
 
-summary_tsne_centralities<-function( x , dims = 2, perplexity = 5, scale = TRUE){
+summary.tsne_centralities<-function( x , dims = 2, perplexity = 5, scale = TRUE){
 
   x <- x[!sapply(x, is.null)]
 

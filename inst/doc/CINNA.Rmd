@@ -245,7 +245,7 @@ tsne_centralities( calc_cent, dims = 2, perplexity = 1, scale=TRUE)
 
 ```
 
-This returns the bar plot of computed cost values of each centrality measure on a plot. In order to access only computed values of PCA and t-sne methods, "summary.pca.centralities" and "tsne.centralities" functions can be helpful.
+This returns the bar plot of computed cost values of each centrality measure on a plot. In order to access only computed values of PCA and t-sne methods, "summary.pca_centralities" and "tsne.centralities" functions can be helpful.
 
 ### 5 Comparison visualization of centrality measures 
 

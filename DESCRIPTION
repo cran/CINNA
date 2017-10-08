@@ -1,8 +1,8 @@
 Package: CINNA
 Type: Package
 Title: Deciphering Central Informative Nodes in Network Analysis
-Version: 1.1.0
-Date: 2017-09-027
+Version: 1.1.1
+Date: 2017-10-08
 Author: Minoo Ashtiani, 
         Mohieddin Jafari
 Maintainer: Minoo Ashtiani <m_ashtiani@pasteur.ac.ir>
@@ -17,6 +17,6 @@ Imports: igraph, network, sna, centiserve, FactoMineR, factoextra,
         GGally, pheatmap, corrplot, dendextend, viridis, ggplot2,
         Rtsne, qdapTools, plyr
 NeedsCompilation: no
-Packaged: 2017-09-30 20:54:57 UTC; MinoOo
+Packaged: 2017-10-08 11:02:36 UTC; MinoOo
 Repository: CRAN
-Date/Publication: 2017-09-30 21:12:33 UTC
+Date/Publication: 2017-10-08 11:11:16 UTC
