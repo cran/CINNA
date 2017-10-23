@@ -2,7 +2,7 @@
 % Please edit documentation in R/CINNA.R
 \name{visualize_dendrogram}
 \alias{visualize_dendrogram}
-\title{Dendrogram visualization based on a specific centrality measure}
+\title{Dendrogram plot among centrality measures}
 \usage{
 visualize_dendrogram(x, centrality.type = "Degree Centrality",
   computed_centrality_value = NULL, k = 4)

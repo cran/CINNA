@@ -2,7 +2,7 @@
 % Please edit documentation in R/CINNA.R
 \name{visualize_association}
 \alias{visualize_association}
-\title{Pairwise association between centrality values}
+\title{Pairwise association plot between centrality measures}
 \usage{
 visualize_association(x, y, scale = TRUE)
 }

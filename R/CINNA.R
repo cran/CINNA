@@ -1344,7 +1344,7 @@ visualize_graph <- function( x , computed_centrality_value=NULL , centrality.typ
 
 }
 
-#' @title Pairwise association between centrality values
+#' @title Pairwise association plot between centrality measures
 #'
 #' @description This function computes regression between pair of centrality measures
 #' to show more details of association among them.
@@ -1404,7 +1404,7 @@ visualize_association <- function( x , y, scale=TRUE){
 
 }
 
-#' @title Pairwise correlation between two centrality values
+#' @title Pairwise correlation plot between two centrality measures
 #'
 #' @description This function computes and plots correlation between pair of centrality
 #'  measures and histogram plots.
@@ -1444,7 +1444,7 @@ visualize_pair_correlation <- function( x , y, scale=TRUE){
   else  ggpairs(df, columns=1:2)
 }
 
-#' @title Heatmap between  centrality values
+#' @title Heatmap plot between centrality measures
 #'
 #' @description This function draws heatmap between pair of centrality measures
 #' @param x a list indicating calculated centrality measures
@@ -1481,7 +1481,7 @@ visualize_heatmap <- function( x, scale = TRUE  ){
 
 }
 
-#' @title Correlation plot between centrality values
+#' @title Correlation plot between centrality measures
 #'
 #' @description This function draw correlation plot between pair of centrality measures
 #' @param x a list indicating calculated centrality measures
@@ -1542,7 +1542,7 @@ visualize_correlations <- function(x, scale=TRUE,method = "pearson"){
 
 }
 
-#' @title Dendrogram visualization based on a specific centrality measure
+#' @title Dendrogram plot among centrality measures
 #'
 #' @description This function demonstrates the vertice dendrogram of a graph based
 #' on a centrality type.
@@ -1735,7 +1735,7 @@ visualize_dendrogram <- function( x, centrality.type="Degree Centrality", comput
 }
 
 
-#' @title Print pairwise association between centrality measure's plot into a file
+#' @title Print pairwise association plot among centrality measures into a file
 #'
 #' @description This function prints regression plot between pair of centrality measures
 #' @param x a vector containing a centrality values as independent variable
@@ -1753,7 +1753,7 @@ visualize_dendrogram <- function( x, centrality.type="Degree Centrality", comput
 #' @importFrom ggplot2 ylab
 #' @importFrom ggplot2 ggsave
 
-print.visualize_association<-function( x , y, scale = TRUE, file = NULL){
+print.visualize.association<-function( x , y, scale = TRUE, file = NULL){
 
   xname <- substitute(x)
   yname <- substitute(y)
@@ -1797,9 +1797,9 @@ print.visualize_association<-function( x , y, scale = TRUE, file = NULL){
   }
 }
 
-#' @title Print pairwise correlation of centrality measure and histogram plot
+#' @title Print pairwise correlation and histogram plots between two centrality measures
 #'
-#' @description This function prints pairwise correlation of centrality measure and histogram plot.
+#' @description This function prints pairwise correlation of centrality measures and histogram plot.
 #' @param x a vector containing a centrality measure
 #' @param y a vector containing another centrality measure
 #' @param scale Whether the centrality values should be scaled or not(default=TRUE)
@@ -1810,7 +1810,7 @@ print.visualize_association<-function( x , y, scale = TRUE, file = NULL){
 #' @importFrom grDevices dev.off
 #' @importFrom grDevices pdf
 
-print.visualize_pair_correlation <- function( x , y, scale=TRUE, file=NULL){
+print.visualize.pair.correlation <- function( x , y, scale=TRUE, file=NULL){
 
   xname <- substitute(x)
   yname <- substitute(y)
@@ -1857,7 +1857,7 @@ print.visualize_pair_correlation <- function( x , y, scale=TRUE, file=NULL){
   }
 }
 
-#' @title Print centralities' heatmap
+#' @title Print the heatmap plot of centrality measures
 #'
 #' @description This function prints the heatmap plot
 #' @param x a list indicating calculated centrality measures
@@ -1868,7 +1868,7 @@ print.visualize_pair_correlation <- function( x , y, scale=TRUE, file=NULL){
 #' @return  The resulted plot of \code{ \link[CINNA]{visualize_heatmap}}function will be saved in the given directory.
 #' @importFrom pheatmap pheatmap
 
-print.visualize_heatmap <- function( x, scale = TRUE, file=NULL ){
+print.visualize.heatmap <- function( x, scale = TRUE, file=NULL ){
 
   if (scale%in%TRUE){
 
@@ -1975,7 +1975,7 @@ print.visualize_heatmap <- function( x, scale = TRUE, file=NULL ){
 #' @importFrom dendextend highlight_branches_col
 #' @importFrom viridis viridis
 
-print.visualize_dendrogram <- function( x, centrality.type="Degree Centrality",
+print.visualize.dendrogram <- function( x, centrality.type="Degree Centrality",
                                      computed_centrality_value=NULL , k=4, file=NULL){
 
   if (is.null(computed_centrality_value)){
@@ -2115,7 +2115,7 @@ print.visualize_dendrogram <- function( x, centrality.type="Degree Centrality",
 #' @return  The resulted plot of \code{ \link[CINNA]{visualize_correlations}}function will be saved in the given directory.#' @importFrom igraph alpha.centrality
 #' @importFrom corrplot corrplot.mixed
 
-print.visualize_correlations <- function(x, scale=TRUE,method = c("pearson", "kendall", "spearman"),file=NULL){
+print.visualize.correlations <- function(x, scale=TRUE,method = c("pearson", "kendall", "spearman"),file=NULL){
 
   if (scale%in%TRUE){
 
@@ -2227,7 +2227,7 @@ print.visualize_correlations <- function(x, scale=TRUE,method = c("pearson", "ke
 #' @importFrom centiserve averagedis
 
 
-print.visualize_graph <- function( x , computed_centrality_value=NULL , centrality.type="Degree Centrality",file=NULL){
+print.visualize.graph <- function( x , computed_centrality_value=NULL , centrality.type="Degree Centrality", file=NULL){
 
   if (is.null(computed_centrality_value)){
 
@@ -2344,7 +2344,7 @@ print.visualize_graph <- function( x , computed_centrality_value=NULL , centrali
 #' @author Minoo Ashtiani, Mohieddin Jafari
 #' @importFrom FactoMineR PCA
 
-summary.pca_centralities <- function( x , scale.unit = TRUE,ncp = 5){
+summary.pca.centralities <- function( x , scale.unit = TRUE,ncp = 5){
 
   x <- x[!sapply(x,is.null)]
 
@@ -2381,7 +2381,7 @@ summary.pca_centralities <- function( x , scale.unit = TRUE,ncp = 5){
 #' @importFrom network is.network
 #' @importFrom network network
 
-summary.graph_extract_components <- function( x, directed = TRUE, bipartite_proj = FALSE , num_proj = 1){
+summary.graph.extract.components <- function( x, directed = TRUE, bipartite_proj = FALSE , num_proj = 1){
 
   if (!(class(x)%in%"igraph"|| class(x)%in%"network")) stop("The input is not an igraph or a network object")
 
@@ -2453,7 +2453,7 @@ summary.graph_extract_components <- function( x, directed = TRUE, bipartite_proj
 #' @author Minoo Ashtiani, Mohieddin Jafari
 #' @return  The result values of \code{ \link[CINNA]{calculate_centralities}}function will be saved in the given directory.#' @importFrom igraph alpha.centrality
 
-summary.calculate_centralities <- function(x){
+summary.calculate.centralities <- function(x){
 
   x <- x[!sapply(x, is.null)]
 
@@ -2462,7 +2462,6 @@ summary.calculate_centralities <- function(x){
   summary_list <- lapply(x, function(x) summary(x))
   return(summary_list)
 }
-
 
 #' @title Summarize t-Distributed Stochastic Neighbor Embedding (t-SNE) on centrality measures
 #'
@@ -2484,7 +2483,7 @@ summary.calculate_centralities <- function(x){
 #' @importFrom Rtsne Rtsne
 
 
-summary.tsne_centralities<-function( x , dims = 2, perplexity = 5, scale = TRUE){
+summary.tsne.centralities<-function( x , dims = 2, perplexity = 5, scale = TRUE){
 
   x <- x[!sapply(x, is.null)]
 
@@ -2609,5 +2608,28 @@ tsne_centralities <- function( x , dims = 2, perplexity = 5, scale = TRUE){
                                             plot.title = element_text(hjust = 0.5)
                                             ,panel.border = element_rect(colour = "black", fill=NA, size=1.5))
 
+  }
+}
+
+#' @title Print computed centrality measures results into a file
+#'
+#' @description This function prints all centrality measure results into a file
+#' @param x a list containing the centrality measure values
+#' @param file A character string naming the .pdf file to print into.
+#' If NULL the result would be printed to the exist directory.(default=NULL)
+#' @author Minoo Ashtiani, Mohieddin Jafari
+#' @return  Print out  \code{ \link[CINNA]{calculate_centralities}}function will be saved in the given directory.
+#' @importFrom utils write.csv
+
+print.calculate.centralities<- function(x , file = NULL){
+
+  if (is.null(file)){
+
+    c = do.call("cbind",x)
+    write.csv(c,"Computed.centrality.values.txt")
+  }
+  else{
+    c = do.call("cbind",x)
+    write.csv(c,"Computed.centrality.values.txt", file = file)
   }
 }

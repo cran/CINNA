@@ -91,11 +91,11 @@ visualize_dendrogram(zachary, k=4)
 subgraph_cent <- calc_cent[[1]]
 Topological_coef <- calc_cent[[2]]
 
-visualize_association(  subgraph_cent, Topological_coef)
+visualize_association(  subgraph_cent , Topological_coef)
 
 
 ## ----fig.width=7, fig.height=6,message=FALSE, fig.cap = "Pairwise Pearson correlation between two centrality values."----
 
-visualize_pair_correlation( subgraph_cent ,Topological_coef)
+visualize_pair_correlation( subgraph_cent , Topological_coef)
 
 

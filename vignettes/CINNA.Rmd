@@ -15,15 +15,15 @@ vignette: >
 
 ## 1 Introduction
 
-'CINA' is an R package submitted in cran repository which has been written specifically for centrality analysis in network science. It can be useful for assembling, comparing, evaluating and visualizing several types of centrality measures. This document is an introduction to the usage of the software and includes some user interface examples. 
+'CINNA' is an R package submitted in cran repository which has been written specifically for centrality analysis in network science. It can be useful for assembling, comparing, evaluating and visualizing several types of centrality measures. This document is an introduction to the usage of the software and includes some user interface examples. 
 
 Centrality types are defined as measures for identifying the most important vertices within a network in graph theory. Several kinds of centrality has been provided to compute most central nodes by different formulas, while some analysis is needed to evaluate the most informative ones. In this package, we have prepared these resolutions and some examples of real networks.
 
-For the examples in the following sections, we assume that the "CINA" package has been properly installed into the R environment. This can be done by typing
+For the examples in the following sections, we assume that the "CINNA" package has been properly installed into the R environment. This can be done by typing
 
-> install.packages("CINA")
+> install.packages("CINNA")
 
-into the R console. The "igraph"[@Csardi2006] ,"network"[@Butts2015;@Butts2008],"sna"[@ButtsCT2008;@Butts2007] and "centiserve"[@Jalili2015] packages are required and must be installed in your R environment as well. These are analogous to installing "CINA" and for more other calculations, packages such as FactoMineR[@Sebastien2008], plyr[@Wickham2011] qdapTools[@Rinker2015], Rtsne[@Krijthe2015] are necessary. For some plots, "factoextra"[@Kassambara2015], "GGally"[@Barret2016], "pheatmap"[@kolde2015], "corrplot"[@Taiyun2016], "dendextend"[@Galili2015], "circlize"[@Gu2014], "viridis"[@Garnier2017] and "ggplot2"[@Wickham2016] packages must be installed too. After installations, the "CINA" package can be loaded via
+into the R console. The "igraph"[@Csardi2006] ,"network"[@Butts2015;@Butts2008],"sna"[@ButtsCT2008;@Butts2007] and "centiserve"[@Jalili2015] packages are required and must be installed in your R environment as well. These are analogous to installing "CINNA" and for more other calculations, packages such as FactoMineR[@Sebastien2008], plyr[@Wickham2011] qdapTools[@Rinker2015], Rtsne[@Krijthe2015] are necessary. For some plots, "factoextra"[@Kassambara2015], "GGally"[@Barret2016], "pheatmap"[@kolde2015], "corrplot"[@Taiyun2016], "dendextend"[@Galili2015], "circlize"[@Gu2014], "viridis"[@Garnier2017] and "ggplot2"[@Wickham2016] packages must be installed too. After installations, the "CINNA" package can be loaded via
 
 ```{r}
 
@@ -302,7 +302,7 @@ In this package additionally to correlation calculation, ability to apply linear
 subgraph_cent <- calc_cent[[1]]
 Topological_coef <- calc_cent[[2]]
 
-visualize_association(  subgraph_cent, Topological_coef)
+visualize_association(  subgraph_cent , Topological_coef)
 
 ```
 
@@ -313,7 +313,7 @@ To access the distribution of centrality values and their corresponding pair cor
 
 ```{r fig.width=7, fig.height=6,message=FALSE, fig.cap = "Pairwise Pearson correlation between two centrality values."}
 
-visualize_pair_correlation( subgraph_cent ,Topological_coef)
+visualize_pair_correlation( subgraph_cent , Topological_coef)
 
 ```
 

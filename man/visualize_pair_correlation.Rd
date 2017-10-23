@@ -2,7 +2,7 @@
 % Please edit documentation in R/CINNA.R
 \name{visualize_pair_correlation}
 \alias{visualize_pair_correlation}
-\title{Pairwise correlation between two centrality values}
+\title{Pairwise correlation plot between two centrality measures}
 \usage{
 visualize_pair_correlation(x, y, scale = TRUE)
 }

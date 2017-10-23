@@ -2,7 +2,7 @@
 % Please edit documentation in R/CINNA.R
 \name{visualize_correlations}
 \alias{visualize_correlations}
-\title{Correlation plot between centrality values}
+\title{Correlation plot between centrality measures}
 \usage{
 visualize_correlations(x, scale = TRUE, method = "pearson")
 }

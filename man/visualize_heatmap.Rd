@@ -2,7 +2,7 @@
 % Please edit documentation in R/CINNA.R
 \name{visualize_heatmap}
 \alias{visualize_heatmap}
-\title{Heatmap between  centrality values}
+\title{Heatmap plot between centrality measures}
 \usage{
 visualize_heatmap(x, scale = TRUE)
 }

@@ -12,7 +12,7 @@
 
 <meta name="author" content="Minoo Ashtiani, Mohieddin Jafari" />
 
-<meta name="date" content="2017-10-08" />
+<meta name="date" content="2017-10-24" />
 
 <title>CINNA</title>
 
@@ -70,7 +70,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">CINNA</h1>
 <h4 class="author"><em>Minoo Ashtiani, Mohieddin Jafari</em></h4>
-<h4 class="date"><em>2017-10-08</em></h4>
+<h4 class="date"><em>2017-10-24</em></h4>
 
 
 <div id="TOC">
@@ -106,13 +106,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <div id="introduction" class="section level2">
 <h2>1 Introduction</h2>
-<p>‘CINA’ is an R package submitted in cran repository which has been written specifically for centrality analysis in network science. It can be useful for assembling, comparing, evaluating and visualizing several types of centrality measures. This document is an introduction to the usage of the software and includes some user interface examples.</p>
+<p>‘CINNA’ is an R package submitted in cran repository which has been written specifically for centrality analysis in network science. It can be useful for assembling, comparing, evaluating and visualizing several types of centrality measures. This document is an introduction to the usage of the software and includes some user interface examples.</p>
 <p>Centrality types are defined as measures for identifying the most important vertices within a network in graph theory. Several kinds of centrality has been provided to compute most central nodes by different formulas, while some analysis is needed to evaluate the most informative ones. In this package, we have prepared these resolutions and some examples of real networks.</p>
-<p>For the examples in the following sections, we assume that the “CINA” package has been properly installed into the R environment. This can be done by typing</p>
+<p>For the examples in the following sections, we assume that the “CINNA” package has been properly installed into the R environment. This can be done by typing</p>
 <blockquote>
-<p>install.packages(“CINA”)</p>
+<p>install.packages(“CINNA”)</p>
 </blockquote>
-<p>into the R console. The “igraph”<span class="citation">(Csardi and Nepusz 2006)</span> ,“network”<span class="citation">(Data. 2015; Butts 2008)</span>,“sna”<span class="citation">(CT 2008; CT 2007)</span> and “centiserve”<span class="citation">(Jalili et al. 2015)</span> packages are required and must be installed in your R environment as well. These are analogous to installing “CINA” and for more other calculations, packages such as FactoMineR<span class="citation">(Sebastien Le 2008)</span>, plyr<span class="citation">(Wickham 2011)</span> qdapTools<span class="citation">(Rinker 2015)</span>, Rtsne<span class="citation">(Krijthe 2015)</span> are necessary. For some plots, “factoextra”<span class="citation">(Kassambara, n.d.)</span>, “GGally”<span class="citation">(Barret Schloerke and Larmarange 2016)</span>, “pheatmap”<span class="citation">(Kolde 2015)</span>, “corrplot”<span class="citation">(Simko and Viliam 2016)</span>, “dendextend”<span class="citation">(Galili 2015)</span>, “circlize”<span class="citation">(Gu et al. 2014)</span>, “viridis”<span class="citation">(Garnier 2017)</span> and “ggplot2”<span class="citation">(Wickham 2016)</span> packages must be installed too. After installations, the “CINA” package can be loaded via</p>
+<p>into the R console. The “igraph”<span class="citation">(Csardi and Nepusz 2006)</span> ,“network”<span class="citation">(Data. 2015; Butts 2008)</span>,“sna”<span class="citation">(CT 2008; CT 2007)</span> and “centiserve”<span class="citation">(Jalili et al. 2015)</span> packages are required and must be installed in your R environment as well. These are analogous to installing “CINNA” and for more other calculations, packages such as FactoMineR<span class="citation">(Sebastien Le 2008)</span>, plyr<span class="citation">(Wickham 2011)</span> qdapTools<span class="citation">(Rinker 2015)</span>, Rtsne<span class="citation">(Krijthe 2015)</span> are necessary. For some plots, “factoextra”<span class="citation">(Kassambara, n.d.)</span>, “GGally”<span class="citation">(Barret Schloerke and Larmarange 2016)</span>, “pheatmap”<span class="citation">(Kolde 2015)</span>, “corrplot”<span class="citation">(Simko and Viliam 2016)</span>, “dendextend”<span class="citation">(Galili 2015)</span>, “circlize”<span class="citation">(Gu et al. 2014)</span>, “viridis”<span class="citation">(Garnier 2017)</span> and “ggplot2”<span class="citation">(Wickham 2016)</span> packages must be installed too. After installations, the “CINNA” package can be loaded via</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(CINNA)</code></pre></div>
 </div>
 <div id="some-real-network-examples" class="section level2">
@@ -252,9 +252,9 @@ zachary</code></pre></div>
 <p>“graph.extract.components” function is able to read “igraph” and “network” objects and returns their componets as a list of “igraph” objects. This function also has this ability to recognized bipartite graphs and user can decide that which project is suitable for his analysis. In order to use this function, we use zachary dataset and develop it in all of our functions.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">graph_extract_components</span>(zachary)</code></pre></div>
 <pre><code>## [[1]]
-## IGRAPH 2a72548 U--- 34 78 -- 
+## IGRAPH d5292d7 U--- 34 78 -- 
 ## + attr: id (v/n)
-## + edges from 2a72548:
+## + edges from d5292d7:
 ##  [1]  1-- 2  1-- 3  2-- 3  1-- 4  2-- 4  3-- 4  1-- 5  1-- 6  1-- 7  5-- 7
 ## [11]  6-- 7  1-- 8  2-- 8  3-- 8  4-- 8  1-- 9  3-- 9  3--10  1--11  5--11
 ## [21]  6--11  1--12  1--13  4--13  1--14  2--14  3--14  4--14  6--17  7--17
@@ -270,9 +270,9 @@ drug_comp &lt;-<span class="st"> </span><span class="kw">graph_extract_component
 <pre><code>## Warning in bipartite_projection(x): vertex types converted to logical</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(drug_comp)</code></pre></div>
 <pre><code>## [[1]]
-## IGRAPH 2a9d639 UNW- 131 560 -- 
+## IGRAPH d56e7fb UNW- 131 560 -- 
 ## + attr: id (v/n), name (v/c), weight (e/n)
-## + edges from 2a9d639 (vertex names):
+## + edges from d56e7fb (vertex names):
 ##  [1] O00555--O15399 O15399--O60391 O43497--P00915 P00915--P00918
 ##  [5] O15554--P03886 P03372--P04278 P00915--P05023 P00918--P05023
 ##  [9] P03372--P06401 P07550--P08172 P08172--P08173 P07550--P08588
@@ -284,38 +284,38 @@ drug_comp &lt;-<span class="st"> </span><span class="kw">graph_extract_component
 ## + ... omitted several edges
 ## 
 ## [[2]]
-## IGRAPH 2a9d639 UNW- 6 15 -- 
+## IGRAPH d56ea6d UNW- 6 15 -- 
 ## + attr: id (v/n), name (v/c), weight (e/n)
-## + edges from 2a9d639 (vertex names):
+## + edges from d56ea6d (vertex names):
 ##  [1] O00764--P34896 O00764--P35520 P34896--P35520 O00764--Q96GD0
 ##  [5] P34896--Q96GD0 P35520--Q96GD0 O00764--Q9NVS9 P34896--Q9NVS9
 ##  [9] P35520--Q9NVS9 Q96GD0--Q9NVS9 O00764--Q9Y617 P34896--Q9Y617
 ## [13] P35520--Q9Y617 Q96GD0--Q9Y617 Q9NVS9--Q9Y617
 ## 
 ## [[3]]
-## IGRAPH 2a9d639 UNW- 2 1 -- 
+## IGRAPH d56ea6d UNW- 2 1 -- 
 ## + attr: id (v/n), name (v/c), weight (e/n)
-## + edge from 2a9d639 (vertex names):
+## + edge from d56ea6d (vertex names):
 ## [1] O14646--P11388
 ## 
 ## [[4]]
-## IGRAPH 2a9d8aa UNW- 7 10 -- 
+## IGRAPH d56ecde UNW- 7 10 -- 
 ## + attr: id (v/n), name (v/c), weight (e/n)
-## + edges from 2a9d8aa (vertex names):
+## + edges from d56ecde (vertex names):
 ##  [1] O14659--P00374 O14659--P04818 P00374--P04818 P04818--P23921
 ##  [5] P09884--P23921 P04818--P27707 P23921--P27707 P04818--P30085
 ##  [9] P23921--P30085 P27707--P30085
 ## 
 ## [[5]]
-## IGRAPH 2a9d8aa UNW- 2 1 -- 
+## IGRAPH d56ecde UNW- 2 1 -- 
 ## + attr: id (v/n), name (v/c), weight (e/n)
-## + edge from 2a9d8aa (vertex names):
+## + edge from d56ecde (vertex names):
 ## [1] O14987--P21731
 ## 
 ## [[6]]
-## IGRAPH 2a9d8aa UNW- 4 5 -- 
+## IGRAPH d56ef50 UNW- 4 5 -- 
 ## + attr: id (v/n), name (v/c), weight (e/n)
-## + edges from 2a9d8aa (vertex names):
+## + edges from d56ef50 (vertex names):
 ## [1] O15528--P11473 P11473--Q02318 O15528--Q6VVX0 P11473--Q6VVX0
 ## [5] Q02318--Q6VVX0</code></pre>
 <p>It will return all components of the second projection of the network.</p>
@@ -328,8 +328,8 @@ zachary_edgelist &lt;-<span class="st"> </span><span class="kw">as_edgelist</spa
 
 <span class="kw">misc_extract_components</span>(zachary_edgelist)</code></pre></div>
 <pre><code>## [[1]]
-## IGRAPH 2aad1da D--- 34 78 -- 
-## + edges from 2aad1da:
+## IGRAPH d583e02 D--- 34 78 -- 
+## + edges from d583e02:
 ##  [1]  1-&gt; 2  1-&gt; 3  2-&gt; 3  1-&gt; 4  2-&gt; 4  3-&gt; 4  1-&gt; 5  1-&gt; 6  1-&gt; 7  5-&gt; 7
 ## [11]  6-&gt; 7  1-&gt; 8  2-&gt; 8  3-&gt; 8  4-&gt; 8  1-&gt; 9  3-&gt; 9  3-&gt;10  1-&gt;11  5-&gt;11
 ## [21]  6-&gt;11  1-&gt;12  1-&gt;13  4-&gt;13  1-&gt;14  2-&gt;14  3-&gt;14  4-&gt;14  6-&gt;17  7-&gt;17
@@ -344,9 +344,9 @@ zachary_edgelist &lt;-<span class="st"> </span><span class="kw">as_edgelist</spa
 <p>In the most of research topics of network analysis, network features are related to the largest connected component of a graph<span class="citation">(Newman 2010)</span>. In order to get that for an “igraph” or a “network” object, “giant.component.extract” function is specified. For using this function we can do:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">giant_component_extract</span>(zachary)</code></pre></div>
 <pre><code>## [[1]]
-## IGRAPH 2aaf40e U--- 34 78 -- 
+## IGRAPH d586035 U--- 34 78 -- 
 ## + attr: id (v/n)
-## + edges from 2aaf40e:
+## + edges from d586035:
 ##  [1]  1-- 2  1-- 3  2-- 3  1-- 4  2-- 4  3-- 4  1-- 5  1-- 6  1-- 7  5-- 7
 ## [11]  6-- 7  1-- 8  2-- 8  3-- 8  4-- 8  1-- 9  3-- 9  3--10  1--11  5--11
 ## [21]  6--11  1--12  1--13  4--13  1--14  2--14  3--14  4--14  6--17  7--17
@@ -614,7 +614,7 @@ zachary_edgelist &lt;-<span class="st"> </span><span class="kw">as_edgelist</spa
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">subgraph_cent &lt;-<span class="st"> </span>calc_cent[[<span class="dv">1</span>]]
 Topological_coef &lt;-<span class="st"> </span>calc_cent[[<span class="dv">2</span>]]
 
-<span class="kw">visualize_association</span>(  subgraph_cent, Topological_coef)</code></pre></div>
+<span class="kw">visualize_association</span>(  subgraph_cent , Topological_coef)</code></pre></div>
 <pre><code>## $linear.regression
 ## 
 ## Call:
@@ -636,7 +636,7 @@ Topological_coef &lt;-<span class="st"> </span>calc_cent[[<span class="dv">2</sp
 <div id="pairwise-correlation-between-centrality-types" class="section level3">
 <h3>5.6 Pairwise correlation between centrality types</h3>
 <p>To access the distribution of centrality values and their corresponding pair correlation value, “visualize.pair.correlation” would be helpful. The Pearson correlation<span class="citation">(Benesty et al. 2009)</span> has been used for this method.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">visualize_pair_correlation</span>( subgraph_cent ,Topological_coef)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">visualize_pair_correlation</span>( subgraph_cent , Topological_coef)</code></pre></div>
 <div class="figure">
 <img src="data:image/png;base64,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" alt="Pairwise Pearson correlation between two centrality values." />
 <p class="caption">Pairwise Pearson correlation between two centrality values.</p>
