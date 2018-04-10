@@ -150,7 +150,7 @@ del Rio, G., Koschtzki, D., & Coello, G. (2009). How to identify essential genes
 \code{ \link[igraph]{coreness}},\code{ \link[igraph]{authority_score}},\code{ \link[igraph]{hub_score}},
 \code{ \link[igraph]{transitivity}},\code{ \link[igraph]{page_rank}},\code{ \link[igraph]{betweenness}} ,
 \code{ \link[igraph]{subgraph.centrality}}, \code{ \link[sna]{flowbet}},\code{ \link[sna]{infocent}},
-\code{ \link[sna]{loadcent}},\code{ \link[sna]{stresscent}}, \code{ \link[centiserve]{topocoefficient}},
+\code{ \link[sna]{loadcent}},\code{ \link[sna]{stresscent}},\code{ \link[sna]{graphcent}}, \code{ \link[centiserve]{topocoefficient}},
 \code{ \link[centiserve]{closeness.currentflow}},\code{ \link[centiserve]{closeness.latora}},
 \code{ \link[centiserve]{communibet}}, \code{ \link[centiserve]{communitycent}},
 \code{ \link[centiserve]{crossclique}},\code{ \link[centiserve]{entropy}},

@@ -555,7 +555,7 @@ proper_centralities<-function(x){
 #' \code{ \link[igraph]{coreness}},\code{ \link[igraph]{authority_score}},\code{ \link[igraph]{hub_score}},
 #' \code{ \link[igraph]{transitivity}},\code{ \link[igraph]{page_rank}},\code{ \link[igraph]{betweenness}} ,
 #' \code{ \link[igraph]{subgraph.centrality}}, \code{ \link[sna]{flowbet}},\code{ \link[sna]{infocent}},
-#' \code{ \link[sna]{loadcent}},\code{ \link[sna]{stresscent}}, \code{ \link[centiserve]{topocoefficient}},
+#' \code{ \link[sna]{loadcent}},\code{ \link[sna]{stresscent}},\code{ \link[sna]{graphcent}}, \code{ \link[centiserve]{topocoefficient}},
 #' \code{ \link[centiserve]{closeness.currentflow}},\code{ \link[centiserve]{closeness.latora}},
 #' \code{ \link[centiserve]{communibet}}, \code{ \link[centiserve]{communitycent}},
 #' \code{ \link[centiserve]{crossclique}},\code{ \link[centiserve]{entropy}},
@@ -712,6 +712,7 @@ proper_centralities<-function(x){
 #' @importFrom sna infocent
 #' @importFrom sna loadcent
 #' @importFrom sna stresscent
+#' @importFrom sna graphcent
 #' @importFrom centiserve topocoefficient
 #' @importFrom centiserve closeness.currentflow
 #' @importFrom centiserve closeness.latora
@@ -796,7 +797,8 @@ calculate_centralities <- function( x, except = NULL, include = NULL, weights = 
       "Stress Centrality" = function(x)stresscent(y),
       "Load Centrality" = function(x)loadcent(y),
       "Flow Betweenness Centrality" = function(x)flowbet(y),
-      "Information Centrality" = function(x)infocent(y)
+      "Information Centrality" = function(x)infocent(y),
+      "Harary Centrality" = function(x)graphcent(y, gmode="graph", diag=T, cmode="directed")
     )
 
     if (!is.null(include)){
@@ -889,7 +891,8 @@ calculate_centralities <- function( x, except = NULL, include = NULL, weights = 
       "Stress Centrality" = function(x)stresscent(y),
       "Load Centrality" = function(x)loadcent(y),
       "Flow Betweenness Centrality" = function(x)flowbet(y),
-      "Information Centrality" = function(x)infocent(y)
+      "Information Centrality" = function(x)infocent(y),
+      "Harary Centrality" = function(x)graphcent(y, gmode="graph", diag=T, cmode="undirected")
     )
 
     if (!is.null(include)){
@@ -982,7 +985,8 @@ calculate_centralities <- function( x, except = NULL, include = NULL, weights = 
       "Stress Centrality" = function(x)stresscent(y),
       "Load Centrality" = function(x)loadcent(y),
       "Flow Betweenness Centrality" = function(x)flowbet(y),
-      "Information Centrality" = function(x)infocent(y)
+      "Information Centrality" = function(x)infocent(y),
+      "Harary Centrality" = function(x)graphcent(y, gmode="graph", diag=T, cmode="undirected")
     )
 
     if (!is.null(include)){
@@ -1076,7 +1080,8 @@ calculate_centralities <- function( x, except = NULL, include = NULL, weights = 
       "Stress Centrality" = function(x)stresscent(y),
       "Load Centrality" = function(x)loadcent(y),
       "Flow Betweenness Centrality" = function(x)flowbet(y),
-      "Information Centrality" = function(x)infocent(y)
+      "Information Centrality" = function(x)infocent(y),
+      "Harary Centrality" = function(x)graphcent(y, gmode="graph", diag=T, cmode="directed")
     )
 
     if (!is.null(include)){
@@ -1211,6 +1216,7 @@ pca_centralities <- function( x , scale.unit = TRUE, cut.off = 80, ncp = 5,graph
 #' @importFrom sna infocent
 #' @importFrom sna loadcent
 #' @importFrom sna stresscent
+#' @importFrom sna graphcent
 #' @importFrom centiserve topocoefficient
 #' @importFrom centiserve closeness.currentflow
 #' @importFrom centiserve closeness.latora
@@ -1371,6 +1377,7 @@ visualize_graph <- function( x , computed_centrality_value=NULL , centrality.typ
 #' @importFrom ggplot2 aes
 #' @importFrom ggplot2 xlab
 #' @importFrom ggplot2 ylab
+#' @importFrom ggplot2 geom_point
 
 visualize_association <- function( x , y, scale=TRUE){
 
@@ -1387,20 +1394,23 @@ visualize_association <- function( x , y, scale=TRUE){
 
     df <- as.data.frame(df)
 
-    visualization <- ggplot(data=df,aes(x,y)) + stat_summary(fun.data=mean_cl_normal,geom="point",fill="skyblue3",shape=21,colour="black",  size = 3) +
+    visualization <- ggplot(data=df,aes(x,y)) +
+      stat_summary(fun.data=mean_cl_normal,geom="point",fill="skyblue3",shape=21,colour="black",  size = 3) +
       geom_smooth(method='lm',colour = 'red') + xlab(xname) +
-      ylab(yname)
+      ylab(yname)+geom_point(shape=21, fill="blue", color="darkred", size=3)
 
     linear.regression <- lm(df[,2]~df[,1])
     return (list(linear.regression=linear.regression, visualization=visualization))
 
   }
 
-  else    visualization <- ggplot(data=df,aes(x,y))+stat_summary(fun.data=mean_cl_normal,geom="point",fill="skyblue3",shape=21,colour="black",  size = 3)+
-    geom_smooth(method='lm',colour = 'red')+xlab(xname) +
-    ylab(yname)
+  else        {visualization <- ggplot(data=df,aes(x,y)) +
+    stat_summary(fun.data=mean_cl_normal,geom="point",fill="skyblue3",shape=21,colour="black",  size = 3) +
+    geom_smooth(method='lm',colour = 'red') + xlab(xname) +
+    ylab(yname)+geom_point(shape=21, fill="blue", color="darkred", size=3)
+
   linear.regression <- lm(y~x)
-  return (list(linear.regression=linear.regression, visualization=visualization))
+  return (list(linear.regression=linear.regression, visualization=visualization))}
 
 }
 
@@ -1576,6 +1586,7 @@ visualize_correlations <- function(x, scale=TRUE,method = "pearson"){
 #' @importFrom sna infocent
 #' @importFrom sna loadcent
 #' @importFrom sna stresscent
+#' @importFrom sna graphcent
 #' @importFrom centiserve topocoefficient
 #' @importFrom centiserve closeness.currentflow
 #' @importFrom centiserve closeness.latora
@@ -1939,6 +1950,7 @@ print.visualize.heatmap <- function( x, scale = TRUE, file=NULL ){
 #' @importFrom sna infocent
 #' @importFrom sna loadcent
 #' @importFrom sna stresscent
+#' @importFrom sna graphcent
 #' @importFrom centiserve topocoefficient
 #' @importFrom centiserve closeness.currentflow
 #' @importFrom centiserve closeness.latora
@@ -2195,6 +2207,7 @@ print.visualize.correlations <- function(x, scale=TRUE,method = c("pearson", "ke
 #' @importFrom sna infocent
 #' @importFrom sna loadcent
 #' @importFrom sna stresscent
+#' @importFrom sna graphcent
 #' @importFrom centiserve topocoefficient
 #' @importFrom centiserve closeness.currentflow
 #' @importFrom centiserve closeness.latora

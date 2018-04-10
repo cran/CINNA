@@ -48,7 +48,7 @@ calculate_centralities(zachary, include = "Degree Centrality")
 
 pr_cent <- proper_centralities(zachary)
 
-calc_cent <- calculate_centralities(zachary, except  = pr_cent[5:40])
+calc_cent <- calculate_centralities(zachary, include  = pr_cent[1:10])
 
 
 ## ----fig.width=7, fig.height=6,message=FALSE, fig.cap = "A display of most informative centrality measures based on principal component analysis. The red line indicates the random threshold of contribution. This barplot represents contribution of variable values based on the number of dimensions."----
@@ -86,7 +86,7 @@ visualize_correlations(calc_cent,"pearson")
 visualize_dendrogram(zachary, k=4)
 
 
-## ----fig.width=7, fig.height=6,message=FALSE, fig.cap = "Association plot between two centrality variables. The red line is an indicator of linear regression line among them."----
+## ----fig.width=7, fig.height=6, warning=FALSE, message=FALSE, fig.cap = "Association plot between two centrality variables. The red line is an indicator of linear regression line among them."----
 
 subgraph_cent <- calc_cent[[1]]
 Topological_coef <- calc_cent[[2]]
