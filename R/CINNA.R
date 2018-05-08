@@ -358,6 +358,7 @@ proper_centralities<-function(x){
                              "Diffusion Degree",
                              "DMNC - Density of Maximum Neighborhood Component" ,
                              "Eccentricity Centrality" ,
+                             "Harary Centrality",
                              "eigenvector centralities" ,
                              "K-core Decomposition" ,
                              "Geodesic K-Path Centrality" ,
@@ -406,6 +407,7 @@ proper_centralities<-function(x){
                                "Diffusion Degree",
                                "DMNC - Density of Maximum Neighborhood Component" ,
                                "Eccentricity Centrality" ,
+                               "Harary Centrality",
                                "eigenvector centralities" ,
                                "K-core Decomposition" ,
                                "Geodesic K-Path Centrality" ,
@@ -454,6 +456,7 @@ proper_centralities<-function(x){
                               "Diffusion Degree",
                               "DMNC - Density of Maximum Neighborhood Component" ,
                               "Eccentricity Centrality" ,
+                              "Harary Centrality",
                               "eigenvector centralities" ,
                               "K-core Decomposition" ,
                               "Geodesic K-Path Centrality" ,
@@ -502,6 +505,7 @@ proper_centralities<-function(x){
                              "Diffusion Degree",
                              "DMNC - Density of Maximum Neighborhood Component" ,
                              "Eccentricity Centrality" ,
+                             "Harary Centrality",
                              "eigenvector centralities" ,
                              "K-core Decomposition" ,
                              "Geodesic K-Path Centrality" ,
@@ -1307,7 +1311,9 @@ visualize_graph <- function( x , computed_centrality_value=NULL , centrality.typ
       "Stress Centrality"=function(x)stresscent(y),
       "Load Centrality"=function(x)loadcent(y),
       "Flow Betweenness Centrality"=function(x)flowbet(y),
-      "Information Centrality"=function(x)infocent(y)
+      "Information Centrality"=function(x)infocent(y),
+      "Harary Centrality" = function(x)graphcent(y, gmode="graph", diag=T, cmode="directed")
+
     )
     centrality_funcs <- centrality_funcs[intersect(names(centrality_funcs), centrality.type)]
 
@@ -1690,7 +1696,9 @@ visualize_dendrogram <- function( x, centrality.type="Degree Centrality", comput
       "Stress Centrality"=function(x)stresscent(y),
       "Load Centrality"=function(x)loadcent(y),
       "Flow Betweenness Centrality"=function(x)flowbet(y),
-      "Information Centrality"=function(x)infocent(y)
+      "Information Centrality"=function(x)infocent(y),
+      "Harary Centrality" = function(x)graphcent(y, gmode="graph", diag=T, cmode="directed")
+
 
     )
     centrality_funcs <- centrality_funcs[intersect(names(centrality_funcs), centrality.type)]
@@ -1764,7 +1772,7 @@ visualize_dendrogram <- function( x, centrality.type="Degree Centrality", comput
 #' @importFrom ggplot2 ylab
 #' @importFrom ggplot2 ggsave
 
-print.visualize.association<-function( x , y, scale = TRUE, file = NULL){
+print_visualize_association<-function( x , y, scale = TRUE, file = NULL){
 
   xname <- substitute(x)
   yname <- substitute(y)
@@ -1821,7 +1829,7 @@ print.visualize.association<-function( x , y, scale = TRUE, file = NULL){
 #' @importFrom grDevices dev.off
 #' @importFrom grDevices pdf
 
-print.visualize.pair.correlation <- function( x , y, scale=TRUE, file=NULL){
+print_visualize_pair_correlation <- function( x , y, scale=TRUE, file=NULL){
 
   xname <- substitute(x)
   yname <- substitute(y)
@@ -1879,7 +1887,7 @@ print.visualize.pair.correlation <- function( x , y, scale=TRUE, file=NULL){
 #' @return  The resulted plot of \code{ \link[CINNA]{visualize_heatmap}}function will be saved in the given directory.
 #' @importFrom pheatmap pheatmap
 
-print.visualize.heatmap <- function( x, scale = TRUE, file=NULL ){
+print_visualize_heatmap <- function( x, scale = TRUE, file=NULL ){
 
   if (scale%in%TRUE){
 
@@ -1987,7 +1995,7 @@ print.visualize.heatmap <- function( x, scale = TRUE, file=NULL ){
 #' @importFrom dendextend highlight_branches_col
 #' @importFrom viridis viridis
 
-print.visualize.dendrogram <- function( x, centrality.type="Degree Centrality",
+print_visualize_dendrogram <- function( x, centrality.type="Degree Centrality",
                                      computed_centrality_value=NULL , k=4, file=NULL){
 
   if (is.null(computed_centrality_value)){
@@ -2044,7 +2052,9 @@ print.visualize.dendrogram <- function( x, centrality.type="Degree Centrality",
       "Stress Centrality"=function(x)stresscent(y),
       "Load Centrality"=function(x)loadcent(y),
       "Flow Betweenness Centrality"=function(x)flowbet(y),
-      "Information Centrality"=function(x)infocent(y)
+      "Information Centrality"=function(x)infocent(y),
+      "Harary Centrality" = function(x)graphcent(y, gmode="graph", diag=T, cmode="directed")
+
 
     )
     centrality_funcs <- centrality_funcs[intersect(names(centrality_funcs), centrality.type)]
@@ -2127,7 +2137,7 @@ print.visualize.dendrogram <- function( x, centrality.type="Degree Centrality",
 #' @return  The resulted plot of \code{ \link[CINNA]{visualize_correlations}}function will be saved in the given directory.#' @importFrom igraph alpha.centrality
 #' @importFrom corrplot corrplot.mixed
 
-print.visualize.correlations <- function(x, scale=TRUE,method = c("pearson", "kendall", "spearman"),file=NULL){
+print_visualize_correlations <- function(x, scale=TRUE,method = c("pearson", "kendall", "spearman"),file=NULL){
 
   if (scale%in%TRUE){
 
@@ -2240,7 +2250,7 @@ print.visualize.correlations <- function(x, scale=TRUE,method = c("pearson", "ke
 #' @importFrom centiserve averagedis
 
 
-print.visualize.graph <- function( x , computed_centrality_value=NULL , centrality.type="Degree Centrality", file=NULL){
+print_visualize_graph <- function( x , computed_centrality_value=NULL , centrality.type="Degree Centrality", file=NULL){
 
   if (is.null(computed_centrality_value)){
 
@@ -2297,7 +2307,9 @@ print.visualize.graph <- function( x , computed_centrality_value=NULL , centrali
       "Stress Centrality"=function(x)stresscent(y),
       "Load Centrality"=function(x)loadcent(y),
       "Flow Betweenness Centrality"=function(x)flowbet(y),
-      "Information Centrality"=function(x)infocent(y)
+      "Information Centrality"=function(x)infocent(y),
+      "Harary Centrality" = function(x)graphcent(y, gmode="graph", diag=T, cmode="directed")
+
 
     )
     centrality_funcs <- centrality_funcs[intersect(names(centrality_funcs), centrality.type)]
@@ -2357,7 +2369,7 @@ print.visualize.graph <- function( x , computed_centrality_value=NULL , centrali
 #' @author Minoo Ashtiani, Mohieddin Jafari
 #' @importFrom FactoMineR PCA
 
-summary.pca.centralities <- function( x , scale.unit = TRUE,ncp = 5){
+summary_pca_centralities <- function( x , scale.unit = TRUE,ncp = 5){
 
   x <- x[!sapply(x,is.null)]
 
@@ -2394,7 +2406,7 @@ summary.pca.centralities <- function( x , scale.unit = TRUE,ncp = 5){
 #' @importFrom network is.network
 #' @importFrom network network
 
-summary.graph.extract.components <- function( x, directed = TRUE, bipartite_proj = FALSE , num_proj = 1){
+summary_graph_extract_components <- function( x, directed = TRUE, bipartite_proj = FALSE , num_proj = 1){
 
   if (!(class(x)%in%"igraph"|| class(x)%in%"network")) stop("The input is not an igraph or a network object")
 
@@ -2410,11 +2422,11 @@ summary.graph.extract.components <- function( x, directed = TRUE, bipartite_proj
 
         cl <- clusters(x)
 
-        graph.splitting <- function(k, x, cl){
+        graph_splitting <- function(k, x, cl){
           induced.subgraph(x, cl$membership == k)
         }
 
-        components <- sapply(1:max(cl$membership), graph.splitting, x = x, cl = cl, simplify = FALSE)
+        components <- sapply(1:max(cl$membership), graph_splitting, x = x, cl = cl, simplify = FALSE)
 
       }
 
@@ -2466,7 +2478,7 @@ summary.graph.extract.components <- function( x, directed = TRUE, bipartite_proj
 #' @author Minoo Ashtiani, Mohieddin Jafari
 #' @return  The result values of \code{ \link[CINNA]{calculate_centralities}}function will be saved in the given directory.#' @importFrom igraph alpha.centrality
 
-summary.calculate.centralities <- function(x){
+summary_calculate_centralities <- function(x){
 
   x <- x[!sapply(x, is.null)]
 
@@ -2496,7 +2508,7 @@ summary.calculate.centralities <- function(x){
 #' @importFrom Rtsne Rtsne
 
 
-summary.tsne.centralities<-function( x , dims = 2, perplexity = 5, scale = TRUE){
+summary_tsne_centralities<-function( x , dims = 2, perplexity = 5, scale = TRUE){
 
   x <- x[!sapply(x, is.null)]
 
@@ -2634,7 +2646,7 @@ tsne_centralities <- function( x , dims = 2, perplexity = 5, scale = TRUE){
 #' @return  Print out  \code{ \link[CINNA]{calculate_centralities}}function will be saved in the given directory.
 #' @importFrom utils write.csv
 
-print.calculate.centralities<- function(x , file = NULL){
+print_calculate_centralities<- function(x , file = NULL){
 
   if (is.null(file)){
 

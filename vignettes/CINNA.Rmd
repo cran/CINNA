@@ -41,7 +41,7 @@ We collected five graphs instances based on factual datasets and natural network
 | cortex     | unweighted,  directed  |     pathways among cortical region in Macaque    |  30   |  311   | [@Felleman1991] |
 | kangaroo   |  weighted, undirected  |          interactions between kangaroos          |  17   |  90    | [@Kangaroo2016] |
 | rhesus     |  weighted,  directed   |     grooming occurred among monkeys of an area   |  16   |  110   | [@Rhesus2016]   |
-| drugtarget |  bipartite,directed    |interactions among drugs and their protein targets|  1599 |  3766  | [@Barneh2015]   |
+| drugTarget |  bipartite,directed    |interactions among drugs and their protein targets|  1599 |  3766  | [@Barneh2015]   |
 
 ### 2.1 Undirected & unweighted network
 
@@ -118,7 +118,7 @@ Edge weights:	Positive weights
 
 ### 2.5 Bipartite & directed network
 
-`drugtarget`[@Barneh2015] is a bipartite, unconnected and directed network demonstrating interactions among Food and Drug Administration (FDA)-approved drugs and their corresponding protein targets. This network is a shrunken one in which metabolizing enzymes, carriers and transporters associated with drug metabolism are filtered and solely targets directly related to their pharmacological effects are included. A summary of this can be like:
+`drugTarget`[@Barneh2015] is a bipartite, unconnected and directed network demonstrating interactions among Food and Drug Administration (FDA)-approved drugs and their corresponding protein targets. This network is a shrunken one in which metabolizing enzymes, carriers and transporters associated with drug metabolism are filtered and solely targets directly related to their pharmacological effects are included. A summary of this can be like:
 
 Edge Type: interaction
 
@@ -132,7 +132,7 @@ Graph properties: Bipartite, unconnected, directed
 
 ## 3 Network component analysis
 
-In order to apply several centrality analysis, it is recommended to have a connected graph. Therefore, approaching the connected components of a network is needed. In order to extract components of a graph and use them for centrality analysis, we prepared some functions to read different graph formats as they described below. 
+In order to apply several centrality analysis, it is recommended to have a connected graph. Therefore, approaching the connected components of a network is needed. In order to extract components of a graph and use them for centrality analysis, we prepared some functions as below. 
 
 ### 3.1 The segregation of "igraph" and "network" objects
 
@@ -144,13 +144,13 @@ graph_extract_components(zachary)
 
 ```
 
-This results the only component of the zachary graph. This function is also applicable for bipartite networks. Using the num.proj argument, user can decide on which projection is interested to work on. As an example of bipartite graphs, we uses drugtarget network as follows:
+This results the only component of the zachary graph. This function is also applicable for bipartite networks. Using the `num_proj` argument, user can decide on which projection is interested to work on. As an example of bipartite graphs, we use `drugTarget` network as follows:
 
 ```{r}
 
-data(drugtarget)
+data("drugTarget")
 
-drug_comp <- graph_extract_components( drugtarget, directed = TRUE , bipartite_proj=TRUE, num_proj=2)
+drug_comp <- graph_extract_components( drugTarget, directed = TRUE , bipartite_proj=TRUE, num_proj=2)
 head(drug_comp)
 
 ```
@@ -181,11 +181,11 @@ giant_component_extract(zachary)
 
 This function extracts the strongest components of the input network as `igraph` objects.
 
-## 4 Centrality measure calculations
+## 4 Centrality measure analysis
 
 This section particularly is specified for centrality analysis in network science. 
 
-### 4.1 Proper centrality suggestions
+### 4.1 Suggestion of proper centralities 
 
 All of the introduced centrality measures are not appropriate for all types of networks. So, to figure out which of them is suitable, `proper_centralities` is specified. This function distinguishes proper centrality types based on network topology. To use this, we can do: 
 
@@ -197,7 +197,7 @@ proper_centralities(zachary)
 
 It returns the full names of suitable centrality types for the input graph. The input must have a class of `igraph` object.
 
-### 4.2 Various types of centralities computation
+### 4.2 Centrality computations 
 
 In the next step, proper centralities and those which are looking for can be chosen. In order to compute proper centrality types resulted from the `proper_centralities`, you can use `calculate_centralities` function as below. 
 
@@ -245,13 +245,13 @@ tsne_centralities( calc_cent, dims = 2, perplexity = 1, scale=TRUE)
 
 ```
 
-This returns the bar plot of computed cost values of each centrality measure on a plot. In order to access only computed values of PCA and t-sne methods, `summary.pca_centralities` and `tsne_centralities` functions can be helpful.
+This returns the bar plot of computed cost values of each centrality measure on a plot. In order to access only computed values of PCA and t-sne methods, `summary_pca_centralities` and `tsne_centralities` functions can be helpful.
 
-### 5 Comparison visualization of centrality measures 
+## 5 visualization of centrality analysis 
 
 To visualize the results of network centrality analysis some convenient functions have been developed as it described below.
 
-### 5.1 Graph visualization based on the type of centralities
+### 5.1 Graph visualization regarding to the centrality type
 
 After evaluating centrality measures, demonstrating high values of centralities in some nodes gives an overall insight about the network to the researcher. By using `visualize_graph` function, you will be able to illustrate the input graph based on the specified centrality value. If the centrality measure values were computed, `computed.centrality.value` argument is recommended. Otherwise, using `centrality.type` argument, the function will compute centrality based on the input name of centrality type. For practice, we specifies `Degree Centrality`. Here,
 

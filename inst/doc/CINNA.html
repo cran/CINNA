@@ -12,7 +12,7 @@
 
 <meta name="author" content="Minoo Ashtiani, Mohieddin Jafari" />
 
-<meta name="date" content="2018-04-10" />
+<meta name="date" content="2018-05-09" />
 
 <title>CINNA</title>
 
@@ -280,7 +280,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 
 <h1 class="title toc-ignore">CINNA</h1>
 <h4 class="author"><em>Minoo Ashtiani, Mohieddin Jafari</em></h4>
-<h4 class="date"><em>2018-04-10</em></h4>
+<h4 class="date"><em>2018-05-09</em></h4>
 
 
 <div id="TOC">
@@ -298,12 +298,13 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <li><a href="#the-segregation-of-other-graph-formats">3.2 The segregation of other graph formats</a></li>
 <li><a href="#giant-component-extraction">3.3 Giant component extraction</a></li>
 </ul></li>
-<li><a href="#centrality-measure-calculations">4 Centrality measure calculations</a><ul>
-<li><a href="#proper-centrality-suggestions">4.1 Proper centrality suggestions</a></li>
-<li><a href="#various-types-of-centralities-computation">4.2 Various types of centralities computation</a></li>
+<li><a href="#centrality-measure-analysis">4 Centrality measure analysis</a><ul>
+<li><a href="#suggestion-of-proper-centralities">4.1 Suggestion of proper centralities</a></li>
+<li><a href="#centrality-computations">4.2 Centrality computations</a></li>
 <li><a href="#recognition-of-most-informative-measures">4.3 Recognition of most informative measures</a></li>
-<li><a href="#comparison-visualization-of-centrality-measures">5 Comparison visualization of centrality measures</a></li>
-<li><a href="#graph-visualization-based-on-the-type-of-centralities">5.1 Graph visualization based on the type of centralities</a></li>
+</ul></li>
+<li><a href="#visualization-of-centrality-analysis">5 visualization of centrality analysis</a><ul>
+<li><a href="#graph-visualization-regarding-to-the-centrality-type">5.1 Graph visualization regarding to the centrality type</a></li>
 <li><a href="#heatmap-of-centrality-measure-values">5.2 Heatmap of centrality measure values</a></li>
 <li><a href="#correlation-between-computed-centrality-measures">5.3 Correlation between computed centrality measures</a></li>
 <li><a href="#node-dendrogram-based-on-a-centrality-type">5.4 Node dendrogram based on a centrality type</a></li>
@@ -381,7 +382,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <td align="center"><span class="citation">(KONECT, n.d.)</span></td>
 </tr>
 <tr class="odd">
-<td align="center">drugtarget</td>
+<td align="center">drugTarget</td>
 <td align="center">bipartite,directed</td>
 <td align="center">interactions among drugs and their protein targets</td>
 <td align="center">1599</td>
@@ -446,7 +447,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 </div>
 <div id="bipartite-directed-network" class="section level3">
 <h3>2.5 Bipartite &amp; directed network</h3>
-<p><code>drugtarget</code><span class="citation">(Barneh, Jafari, and Mirzaie 2015)</span> is a bipartite, unconnected and directed network demonstrating interactions among Food and Drug Administration (FDA)-approved drugs and their corresponding protein targets. This network is a shrunken one in which metabolizing enzymes, carriers and transporters associated with drug metabolism are filtered and solely targets directly related to their pharmacological effects are included. A summary of this can be like:</p>
+<p><code>drugTarget</code><span class="citation">(Barneh, Jafari, and Mirzaie 2015)</span> is a bipartite, unconnected and directed network demonstrating interactions among Food and Drug Administration (FDA)-approved drugs and their corresponding protein targets. This network is a shrunken one in which metabolizing enzymes, carriers and transporters associated with drug metabolism are filtered and solely targets directly related to their pharmacological effects are included. A summary of this can be like:</p>
 <p>Edge Type: interaction</p>
 <p>Node Type: drug, protein target</p>
 <p>Avg Edges: 3766</p>
@@ -456,15 +457,15 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 </div>
 <div id="network-component-analysis" class="section level2">
 <h2>3 Network component analysis</h2>
-<p>In order to apply several centrality analysis, it is recommended to have a connected graph. Therefore, approaching the connected components of a network is needed. In order to extract components of a graph and use them for centrality analysis, we prepared some functions to read different graph formats as they described below.</p>
+<p>In order to apply several centrality analysis, it is recommended to have a connected graph. Therefore, approaching the connected components of a network is needed. In order to extract components of a graph and use them for centrality analysis, we prepared some functions as below.</p>
 <div id="the-segregation-of-igraph-and-network-objects" class="section level3">
 <h3>3.1 The segregation of “igraph” and “network” objects</h3>
 <p>“graph.extract.components” function is able to read <code>igraph</code> and <code>network</code> objects and returns their components as a list of <code>igraph</code> objects. This function also has this ability to recognized bipartite graphs and user can decide that which project is suitable for his analysis. In order to use this function, we use zachary data set and develop it in all of our functions.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">graph_extract_components</span>(zachary)</a></code></pre></div>
 <pre><code>## [[1]]
-## IGRAPH 43fdc8d U--- 34 78 -- 
+## IGRAPH 327c83b U--- 34 78 -- 
 ## + attr: id (v/n)
-## + edges from 43fdc8d:
+## + edges from 327c83b:
 ##  [1]  1-- 2  1-- 3  2-- 3  1-- 4  2-- 4  3-- 4  1-- 5  1-- 6  1-- 7  5-- 7
 ## [11]  6-- 7  1-- 8  2-- 8  3-- 8  4-- 8  1-- 9  3-- 9  3--10  1--11  5--11
 ## [21]  6--11  1--12  1--13  4--13  1--14  2--14  3--14  4--14  6--17  7--17
@@ -473,16 +474,16 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ## [51]  3--33  9--33 15--33 16--33 19--33 21--33 23--33 24--33 30--33 31--33
 ## [61] 32--33  9--34 10--34 14--34 15--34 16--34 19--34 20--34 21--34 23--34
 ## [71] 24--34 27--34 28--34 29--34 30--34 31--34 32--34 33--34</code></pre>
-<p>This results the only component of the zachary graph. This function is also applicable for bipartite networks. Using the num.proj argument, user can decide on which projection is interested to work on. As an example of bipartite graphs, we uses drugtarget network as follows:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">data</span>(drugtarget)</a>
+<p>This results the only component of the zachary graph. This function is also applicable for bipartite networks. Using the <code>num_proj</code> argument, user can decide on which projection is interested to work on. As an example of bipartite graphs, we use <code>drugTarget</code> network as follows:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">data</span>(<span class="st">&quot;drugTarget&quot;</span>)</a>
 <a class="sourceLine" id="cb6-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb6-3" data-line-number="3">drug_comp &lt;-<span class="st"> </span><span class="kw">graph_extract_components</span>( drugtarget, <span class="dt">directed =</span> <span class="ot">TRUE</span> , <span class="dt">bipartite_proj=</span><span class="ot">TRUE</span>, <span class="dt">num_proj=</span><span class="dv">2</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb6-3" data-line-number="3">drug_comp &lt;-<span class="st"> </span><span class="kw">graph_extract_components</span>( drugTarget, <span class="dt">directed =</span> <span class="ot">TRUE</span> , <span class="dt">bipartite_proj=</span><span class="ot">TRUE</span>, <span class="dt">num_proj=</span><span class="dv">2</span>)</a></code></pre></div>
 <pre><code>## Warning in bipartite_projection(x): vertex types converted to logical</code></pre>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">head</span>(drug_comp)</a></code></pre></div>
 <pre><code>## [[1]]
-## IGRAPH 442e7e1 UNW- 131 560 -- 
+## IGRAPH 32829f3 UNW- 131 560 -- 
 ## + attr: id (v/n), name (v/c), weight (e/n)
-## + edges from 442e7e1 (vertex names):
+## + edges from 32829f3 (vertex names):
 ##  [1] O00555--O15399 O15399--O60391 O43497--P00915 P00915--P00918
 ##  [5] O15554--P03886 P03372--P04278 P00915--P05023 P00918--P05023
 ##  [9] P03372--P06401 P07550--P08172 P08172--P08173 P07550--P08588
@@ -494,38 +495,38 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ## + ... omitted several edges
 ## 
 ## [[2]]
-## IGRAPH 442ea53 UNW- 6 15 -- 
+## IGRAPH 32829f3 UNW- 6 15 -- 
 ## + attr: id (v/n), name (v/c), weight (e/n)
-## + edges from 442ea53 (vertex names):
+## + edges from 32829f3 (vertex names):
 ##  [1] O00764--P34896 O00764--P35520 P34896--P35520 O00764--Q96GD0
 ##  [5] P34896--Q96GD0 P35520--Q96GD0 O00764--Q9NVS9 P34896--Q9NVS9
 ##  [9] P35520--Q9NVS9 Q96GD0--Q9NVS9 O00764--Q9Y617 P34896--Q9Y617
 ## [13] P35520--Q9Y617 Q96GD0--Q9Y617 Q9NVS9--Q9Y617
 ## 
 ## [[3]]
-## IGRAPH 442ea53 UNW- 2 1 -- 
+## IGRAPH 3282c6f UNW- 2 1 -- 
 ## + attr: id (v/n), name (v/c), weight (e/n)
-## + edge from 442ea53 (vertex names):
+## + edge from 3282c6f (vertex names):
 ## [1] O14646--P11388
 ## 
 ## [[4]]
-## IGRAPH 442ea53 UNW- 7 10 -- 
+## IGRAPH 3282c6f UNW- 7 10 -- 
 ## + attr: id (v/n), name (v/c), weight (e/n)
-## + edges from 442ea53 (vertex names):
+## + edges from 3282c6f (vertex names):
 ##  [1] O14659--P00374 O14659--P04818 P00374--P04818 P04818--P23921
 ##  [5] P09884--P23921 P04818--P27707 P23921--P27707 P04818--P30085
 ##  [9] P23921--P30085 P27707--P30085
 ## 
 ## [[5]]
-## IGRAPH 442ecc5 UNW- 2 1 -- 
+## IGRAPH 3282c6f UNW- 2 1 -- 
 ## + attr: id (v/n), name (v/c), weight (e/n)
-## + edge from 442ecc5 (vertex names):
+## + edge from 3282c6f (vertex names):
 ## [1] O14987--P21731
 ## 
 ## [[6]]
-## IGRAPH 442ecc5 UNW- 4 5 -- 
+## IGRAPH 3282c6f UNW- 4 5 -- 
 ## + attr: id (v/n), name (v/c), weight (e/n)
-## + edges from 442ecc5 (vertex names):
+## + edges from 3282c6f (vertex names):
 ## [1] O15528--P11473 P11473--Q02318 O15528--Q6VVX0 P11473--Q6VVX0
 ## [5] Q02318--Q6VVX0</code></pre>
 <p>It will return all components of the second projection of the network.</p>
@@ -538,8 +539,8 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <a class="sourceLine" id="cb10-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb10-4" data-line-number="4"><span class="kw">misc_extract_components</span>(zachary_edgelist)</a></code></pre></div>
 <pre><code>## [[1]]
-## IGRAPH 443fbf1 D--- 34 78 -- 
-## + edges from 443fbf1:
+## IGRAPH 3294075 D--- 34 78 -- 
+## + edges from 3294075:
 ##  [1]  1-&gt; 2  1-&gt; 3  2-&gt; 3  1-&gt; 4  2-&gt; 4  3-&gt; 4  1-&gt; 5  1-&gt; 6  1-&gt; 7  5-&gt; 7
 ## [11]  6-&gt; 7  1-&gt; 8  2-&gt; 8  3-&gt; 8  4-&gt; 8  1-&gt; 9  3-&gt; 9  3-&gt;10  1-&gt;11  5-&gt;11
 ## [21]  6-&gt;11  1-&gt;12  1-&gt;13  4-&gt;13  1-&gt;14  2-&gt;14  3-&gt;14  4-&gt;14  6-&gt;17  7-&gt;17
@@ -554,9 +555,9 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <p>In the most of research topics of network analysis, network features are related to the largest connected component of a graph<span class="citation">(Newman 2010)</span>. In order to get that for an <code>igraph</code> or a <code>network</code> object, <code>giant_component_extract</code> function is specified. For using this function we can do:</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw">giant_component_extract</span>(zachary)</a></code></pre></div>
 <pre><code>## [[1]]
-## IGRAPH 4442308 U--- 34 78 -- 
+## IGRAPH 329dccf U--- 34 78 -- 
 ## + attr: id (v/n)
-## + edges from 4442308:
+## + edges from 329dccf:
 ##  [1]  1-- 2  1-- 3  2-- 3  1-- 4  2-- 4  3-- 4  1-- 5  1-- 6  1-- 7  5-- 7
 ## [11]  6-- 7  1-- 8  2-- 8  3-- 8  4-- 8  1-- 9  3-- 9  3--10  1--11  5--11
 ## [21]  6--11  1--12  1--13  4--13  1--14  2--14  3--14  4--14  6--17  7--17
@@ -649,11 +650,11 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <p>This function extracts the strongest components of the input network as <code>igraph</code> objects.</p>
 </div>
 </div>
-<div id="centrality-measure-calculations" class="section level2">
-<h2>4 Centrality measure calculations</h2>
+<div id="centrality-measure-analysis" class="section level2">
+<h2>4 Centrality measure analysis</h2>
 <p>This section particularly is specified for centrality analysis in network science.</p>
-<div id="proper-centrality-suggestions" class="section level3">
-<h3>4.1 Proper centrality suggestions</h3>
+<div id="suggestion-of-proper-centralities" class="section level3">
+<h3>4.1 Suggestion of proper centralities</h3>
 <p>All of the introduced centrality measures are not appropriate for all types of networks. So, to figure out which of them is suitable, <code>proper_centralities</code> is specified. This function distinguishes proper centrality types based on network topology. To use this, we can do:</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="kw">proper_centralities</span>(zachary)</a></code></pre></div>
 <pre><code>##  [1] &quot;subgraph centrality scores&quot;                      
@@ -669,40 +670,41 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ## [11] &quot;Diffusion Degree&quot;                                
 ## [12] &quot;DMNC - Density of Maximum Neighborhood Component&quot;
 ## [13] &quot;Eccentricity Centrality&quot;                         
-## [14] &quot;eigenvector centralities&quot;                        
-## [15] &quot;K-core Decomposition&quot;                            
-## [16] &quot;Geodesic K-Path Centrality&quot;                      
-## [17] &quot;Katz Centrality (Katz Status Index)&quot;             
-## [18] &quot;Kleinberg's authority centrality scores&quot;         
-## [19] &quot;Kleinberg's hub centrality scores&quot;               
-## [20] &quot;clustering coefficient&quot;                          
-## [21] &quot;Lin Centrality&quot;                                  
-## [22] &quot;Lobby Index (Centrality)&quot;                        
-## [23] &quot;Markov Centrality&quot;                               
-## [24] &quot;Radiality Centrality&quot;                            
-## [25] &quot;Shortest-Paths Betweenness Centrality&quot;           
-## [26] &quot;Current-Flow Closeness Centrality&quot;               
-## [27] &quot;Closeness centrality (Latora)&quot;                   
-## [28] &quot;Communicability Betweenness Centrality&quot;          
-## [29] &quot;Community Centrality&quot;                            
-## [30] &quot;Cross-Clique Connectivity&quot;                       
-## [31] &quot;Entropy Centrality&quot;                              
-## [32] &quot;EPC - Edge Percolated Component&quot;                 
-## [33] &quot;Laplacian Centrality&quot;                            
-## [34] &quot;Leverage Centrality&quot;                             
-## [35] &quot;MNC - Maximum Neighborhood Component&quot;            
-## [36] &quot;Hubbell Index&quot;                                   
-## [37] &quot;Semi Local Centrality&quot;                           
-## [38] &quot;Closeness Vitality&quot;                              
-## [39] &quot;Residual Closeness Centrality&quot;                   
-## [40] &quot;Stress Centrality&quot;                               
-## [41] &quot;Load Centrality&quot;                                 
-## [42] &quot;Flow Betweenness Centrality&quot;                     
-## [43] &quot;Information Centrality&quot;</code></pre>
+## [14] &quot;Harary Centrality&quot;                               
+## [15] &quot;eigenvector centralities&quot;                        
+## [16] &quot;K-core Decomposition&quot;                            
+## [17] &quot;Geodesic K-Path Centrality&quot;                      
+## [18] &quot;Katz Centrality (Katz Status Index)&quot;             
+## [19] &quot;Kleinberg's authority centrality scores&quot;         
+## [20] &quot;Kleinberg's hub centrality scores&quot;               
+## [21] &quot;clustering coefficient&quot;                          
+## [22] &quot;Lin Centrality&quot;                                  
+## [23] &quot;Lobby Index (Centrality)&quot;                        
+## [24] &quot;Markov Centrality&quot;                               
+## [25] &quot;Radiality Centrality&quot;                            
+## [26] &quot;Shortest-Paths Betweenness Centrality&quot;           
+## [27] &quot;Current-Flow Closeness Centrality&quot;               
+## [28] &quot;Closeness centrality (Latora)&quot;                   
+## [29] &quot;Communicability Betweenness Centrality&quot;          
+## [30] &quot;Community Centrality&quot;                            
+## [31] &quot;Cross-Clique Connectivity&quot;                       
+## [32] &quot;Entropy Centrality&quot;                              
+## [33] &quot;EPC - Edge Percolated Component&quot;                 
+## [34] &quot;Laplacian Centrality&quot;                            
+## [35] &quot;Leverage Centrality&quot;                             
+## [36] &quot;MNC - Maximum Neighborhood Component&quot;            
+## [37] &quot;Hubbell Index&quot;                                   
+## [38] &quot;Semi Local Centrality&quot;                           
+## [39] &quot;Closeness Vitality&quot;                              
+## [40] &quot;Residual Closeness Centrality&quot;                   
+## [41] &quot;Stress Centrality&quot;                               
+## [42] &quot;Load Centrality&quot;                                 
+## [43] &quot;Flow Betweenness Centrality&quot;                     
+## [44] &quot;Information Centrality&quot;</code></pre>
 <p>It returns the full names of suitable centrality types for the input graph. The input must have a class of <code>igraph</code> object.</p>
 </div>
-<div id="various-types-of-centralities-computation" class="section level3">
-<h3>4.2 Various types of centralities computation</h3>
+<div id="centrality-computations" class="section level3">
+<h3>4.2 Centrality computations</h3>
 <p>In the next step, proper centralities and those which are looking for can be chosen. In order to compute proper centrality types resulted from the <code>proper_centralities</code>, you can use <code>calculate_centralities</code> function as below.</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="kw">calculate_centralities</span>(zachary, <span class="dt">include =</span> <span class="st">&quot;Degree Centrality&quot;</span>)</a></code></pre></div>
 <pre><code>## $`Degree Centrality`
@@ -723,36 +725,37 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ## [11] &quot;Diffusion Degree&quot;                                
 ## [12] &quot;DMNC - Density of Maximum Neighborhood Component&quot;
 ## [13] &quot;Eccentricity Centrality&quot;                         
-## [14] &quot;eigenvector centralities&quot;                        
-## [15] &quot;K-core Decomposition&quot;                            
-## [16] &quot;Geodesic K-Path Centrality&quot;                      
-## [17] &quot;Katz Centrality (Katz Status Index)&quot;             
-## [18] &quot;Kleinberg's authority centrality scores&quot;         
-## [19] &quot;Kleinberg's hub centrality scores&quot;               
-## [20] &quot;clustering coefficient&quot;                          
-## [21] &quot;Lin Centrality&quot;                                  
-## [22] &quot;Lobby Index (Centrality)&quot;                        
-## [23] &quot;Markov Centrality&quot;                               
-## [24] &quot;Radiality Centrality&quot;                            
-## [25] &quot;Shortest-Paths Betweenness Centrality&quot;           
-## [26] &quot;Current-Flow Closeness Centrality&quot;               
-## [27] &quot;Closeness centrality (Latora)&quot;                   
-## [28] &quot;Communicability Betweenness Centrality&quot;          
-## [29] &quot;Community Centrality&quot;                            
-## [30] &quot;Cross-Clique Connectivity&quot;                       
-## [31] &quot;Entropy Centrality&quot;                              
-## [32] &quot;EPC - Edge Percolated Component&quot;                 
-## [33] &quot;Laplacian Centrality&quot;                            
-## [34] &quot;Leverage Centrality&quot;                             
-## [35] &quot;MNC - Maximum Neighborhood Component&quot;            
-## [36] &quot;Hubbell Index&quot;                                   
-## [37] &quot;Semi Local Centrality&quot;                           
-## [38] &quot;Closeness Vitality&quot;                              
-## [39] &quot;Residual Closeness Centrality&quot;                   
-## [40] &quot;Stress Centrality&quot;                               
-## [41] &quot;Load Centrality&quot;                                 
-## [42] &quot;Flow Betweenness Centrality&quot;                     
-## [43] &quot;Information Centrality&quot;</code></pre>
+## [14] &quot;Harary Centrality&quot;                               
+## [15] &quot;eigenvector centralities&quot;                        
+## [16] &quot;K-core Decomposition&quot;                            
+## [17] &quot;Geodesic K-Path Centrality&quot;                      
+## [18] &quot;Katz Centrality (Katz Status Index)&quot;             
+## [19] &quot;Kleinberg's authority centrality scores&quot;         
+## [20] &quot;Kleinberg's hub centrality scores&quot;               
+## [21] &quot;clustering coefficient&quot;                          
+## [22] &quot;Lin Centrality&quot;                                  
+## [23] &quot;Lobby Index (Centrality)&quot;                        
+## [24] &quot;Markov Centrality&quot;                               
+## [25] &quot;Radiality Centrality&quot;                            
+## [26] &quot;Shortest-Paths Betweenness Centrality&quot;           
+## [27] &quot;Current-Flow Closeness Centrality&quot;               
+## [28] &quot;Closeness centrality (Latora)&quot;                   
+## [29] &quot;Communicability Betweenness Centrality&quot;          
+## [30] &quot;Community Centrality&quot;                            
+## [31] &quot;Cross-Clique Connectivity&quot;                       
+## [32] &quot;Entropy Centrality&quot;                              
+## [33] &quot;EPC - Edge Percolated Component&quot;                 
+## [34] &quot;Laplacian Centrality&quot;                            
+## [35] &quot;Leverage Centrality&quot;                             
+## [36] &quot;MNC - Maximum Neighborhood Component&quot;            
+## [37] &quot;Hubbell Index&quot;                                   
+## [38] &quot;Semi Local Centrality&quot;                           
+## [39] &quot;Closeness Vitality&quot;                              
+## [40] &quot;Residual Closeness Centrality&quot;                   
+## [41] &quot;Stress Centrality&quot;                               
+## [42] &quot;Load Centrality&quot;                                 
+## [43] &quot;Flow Betweenness Centrality&quot;                     
+## [44] &quot;Information Centrality&quot;</code></pre>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1">calc_cent &lt;-<span class="st"> </span><span class="kw">calculate_centralities</span>(zachary, <span class="dt">include  =</span> pr_cent[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>])</a></code></pre></div>
 <p>The result would be a list of computed centralities.</p>
 </div>
@@ -773,17 +776,17 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <p>Another method for distinguishing which centrality measure has more information or in another words has more costs is using (t-SNE) t-Distributed Stochastic Neighbor Embedding analysis<span class="citation">(Van Der Maaten 2014)</span>. This is a non-linear dimensional reduction algorithm used for high-dimensional data. <code>tsne_centralities</code> function applies t-sne on centrality measure values like below:</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="kw">tsne_centralities</span>( calc_cent, <span class="dt">dims =</span> <span class="dv">2</span>, <span class="dt">perplexity =</span> <span class="dv">1</span>, <span class="dt">scale=</span><span class="ot">TRUE</span>)</a></code></pre></div>
 <div class="figure">
-<img src="data:image/png;base64,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" alt="A display of most informative centrality measures based on t-Distributed Stochastic Neighbor Embedding analysis among scaled(not normalized) centrality values." />
+<img src="data:image/png;base64,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" alt="A display of most informative centrality measures based on t-Distributed Stochastic Neighbor Embedding analysis among scaled(not normalized) centrality values." />
 <p class="caption">A display of most informative centrality measures based on t-Distributed Stochastic Neighbor Embedding analysis among scaled(not normalized) centrality values.</p>
 </div>
-<p>This returns the bar plot of computed cost values of each centrality measure on a plot. In order to access only computed values of PCA and t-sne methods, <code>summary.pca_centralities</code> and <code>tsne_centralities</code> functions can be helpful.</p>
+<p>This returns the bar plot of computed cost values of each centrality measure on a plot. In order to access only computed values of PCA and t-sne methods, <code>summary_pca_centralities</code> and <code>tsne_centralities</code> functions can be helpful.</p>
 </div>
-<div id="comparison-visualization-of-centrality-measures" class="section level3">
-<h3>5 Comparison visualization of centrality measures</h3>
+</div>
+<div id="visualization-of-centrality-analysis" class="section level2">
+<h2>5 visualization of centrality analysis</h2>
 <p>To visualize the results of network centrality analysis some convenient functions have been developed as it described below.</p>
-</div>
-<div id="graph-visualization-based-on-the-type-of-centralities" class="section level3">
-<h3>5.1 Graph visualization based on the type of centralities</h3>
+<div id="graph-visualization-regarding-to-the-centrality-type" class="section level3">
+<h3>5.1 Graph visualization regarding to the centrality type</h3>
 <p>After evaluating centrality measures, demonstrating high values of centralities in some nodes gives an overall insight about the network to the researcher. By using <code>visualize_graph</code> function, you will be able to illustrate the input graph based on the specified centrality value. If the centrality measure values were computed, <code>computed.centrality.value</code> argument is recommended. Otherwise, using <code>centrality.type</code> argument, the function will compute centrality based on the input name of centrality type. For practice, we specifies <code>Degree Centrality</code>. Here,</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1"><span class="kw">visualize_graph</span>( zachary , <span class="dt">centrality.type=</span><span class="st">&quot;Degree Centrality&quot;</span>)</a></code></pre></div>
 <div class="figure">

@@ -7,13 +7,13 @@
 #' carriers and transporters associated with drug metabolism are filtered and solely
 #' targets directly related to their pharmacological effects are included.
 #' It is also an example of unconnected graphs.
-#' @name drugtarget
+#' @name drugTarget
 #' @docType data
-#' @usage drugtarget
+#' @usage drugTarget
 #' @format an igraph object with "gml" format
 #' @references Barneh, F., Jafari, M., & Mirzaie, M. (2015). Updates on drug–target network; facilitating polypharmacology and data integration by growth of DrugBank database. Briefings in Bioinformatics, bbv094. https://doi.org/10.1093/bib/bbv094
 #' @keywords datasets
 #' @examples
-#' data("drugtarget")
-#' print(drugtarget)
+#' data("drugTarget")
+#' print(drugTarget)
 NULL
