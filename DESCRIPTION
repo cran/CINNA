@@ -1,9 +1,10 @@
 Package: CINNA
 Type: Package
 Title: Deciphering Central Informative Nodes in Network Analysis
-Version: 1.1.41
-Date: 2018-05-08
-Author: Minoo Ashtiani ,
+Version: 1.1.50
+Date: 2018-08-23
+Author: Minoo Ashtiani, 
+        Mehdi Mirzaie,
         Mohieddin Jafari
 Maintainer: Minoo Ashtiani <m_ashtiani@pasteur.ac.ir>
 Description: Functions for computing, comparing and demonstrating top informative centrality measures within a network.
@@ -15,8 +16,8 @@ VignetteBuilder: knitr
 Suggests: knitr, rmarkdown
 Imports: igraph, network, sna, centiserve, FactoMineR, factoextra,
         GGally, pheatmap, corrplot, dendextend, viridis, ggplot2,
-        Rtsne, qdapTools, plyr, circlize
+        Rtsne, qdapTools, plyr, circlize, intergraph
 NeedsCompilation: no
-Packaged: 2018-05-08 21:03:22 UTC; MinOoO
+Packaged: 2018-08-23 12:46:13 UTC; MinOoO
 Repository: CRAN
-Date/Publication: 2018-05-08 21:24:00 UTC
+Date/Publication: 2018-08-23 13:16:37 UTC

@@ -32,5 +32,5 @@ CHAMBERS, & M., J. (1992). Statistical Models in S. Wadsworth. Pacific Grove, Ca
 Wilkinson, G. N., & Rogers, C. E. (1973). Symbolic Description of Factorial Models for Analysis of Variance. Applied Statistics, 22(3), 392.
 }
 \author{
-Minoo Ashtiani, Mohieddin Jafari
+Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari
 }

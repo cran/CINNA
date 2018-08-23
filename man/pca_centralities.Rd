@@ -43,5 +43,5 @@ http://www.sthda.com/english/
 \code{\link[FactoMineR]{PCA}}
 }
 \author{
-Minoo Ashtiani, Mohieddin Jafari
+Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari
 }

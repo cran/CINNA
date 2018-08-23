@@ -31,5 +31,5 @@ Galili, T. (2015). dendextend: an R package for visualizing, adjusting and compa
 \code{\link[stats]{dendrogram}}
 }
 \author{
-Minoo Ashtiani, Mohieddin Jafari
+Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari
 }

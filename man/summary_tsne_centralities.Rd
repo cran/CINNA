@@ -31,5 +31,5 @@ This function summarize tsne analysis results on centrality measures
 \code{\link[Rtsne]{Rtsne}}
 }
 \author{
-Minoo Ashtiani, Mohieddin Jafari
+Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari
 }

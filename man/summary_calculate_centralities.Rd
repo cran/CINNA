@@ -19,5 +19,5 @@ This function computes  minimum, first quater, median,
 mean, third qarter and maximum values of computed centrality measures.
 }
 \author{
-Minoo Ashtiani, Mohieddin Jafari
+Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari
 }

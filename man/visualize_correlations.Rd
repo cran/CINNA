@@ -32,5 +32,5 @@ and vice versa.
 \code{\link[GGally]{ggpairs}}
 }
 \author{
-Minoo Ashtiani, Mohieddin Jafari
+Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari
 }

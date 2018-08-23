@@ -23,5 +23,5 @@ The result values of \code{ \link[CINNA]{graph_extract_components}}function will
 This function summarizes all components of the input which can be an "igraph" object or a "network" object
 }
 \author{
-Minoo Ashtiani, Mohieddin Jafari
+Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari
 }

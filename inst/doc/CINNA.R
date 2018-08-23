@@ -18,7 +18,7 @@ graph_extract_components(zachary)
 
 data("drugTarget")
 
-drug_comp <- graph_extract_components( drugTarget, directed = TRUE , bipartite_proj=TRUE, num_proj=2)
+drug_comp <- graph_extract_components( drugTarget, directed = TRUE, bipartite_proj = TRUE, num_proj = 1)
 head(drug_comp)
 
 

@@ -27,5 +27,5 @@ This function prints a plot including all pairwise correlation between
 centrality measures
 }
 \author{
-Minoo Ashtiani, Mohieddin Jafari
+Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari
 }

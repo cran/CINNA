@@ -27,5 +27,5 @@ measure were computed then by placing them in computed_centrality_value argument
 name of favorite centrality measure in centrality.type argument, this function will calculate it and  then demonstrates the corresponding graph.
 }
 \author{
-Minoo Ashtiani, Mohieddin Jafari
+Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari
 }

@@ -23,5 +23,5 @@ The resulted plot of \code{ \link[CINNA]{visualize_graph}}function will be saved
 This function prints visualized based on centrality values graph.
 }
 \author{
-Minoo Ashtiani, Mohieddin Jafari
+Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari
 }

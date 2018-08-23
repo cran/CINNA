@@ -21,5 +21,5 @@ The resulted plot of \code{ \link[CINNA]{visualize_heatmap}}function will be sav
 This function prints the heatmap plot
 }
 \author{
-Minoo Ashtiani, Mohieddin Jafari
+Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari
 }

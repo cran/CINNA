@@ -19,5 +19,5 @@ Print out  \code{ \link[CINNA]{calculate_centralities}}function will be saved in
 This function prints all centrality measure results into a file
 }
 \author{
-Minoo Ashtiani, Mohieddin Jafari
+Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari
 }

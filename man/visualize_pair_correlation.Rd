@@ -31,5 +31,5 @@ Emerson, J. W., Green, W. A., Schloerke, B., Crowley, J., Cook, D., Hofmann, H.,
 \code{\link[GGally]{ggpairs}}
 }
 \author{
-Minoo Ashtiani, Mohieddin Jafari
+Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari
 }

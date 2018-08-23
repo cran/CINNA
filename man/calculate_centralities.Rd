@@ -143,6 +143,24 @@ Viswanath, M. (2009). ONTOLOGY BASED AUTOMATIC TEXT SUMMARIZATION. Vishweshwarai
 Przulj, N., Wigle, D. A., & Jurisica, I. (2004). Functional topology in a network of protein interactions. Bioinformatics, 20(3), 340–348.
 
 del Rio, G., Koschtzki, D., & Coello, G. (2009). How to identify essential genes from molecular networks BMC Systems Biology, 3(1), 102.
+
+Scardoni, G. and Carlo Laudanna, C.B.M.C., 2011. Network centralities for Cytoscape. University of Verona.
+
+BOLDI, P. & VIGNA, S. 2014. Axioms for centrality. Internet Mathematics, 00-00.
+
+MARCHIORI, M. & LATORA, V. 2000. Harmony in the small-world. Physica A: Statistical Mechanics and its Applications, 285, 539-546.
+
+OPSAHL, T., AGNEESSENS, F. & SKVORETZ, J. 2010. Node centrality in weighted networks: Generalizing degree and shortest paths. Social Networks, 32, 245-251.
+
+OPSAHL, T. 2010. Closeness centrality in networks with disconnected components (http://toreopsahl.com/2010/03/20/closeness-centrality-in-networks-with-disconnected-components/)
+
+Michalak, T.P., Aadithya, K.V., Szczepanski, P.L., Ravindran, B. and Jennings, N.R., 2013. Efficient computation of the Shapley value for game-theoretic network centrality. Journal of Artificial Intelligence Research, 46, pp.607-650.
+
+Macker, J.P., 2016, November. An improved local bridging centrality model for distributed network analytics. In Military Communications Conference, MILCOM 2016-2016 IEEE (pp. 600-605). IEEE. DOI: 10.1109/MILCOM.2016.7795393
+
+DANGALCHEV, C. 2006. Residual closeness in networks. Physica A: Statistical Mechanics and its Applications, 365, 556-564. DOI: 10.1016/j.physa.2005.12.020
+
+Alain Barrat, Marc Barthelemy, Romualdo Pastor-Satorras, Alessandro Vespignani: The architecture of complex weighted networks, Proc. Natl. Acad. Sci. USA 101, 3747 (2004)
 }
 \seealso{
 \code{ \link[igraph]{alpha.centrality}},\code{ \link[igraph]{bonpow}},\code{ \link[igraph]{constraint}},
@@ -162,8 +180,10 @@ del Rio, G., Koschtzki, D., & Coello, G. (2009). How to identify essential genes
 \code{ \link[centiserve]{geokpath}}, \code{ \link[centiserve]{katzcent}},\code{ \link[centiserve]{diffusion.degree}},
 \code{ \link[centiserve]{dmnc}},\code{ \link[centiserve]{centroid}},\code{ \link[centiserve]{closeness.freeman}},
 \code{ \link[centiserve]{clusterrank}},\code{ \link[centiserve]{decay}},
-\code{ \link[centiserve]{barycenter}},\code{ \link[centiserve]{bottleneck}},\code{ \link[centiserve]{averagedis}}
+\code{ \link[centiserve]{barycenter}},\code{ \link[centiserve]{bottleneck}},\code{ \link[centiserve]{averagedis}},
+\code{ \link[CINNA]{local_bridging_centrality}},\code{ \link[CINNA]{wiener_index_centrality}},\code{ \link[CINNA]{group_centrality}},
+\code{ \link[CINNA]{dangalchev_closeness_centrality}},\code{ \link[CINNA]{harmonic_centrality}},\code{ \link[igraph]{strength}}
 }
 \author{
-Minoo Ashtiani, Mohieddin Jafari
+Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari
 }

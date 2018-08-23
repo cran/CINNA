@@ -17,7 +17,7 @@ graph_extract_components(x, directed = TRUE, bipartite_proj = FALSE,
 \item{num_proj}{Numbers 1 or 2 which shows the number of projects for bipartite graphs.(default=1)}
 }
 \value{
-a list including the componets of the input as igraph objects
+a list including the components of the input as igraph objects
 }
 \description{
 This function extracts all connected components of the
@@ -36,10 +36,11 @@ data(zachary)
 
 graph_extract_components(zachary)
 
+
 }
 \seealso{
-\code{\link[igraph]{induced.subgraph}}, \code{\link[igraph]{components}}
+\code{\link[igraph]{induced.subgraph}},\code{\link[igraph]{components}}
 }
 \author{
-Minoo Ashtiani, Mohieddin Jafari
+Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari
 }

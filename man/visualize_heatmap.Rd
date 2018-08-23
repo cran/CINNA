@@ -21,5 +21,5 @@ This function draws heatmap between pair of centrality measures
 This function illustrates the heatmap plot of computed centrality measures.
 }
 \author{
-Minoo Ashtiani, Mohieddin Jafari
+Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari
 }

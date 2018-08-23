@@ -22,5 +22,5 @@ The resulted plot of \code{ \link[CINNA]{visualize_pair_correlation}}function wi
 This function prints pairwise correlation of centrality measures and histogram plot.
 }
 \author{
-Minoo Ashtiani, Mohieddin Jafari
+Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari
 }

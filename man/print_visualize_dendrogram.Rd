@@ -28,5 +28,5 @@ This function prints dendrogram plot of a graph based on predefined
 centrality measures.
 }
 \author{
-Minoo Ashtiani, Mohieddin Jafari
+Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari
 }

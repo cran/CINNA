@@ -12,19 +12,20 @@
 #' illustrates them as a list of independent graphs. If the input graph was bipartite and the
 #' "bipartite_proj" was TRUE, it will project it and you can decide in which project you want
 #' to continue to work with.
-#' @seealso \code{\link[igraph]{induced.subgraph}}, \code{\link[igraph]{components}}
-#' @return a list including the componets of the input as igraph objects
-#' @author Minoo Ashtiani, Mohieddin Jafari
+#' @seealso \code{\link[igraph]{induced.subgraph}},\code{\link[igraph]{components}}
+#' @return a list including the components of the input as igraph objects
+#' @author Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari
 #' @examples
 #'
 #' data(zachary)
 #'
 #' graph_extract_components(zachary)
 #'
+#'
 #' @export
 #' @importFrom igraph is_igraph
 #' @importFrom igraph is_bipartite
-#' @importFrom igraph bipartite_projection
+#' @importFrom igraph bipartite.projection
 #' @importFrom igraph simplify
 #' @importFrom igraph is_simple
 #' @importFrom igraph clusters
@@ -34,33 +35,32 @@
 #' @importFrom network as.edgelist
 #' @importFrom network network
 
-graph_extract_components <- function( x, directed = TRUE,bipartite_proj=FALSE ,num_proj=1){
+graph_extract_components <- function( x, directed = TRUE, bipartite_proj=FALSE, num_proj=1){
 
-  if (!(class(x)%in%"igraph"|| class(x)%in%"network")) stop("The input is not an igraph or a
+  if(!(class(x)%in%"igraph"|| class(x)%in%"network")) stop("The input is not an igraph or a
                                                            network object")
 
-  if (is_igraph(x)){
+  if(is_igraph(x)){
 
-  if ( bipartite_proj){
+    if( bipartite_proj){
 
-  if (is_bipartite(x)){
+      if(is_bipartite(x)){
 
-        x <- bipartite_projection(x)[[num_proj]]
+        x<-bipartite.projection(x)[[num_proj]]
 
         if (!is_simple(x))   x<-simplify(x)
 
         cl <- clusters(x)
 
-        graph_splitting <- function(k, x, cl){
-
+        graph.splitting <- function(k, x, cl){
           induced.subgraph(x, cl$membership == k)
         }
 
-        components <- sapply(1:max(cl$membership), graph_splitting, x = x, cl = cl, simplify = FALSE)
+        components<-sapply(1:max(cl$membership), graph.splitting, x = x, cl = cl, simplify = FALSE)
 
-        }
+      }
 
-        }
+    }
 
     else{
 
@@ -72,29 +72,29 @@ graph_extract_components <- function( x, directed = TRUE,bipartite_proj=FALSE ,n
         induced.subgraph(x, cl$membership == k)
       }
 
-      components <- sapply(1:max(cl$membership), graph_splitting, x = x, cl = cl, simplify = FALSE)
+      components<-sapply(1:max(cl$membership), graph_splitting, x = x, cl = cl, simplify = FALSE)
 
-      }
+    }
 
-      }
+  }
 
-  if ( is.network(x)){
+  if( is.network(x)){
 
-    edgelist <- as.edgelist(x)
+    edgelist<-as.edgelist(x)
 
-    x <- graph_from_edgelist(edgelist, directed = TRUE)
+    x<-graph_from_edgelist(edgelist, directed = TRUE)
 
     if (!is_simple(x))  gr<-simplify(x)
 
     cl <- clusters(x)
 
     graph_splitting <- function(k, x, cl){
-    induced.subgraph(x, cl$membership == k)
+      induced.subgraph(x, cl$membership == k)
     }
 
-    components <- sapply(1:max(cl$membership), graph_splitting, x = x, cl = cl, simplify = FALSE)
+    components<-sapply(1:max(cl$membership), graph_splitting, x = x, cl = cl, simplify = FALSE)
 
-   }
+  }
 
   return(components)
 
@@ -120,8 +120,10 @@ graph_extract_components <- function( x, directed = TRUE,bipartite_proj=FALSE ,n
 #' The result would be a list including components as seperated graphs.
 #' @seealso \code{\link[igraph]{induced.subgraph}},\code{\link[igraph]{components}},
 #' \code{\link[igraph]{graph_from_adjacency_matrix}}
-#' @return a list including the componets of the input as igraph objects
-#' @author Minoo Ashtiani, Mohieddin Jafari
+#'
+#' @return a list including the components of the input graph as igraph objects
+#'
+#' @author Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari
 #'
 #' @export
 #' @importFrom igraph graph_from_edgelist
@@ -142,7 +144,7 @@ graph_extract_components <- function( x, directed = TRUE,bipartite_proj=FALSE ,n
 misc_extract_components <- function( x ,directed = TRUE, mode = "directed",
                                      weighted = NULL, unibipartite = FALSE,
                                      diag = TRUE){
-    if (ncol(x)%in%2) {
+  if (ncol(x)%in%2) {
 
     if (unibipartite%in%FALSE){
 
@@ -162,7 +164,7 @@ misc_extract_components <- function( x ,directed = TRUE, mode = "directed",
 
       return(components)
 
-      }
+    }
     else{
 
       el <- cbind(x,1)
@@ -174,7 +176,7 @@ misc_extract_components <- function( x ,directed = TRUE, mode = "directed",
       x <- graph_from_incidence_matrix(incidence_mat, directed=directed)
 
 
-    if (!is_simple(x))   x <- simplify(x)
+      if (!is_simple(x))   x <- simplify(x)
 
       cl <- clusters(x)
 
@@ -188,13 +190,13 @@ misc_extract_components <- function( x ,directed = TRUE, mode = "directed",
 
       return(components)
 
-     }
+    }
 
-     }
-   if (ncol(x)>2||class(x)%in%"dgCMatrix") {
+  }
+  if (ncol(x)>2||class(x)%in%"dgCMatrix") {
 
     x <- graph_from_adjacency_matrix(x, mode = mode, weighted = weighted, diag = diag,
-                                   add.colnames = NULL, add.rownames = NA)
+                                     add.colnames = NULL, add.rownames = NA)
 
     if (!is_simple(x))   x<-simplify(x)
 
@@ -202,7 +204,7 @@ misc_extract_components <- function( x ,directed = TRUE, mode = "directed",
 
     graph_splitting <- function(k, x, cl){
 
-    induced.subgraph(x, cl$membership == k)
+      induced.subgraph(x, cl$membership == k)
 
     }
 
@@ -210,7 +212,7 @@ misc_extract_components <- function( x ,directed = TRUE, mode = "directed",
 
     return(components)
 
-    }
+  }
 }
 
 #' @title Giant component extraction of a graph
@@ -224,14 +226,16 @@ misc_extract_components <- function( x ,directed = TRUE, mode = "directed",
 #' @param bipartite_proj Whether the bipartite network must be projected or not(default=FALSE)
 #' @param num_proj A number which shows the number of projects especifically for
 #' bipartite graphs.(default=1)
+#'
 #' @details
 #' This function distinguishes the largest component of an "igraph" or a "network" object and
 #' illustrates them as a list which contains the edgelist of the giant component. If the input
 #' graph was bipartite and the "bipartite_proj" was TRUE, it will projet it and you can decide
 #' to which project you want to continue to work with that.
 #' @seealso \code{\link[igraph]{induced.subgraph}},\code{\link[igraph]{clusters}}
-#' @return the giant componet of the input as igraph object
-#' @author Minoo Ashtiani, Mohieddin Jafari
+#'
+#' @return a list contatining the giant componet of the input graph. The first element is an igraph object and the second is the edgelist of that.
+#' @author Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari
 #' @references
 #' Newman, M. (2010). Networks. Oxford University Press.
 #' @examples
@@ -243,7 +247,7 @@ misc_extract_components <- function( x ,directed = TRUE, mode = "directed",
 #' @export
 #' @importFrom igraph is_igraph
 #' @importFrom igraph is_bipartite
-#' @importFrom igraph bipartite_projection
+#' @importFrom igraph bipartite.projection
 #' @importFrom igraph is_simple
 #' @importFrom igraph simplify
 #' @importFrom igraph clusters
@@ -263,9 +267,9 @@ giant_component_extract <- function( x, directed = TRUE, bipartite_proj=FALSE ,n
 
     if ( bipartite_proj){
 
-    if (is_bipartite(x)){
+      if (is_bipartite(x)){
 
-        x <- bipartite_projection(x)[[num_proj]]
+        x <- bipartite.projection(x)[[num_proj]]
 
         if (!is_simple(x))   x <- simplify(x)
 
@@ -279,7 +283,7 @@ giant_component_extract <- function( x, directed = TRUE, bipartite_proj=FALSE ,n
 
       else stop("The graph is not bipartite")
 
-      }
+    }
 
     else{
 
@@ -293,7 +297,7 @@ giant_component_extract <- function( x, directed = TRUE, bipartite_proj=FALSE ,n
 
     }
 
-    }
+  }
 
   if ( is.network(x)){
 
@@ -309,13 +313,14 @@ giant_component_extract <- function( x, directed = TRUE, bipartite_proj=FALSE ,n
 
     giant_comp_edgelist <- as_edgelist(giant_comp, names = TRUE)
 
-   }
+  }
 
-    result <- list(giant_comp,giant_comp_edgelist)
+  result <- list(giant_comp,giant_comp_edgelist)
 
-    return(result)
+  return(result)
 
 }
+
 
 #' @title Proper centrality measure representation
 #'
@@ -327,7 +332,7 @@ giant_component_extract <- function( x, directed = TRUE, bipartite_proj=FALSE ,n
 #' for the input graph based on the topology
 #' @seealso \code{\link[CINNA]{calculate_centralities}}
 #' @return a list including the name of centrality measures which are suitable for the input graph
-#' @author Minoo Ashtiani, Mohieddin Jafari
+#' @author Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari
 #' @examples
 #'
 #' data("zachary")
@@ -388,7 +393,14 @@ proper_centralities<-function(x){
                              "Stress Centrality",
                              "Load Centrality",
                              "Flow Betweenness Centrality",
-                             "Information Centrality"
+                             "Information Centrality",
+                             "Dangalchev Closeness Centrality",
+                             "Group Centrality",
+                             "Harmonic Centrality",
+                             "Local Bridging Centrality",
+                             "Wiener Index Centrality",
+                             "Weighted Vertex Degree"
+
     )
   }
 
@@ -437,7 +449,13 @@ proper_centralities<-function(x){
                                "Stress Centrality",
                                "Load Centrality",
                                "Flow Betweenness Centrality",
-                               "Information Centrality"
+                               "Information Centrality",
+                               "Dangalchev Closeness Centrality",
+                               "Group Centrality",
+                               "Harmonic Centrality",
+                               "Local Bridging Centrality",
+                               "Wiener Index Centrality",
+                               "Weighted Vertex Degree"
     )
 
   }
@@ -486,7 +504,12 @@ proper_centralities<-function(x){
                               "Stress Centrality",
                               "Load Centrality",
                               "Flow Betweenness Centrality",
-                              "Information Centrality"
+                              "Information Centrality",
+                              "Dangalchev Closeness Centrality",
+                              "Group Centrality",
+                              "Harmonic Centrality",
+                              "Local Bridging Centrality",
+                              "Wiener Index Centrality"
     )
   }
 
@@ -535,13 +558,19 @@ proper_centralities<-function(x){
                              "Stress Centrality",
                              "Load Centrality",
                              "Flow Betweenness Centrality",
-                             "Information Centrality"
+                             "Information Centrality",
+                             "Dangalchev Closeness Centrality",
+                             "Group Centrality",
+                             "Harmonic Centrality",
+                             "Local Bridging Centrality",
+                             "Wiener Index Centrality"
     )
   }
 
   print(proper_centralities)
 
 }
+
 
 #' @title Centrality measure calculation
 #'
@@ -571,11 +600,12 @@ proper_centralities<-function(x){
 #' \code{ \link[centiserve]{geokpath}}, \code{ \link[centiserve]{katzcent}},\code{ \link[centiserve]{diffusion.degree}},
 #' \code{ \link[centiserve]{dmnc}},\code{ \link[centiserve]{centroid}},\code{ \link[centiserve]{closeness.freeman}},
 #' \code{ \link[centiserve]{clusterrank}},\code{ \link[centiserve]{decay}},
-#' \code{ \link[centiserve]{barycenter}},\code{ \link[centiserve]{bottleneck}},\code{ \link[centiserve]{averagedis}}
-#'
+#' \code{ \link[centiserve]{barycenter}},\code{ \link[centiserve]{bottleneck}},\code{ \link[centiserve]{averagedis}},
+#' \code{ \link[CINNA]{local_bridging_centrality}},\code{ \link[CINNA]{wiener_index_centrality}},\code{ \link[CINNA]{group_centrality}},
+#' \code{ \link[CINNA]{dangalchev_closeness_centrality}},\code{ \link[CINNA]{harmonic_centrality}},\code{ \link[igraph]{strength}}
 #' @return A list concluding centrality measure values in which the columns indicate centralities
 #' and the rows show the vertices.
-#' @author Minoo Ashtiani, Mohieddin Jafari
+#' @author Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari
 #' @references
 #' Bonacich, P., & Lloyd, P. (2001). Eigenvector like measures of centrality for asymmetric relations. Social Networks, 23(3), 191–201.
 #'
@@ -686,6 +716,24 @@ proper_centralities<-function(x){
 #'
 #' del Rio, G., Koschtzki, D., & Coello, G. (2009). How to identify essential genes from molecular networks BMC Systems Biology, 3(1), 102.
 #'
+#' Scardoni, G. and Carlo Laudanna, C.B.M.C., 2011. Network centralities for Cytoscape. University of Verona.
+#'
+#' BOLDI, P. & VIGNA, S. 2014. Axioms for centrality. Internet Mathematics, 00-00.
+#'
+#' MARCHIORI, M. & LATORA, V. 2000. Harmony in the small-world. Physica A: Statistical Mechanics and its Applications, 285, 539-546.
+#'
+#' OPSAHL, T., AGNEESSENS, F. & SKVORETZ, J. 2010. Node centrality in weighted networks: Generalizing degree and shortest paths. Social Networks, 32, 245-251.
+#'
+#' OPSAHL, T. 2010. Closeness centrality in networks with disconnected components (http://toreopsahl.com/2010/03/20/closeness-centrality-in-networks-with-disconnected-components/)
+#'
+#' Michalak, T.P., Aadithya, K.V., Szczepanski, P.L., Ravindran, B. and Jennings, N.R., 2013. Efficient computation of the Shapley value for game-theoretic network centrality. Journal of Artificial Intelligence Research, 46, pp.607-650.
+#'
+#' Macker, J.P., 2016, November. An improved local bridging centrality model for distributed network analytics. In Military Communications Conference, MILCOM 2016-2016 IEEE (pp. 600-605). IEEE. DOI: 10.1109/MILCOM.2016.7795393
+#'
+#' DANGALCHEV, C. 2006. Residual closeness in networks. Physica A: Statistical Mechanics and its Applications, 365, 556-564. DOI: 10.1016/j.physa.2005.12.020
+#'
+#' Alain Barrat, Marc Barthelemy, Romualdo Pastor-Satorras, Alessandro Vespignani: The architecture of complex weighted networks, Proc. Natl. Acad. Sci. USA 101, 3747 (2004)
+#'
 #' @examples
 #'
 #' data("zachary")
@@ -711,6 +759,7 @@ proper_centralities<-function(x){
 #' @importFrom igraph page_rank
 #' @importFrom igraph betweenness
 #' @importFrom igraph subgraph.centrality
+#' @importFrom igraph strength
 #' @importFrom network network
 #' @importFrom sna flowbet
 #' @importFrom sna infocent
@@ -802,7 +851,13 @@ calculate_centralities <- function( x, except = NULL, include = NULL, weights = 
       "Load Centrality" = function(x)loadcent(y),
       "Flow Betweenness Centrality" = function(x)flowbet(y),
       "Information Centrality" = function(x)infocent(y),
-      "Harary Centrality" = function(x)graphcent(y, gmode="graph", diag=T, cmode="directed")
+      "Weighted Vertex Degree" = function(x)strength(x, vids = V(x), mode ="all", weights = NULL),
+      "Harary Centrality" = function(x)graphcent(y, gmode="graph", diag=T, cmode="directed"),
+      "Dangalchev Closeness Centrality"= function(x)dangalchev_closeness_centrality(x, vids = V(x), mode = "all", weights = NULL),
+      "Group Centrality"= function(x)group_centrality(x, vids = V(x)),
+      "Harmonic Centrality"= function(x)harmonic_centrality(x, vids = V(x), mode = "all", weights = NULL),
+      "Local Bridging Centrality"= function(x)local_bridging_centrality(x, vids = V(x)),
+      "Wiener Index Centrality"= function(x)wiener_index_centrality(x, vids = V(x), mode ="all", weights = NULL)
     )
 
     if (!is.null(include)){
@@ -896,7 +951,13 @@ calculate_centralities <- function( x, except = NULL, include = NULL, weights = 
       "Load Centrality" = function(x)loadcent(y),
       "Flow Betweenness Centrality" = function(x)flowbet(y),
       "Information Centrality" = function(x)infocent(y),
-      "Harary Centrality" = function(x)graphcent(y, gmode="graph", diag=T, cmode="undirected")
+      "Weighted Vertex Degree" = function(x)strength(x, vids = V(x), mode ="all", weights = NULL),
+      "Harary Centrality" = function(x)graphcent(y, gmode="graph", diag=T, cmode="undirected"),
+      "Dangalchev Closeness Centrality"= function(x)dangalchev_closeness_centrality(x, vids = V(x), mode = "all", weights = NULL),
+      "Group Centrality"= function(x)group_centrality(x, vids = V(x)),
+      "Harmonic Centrality"= function(x)harmonic_centrality(x, vids = V(x), mode = "all", weights = NULL),
+      "Local Bridging Centrality"= function(x)local_bridging_centrality(x, vids = V(x)),
+      "Wiener Index Centrality"= function(x)wiener_index_centrality(x, vids = V(x), mode ="all", weights = NULL)
     )
 
     if (!is.null(include)){
@@ -990,7 +1051,12 @@ calculate_centralities <- function( x, except = NULL, include = NULL, weights = 
       "Load Centrality" = function(x)loadcent(y),
       "Flow Betweenness Centrality" = function(x)flowbet(y),
       "Information Centrality" = function(x)infocent(y),
-      "Harary Centrality" = function(x)graphcent(y, gmode="graph", diag=T, cmode="undirected")
+      "Harary Centrality" = function(x)graphcent(y, gmode="graph", diag=T, cmode="directed"),
+      "Dangalchev Closeness Centrality"= function(x)dangalchev_closeness_centrality(x, vids = V(x), mode = "all", weights = NULL),
+      "Group Centrality"= function(x)group_centrality(x, vids = V(x)),
+      "Harmonic Centrality"= function(x)harmonic_centrality(x, vids = V(x), mode = "all", weights = NULL),
+      "Local Bridging Centrality"= function(x)local_bridging_centrality(x, vids = V(x)),
+      "Wiener Index Centrality"= function(x)wiener_index_centrality(x, vids = V(x), mode ="all", weights = NULL)
     )
 
     if (!is.null(include)){
@@ -1085,7 +1151,12 @@ calculate_centralities <- function( x, except = NULL, include = NULL, weights = 
       "Load Centrality" = function(x)loadcent(y),
       "Flow Betweenness Centrality" = function(x)flowbet(y),
       "Information Centrality" = function(x)infocent(y),
-      "Harary Centrality" = function(x)graphcent(y, gmode="graph", diag=T, cmode="directed")
+      "Harary Centrality" = function(x)graphcent(y, gmode="graph", diag=T, cmode="directed"),
+      "Dangalchev Closeness Centrality"= function(x)dangalchev_closeness_centrality(x, vids = V(x), mode = "all", weights = NULL),
+      "Group Centrality"= function(x)group_centrality(x, vids = V(x)),
+      "Harmonic Centrality"= function(x)harmonic_centrality(x, vids = V(x), mode = "all", weights = NULL),
+      "Local Bridging Centrality"= function(x)local_bridging_centrality(x, vids = V(x)),
+      "Wiener Index Centrality"= function(x)wiener_index_centrality(x, vids = V(x), mode ="all", weights = NULL)
     )
 
     if (!is.null(include)){
@@ -1152,7 +1223,7 @@ calculate_centralities <- function( x, except = NULL, include = NULL, weights = 
 #' It is more common to use for more than 3 dimensional datasets.
 #' @seealso \code{\link[FactoMineR]{PCA}}
 #' @return a plot illustrating significant centralities in the order of contribution
-#' @author Minoo Ashtiani, Mohieddin Jafari
+#' @author Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari
 #' @references
 #' Husson, F., Lê, S., & Pagès, J. (2010). Exploratory Multivariate Analysis by Example using R. Chapman & Hall/CRC Computer Science & Data Analysis, 40(April), 240.
 #'
@@ -1200,7 +1271,7 @@ pca_centralities <- function( x , scale.unit = TRUE, cut.off = 80, ncp = 5,graph
 #' measure were computed then by placing them in computed_centrality_value argument to use it for drawing the plot. Otherwise, by only giving the
 #' name of favorite centrality measure in centrality.type argument, this function will calculate it and  then demonstrates the corresponding graph.
 #' @return a plot illustrating the graph
-#' @author Minoo Ashtiani, Mohieddin Jafari
+#' @author Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari
 #' @export
 #' @importFrom igraph is.directed
 #' @importFrom igraph alpha.centrality
@@ -1216,6 +1287,7 @@ pca_centralities <- function( x , scale.unit = TRUE, cut.off = 80, ncp = 5,graph
 #' @importFrom igraph page_rank
 #' @importFrom igraph betweenness
 #' @importFrom igraph subgraph.centrality
+#' @importFrom igraph strength
 #' @importFrom sna flowbet
 #' @importFrom sna infocent
 #' @importFrom sna loadcent
@@ -1253,13 +1325,14 @@ pca_centralities <- function( x , scale.unit = TRUE, cut.off = 80, ncp = 5,graph
 #' @importFrom centiserve averagedis
 #' @importFrom igraph layout_in_circle
 #' @importFrom graphics plot
+#' @importFrom igraph strength
 
 visualize_graph <- function( x , computed_centrality_value=NULL , centrality.type="Degree Centrality"){
 
   if (is.null(computed_centrality_value)){
 
     if (!(class(x)%in%"igraph" && is_connected(x) )) stop("The input is not an igraph object
-                                                       or may not be connected.")
+                                                          or may not be connected.")
 
     y <- as_edgelist(x)
     y <- network(y)
@@ -1312,7 +1385,13 @@ visualize_graph <- function( x , computed_centrality_value=NULL , centrality.typ
       "Load Centrality"=function(x)loadcent(y),
       "Flow Betweenness Centrality"=function(x)flowbet(y),
       "Information Centrality"=function(x)infocent(y),
-      "Harary Centrality" = function(x)graphcent(y, gmode="graph", diag=T, cmode="directed")
+      "Harary Centrality" = function(x)graphcent(y, gmode="graph", diag=T, cmode="directed"),
+      "Dangalchev Closeness Centrality"= function(x)dangalchev_closeness_centrality(x, vids = V(x), mode = "all", weights = NULL),
+      "Group Centrality"= function(x)group_centrality(x, vids = V(x)),
+      "Harmonic Centrality"= function(x)harmonic_centrality(x, vids = V(x), mode = "all", weights = NULL),
+      "Local Bridging Centrality"= function(x)local_bridging_centrality(x, vids = V(x)),
+      "Wiener Index Centrality"= function(x)wiener_index_centrality(x, vids = V(x), mode ="all", weights = NULL),
+      "Weighted Vertex Degree" = function(x)strength(x, vids = V(x), mode ="all", weights = NULL)
 
     )
     centrality_funcs <- centrality_funcs[intersect(names(centrality_funcs), centrality.type)]
@@ -1325,14 +1404,14 @@ visualize_graph <- function( x , computed_centrality_value=NULL , centrality.typ
                        f <- centrality_funcs[[functionName]]
                        tryCatch(f(x),
                                 error = function(e) {
-                                warningsText <- paste0(warningsText,
-                                "\nError in ", functionName, ":\n", e$message)
+                                  warningsText <- paste0(warningsText,
+                                                         "\nError in ", functionName, ":\n", e$message)
                                   return(NULL)
                                 })
-                                }, x)
+                     }, x)
 
     if (nchar(warningsText) > 0)
-        warning(warningsText)
+      warning(warningsText)
 
     result <- result[!sapply(result,is.null)]
 
@@ -1369,7 +1448,7 @@ visualize_graph <- function( x , computed_centrality_value=NULL , centrality.typ
 #' between variables.It asserts that the value of dependent variable changes when the
 #' value of independent variable varies.
 #' @return The regression plot, and the values resulted by the regression process.
-#' @author Minoo Ashtiani, Mohieddin Jafari
+#' @author Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari
 #' @references
 #' CHAMBERS, & M., J. (1992). Statistical Models in S. Wadsworth. Pacific Grove, California. Retrieved from
 #'
@@ -1420,6 +1499,7 @@ visualize_association <- function( x , y, scale=TRUE){
 
 }
 
+
 #' @title Pairwise correlation plot between two centrality measures
 #'
 #' @description This function computes and plots correlation between pair of centrality
@@ -1432,7 +1512,7 @@ visualize_association <- function( x , y, scale=TRUE){
 #' corresponding scatterplot and histograms.
 #' @seealso \code{\link[GGally]{ggpairs}}
 #' @return The correlation plot
-#' @author Minoo Ashtiani, Mohieddin Jafari
+#' @author Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari
 #' @references
 #' Emerson, J. W., Green, W. A., Schloerke, B., Crowley, J., Cook, D., Hofmann, H., & Wickham, H. (2013). The Generalized Pairs Plot. Journal of Computational and Graphical Statistics, 22(1), 79–91.
 #' @export
@@ -1468,7 +1548,7 @@ visualize_pair_correlation <- function( x , y, scale=TRUE){
 #' @details
 #' This function illustrates the heatmap plot of computed centrality measures.
 #' @return The correlation plot
-#' @author Minoo Ashtiani, Mohieddin Jafari
+#' @author Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari
 #' @export
 #' @importFrom pheatmap pheatmap
 
@@ -1514,7 +1594,7 @@ visualize_heatmap <- function( x, scale = TRUE  ){
 #'
 #' @seealso \code{\link[GGally]{ggpairs}}
 #' @return The pairwise correlation plot
-#' @author Minoo Ashtiani, Mohieddin Jafari
+#' @author Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari
 #' @export
 #' @importFrom corrplot corrplot.mixed
 
@@ -1570,7 +1650,7 @@ visualize_correlations <- function(x, scale=TRUE,method = "pearson"){
 #' This function represents node dendrogram of a graph based on a centrality measure.
 #' If the favor centrality is not computed yet, by specifying the name of that it will compute it and show the result.
 #' @seealso \code{\link[stats]{dendrogram}}
-#' @author Minoo Ashtiani, Mohieddin Jafari
+#' @author Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari
 #' @references
 #' Galili, T. (2015). dendextend: an R package for visualizing, adjusting and comparing trees of hierarchical clustering. Bioinformatics, 31(22), 3718–3720.
 #'
@@ -1588,6 +1668,7 @@ visualize_correlations <- function(x, scale=TRUE,method = "pearson"){
 #' @importFrom igraph page_rank
 #' @importFrom igraph betweenness
 #' @importFrom igraph subgraph.centrality
+#' @importFrom igraph strength
 #' @importFrom sna flowbet
 #' @importFrom sna infocent
 #' @importFrom sna loadcent
@@ -1644,7 +1725,7 @@ visualize_dendrogram <- function( x, centrality.type="Degree Centrality", comput
   if (is.null(computed_centrality_value)){
 
     if (!(class(x)%in%"igraph" && is_connected(x) )) stop("The input is not an igraph object
-                                                       or may not be connected.")
+                                                          or may not be connected.")
 
     y <- as_edgelist(x)
     y <- network(y)
@@ -1697,8 +1778,13 @@ visualize_dendrogram <- function( x, centrality.type="Degree Centrality", comput
       "Load Centrality"=function(x)loadcent(y),
       "Flow Betweenness Centrality"=function(x)flowbet(y),
       "Information Centrality"=function(x)infocent(y),
-      "Harary Centrality" = function(x)graphcent(y, gmode="graph", diag=T, cmode="directed")
-
+      "Harary Centrality" = function(x)graphcent(y, gmode="graph", diag=T, cmode="directed"),
+      "Dangalchev Closeness Centrality"= function(x)dangalchev_closeness_centrality(x, vids = V(x), mode = "all", weights = NULL),
+      "Group Centrality"= function(x)group_centrality(x, vids = V(x)),
+      "Harmonic Centrality"= function(x)harmonic_centrality(x, vids = V(x), mode = "all", weights = NULL),
+      "Local Bridging Centrality"= function(x)local_bridging_centrality(x, vids = V(x)),
+      "Wiener Index Centrality"= function(x)wiener_index_centrality(x, vids = V(x), mode ="all", weights = NULL),
+      "Weighted Vertex Degree" = function(x)strength(x, vids = V(x), mode ="all", weights = NULL)
 
     )
     centrality_funcs <- centrality_funcs[intersect(names(centrality_funcs), centrality.type)]
@@ -1729,9 +1815,9 @@ visualize_dendrogram <- function( x, centrality.type="Degree Centrality", comput
     result <- scale(result, center = TRUE, scale = TRUE)
 
     dend <- result%>% dist %>% hclust %>% as.dendrogram %>%
-    highlight_branches_col(viridis(100))  %>%
-    set("branches_k_color", k=3)%>%
-    set("labels_colors")%>%set("nodes_pch", 20)
+      highlight_branches_col(viridis(100))  %>%
+      set("branches_k_color", k=3)%>%
+      set("labels_colors")%>%set("nodes_pch", 20)
 
     circlize_dendrogram(dend, labels_track_height = NA, dend_track_height = .4)
 
@@ -1743,8 +1829,8 @@ visualize_dendrogram <- function( x, centrality.type="Degree Centrality", comput
 
     names(computed_centrality_value) = V(x)$name
     dend <- computed_centrality_value%>% dist %>% hclust %>% as.dendrogram %>%
-    highlight_branches_col(viridis(100))  %>%  set("branches_k_color", k=3)%>%
-    set("labels_colors")%>%set("nodes_pch", 20)
+      highlight_branches_col(viridis(100))  %>%  set("branches_k_color", k=3)%>%
+      set("labels_colors")%>%set("nodes_pch", 20)
 
     circlize_dendrogram(dend, labels_track_height = NA, dend_track_height = .4)
 
@@ -1761,7 +1847,7 @@ visualize_dendrogram <- function( x, centrality.type="Degree Centrality", comput
 #' @param y a vector containing a centrality values as dependent variable
 #' @param scale Whether the centrality values should be scaled or not(default=TRUE)
 #' @param file A character string naming the file to print into. If NULL the result would be printed to the exist directory(default=NULL)
-#' @author Minoo Ashtiani, Mohieddin Jafari
+#' @author Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari
 #' @return  The resulted plot of \code{ \link[CINNA]{visualize_association}}function will be saved in the given directory.
 #' @importFrom ggplot2 ggplot
 #' @importFrom ggplot2 stat_summary
@@ -1786,7 +1872,7 @@ print_visualize_association<-function( x , y, scale = TRUE, file = NULL){
     df <- as.data.frame(df)
 
     reg.plot <- ggplot(data=df,aes(x,y))+stat_summary(fun.data=mean_cl_normal,geom="point",
-      fill="skyblue3",shape=21,colour="black",  size = 3)+
+                                                      fill="skyblue3",shape=21,colour="black",  size = 3)+
       geom_smooth(method='lm',colour = 'red')+xlab(xname) +
       ylab(yname)
 
@@ -1802,7 +1888,7 @@ print_visualize_association<-function( x , y, scale = TRUE, file = NULL){
   else {
 
     reg.plot <- ggplot(data=df,aes(x,y))+stat_summary(fun.data=mean_cl_normal,
-      geom = "point",fill="skyblue3",shape=21,colour="black",  size = 3)+
+                                                      geom = "point",fill="skyblue3",shape=21,colour="black",  size = 3)+
       geom_smooth(method='lm',colour = 'red')+xlab(xname) + ylab(yname)
 
     if (is.null(file)){
@@ -1816,6 +1902,7 @@ print_visualize_association<-function( x , y, scale = TRUE, file = NULL){
   }
 }
 
+
 #' @title Print pairwise correlation and histogram plots between two centrality measures
 #'
 #' @description This function prints pairwise correlation of centrality measures and histogram plot.
@@ -1823,7 +1910,7 @@ print_visualize_association<-function( x , y, scale = TRUE, file = NULL){
 #' @param y a vector containing another centrality measure
 #' @param scale Whether the centrality values should be scaled or not(default=TRUE)
 #' @param file A character string naming the .pdf file to print into. If NULL the result would be printed to the exist directory.
-#' @author Minoo Ashtiani, Mohieddin Jafari
+#' @author Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari
 #' @return The resulted plot of \code{ \link[CINNA]{visualize_pair_correlation}}function will be saved in the given directory.
 #' @importFrom GGally ggpairs
 #' @importFrom grDevices dev.off
@@ -1853,7 +1940,7 @@ print_visualize_pair_correlation <- function( x , y, scale=TRUE, file=NULL){
       dev.off()
     }
     else
-    pdf(file=file)
+      pdf(file=file)
     g <- ggpairs(df, columns=1:2)
     print(g)
     dev.off()
@@ -1869,12 +1956,13 @@ print_visualize_pair_correlation <- function( x , y, scale=TRUE, file=NULL){
       dev.off()
     }
     else
-    pdf(file=file)
+      pdf(file=file)
     g <- ggpairs(df, columns=1:2)
     print(g)
     dev.off()
   }
 }
+
 
 #' @title Print the heatmap plot of centrality measures
 #'
@@ -1883,7 +1971,7 @@ print_visualize_pair_correlation <- function( x , y, scale=TRUE, file=NULL){
 #' @param scale Whether the centrality values should be scaled or not(default=TRUE)
 #' @param file A character string naming the .pdf file to print into. If NULL
 #'  the result would be printed to the exist directory.(default=NULL)
-#' @author Minoo Ashtiani, Mohieddin Jafari
+#' @author Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari
 #' @return  The resulted plot of \code{ \link[CINNA]{visualize_heatmap}}function will be saved in the given directory.
 #' @importFrom pheatmap pheatmap
 
@@ -1940,7 +2028,7 @@ print_visualize_heatmap <- function( x, scale = TRUE, file=NULL ){
 #' @param k number of clusters
 #' @param file A character string naming the .pdf file to print into.
 #' If NULL the result would be printed to the exist directory.(default=NULL)
-#' @author Minoo Ashtiani, Mohieddin Jafari
+#' @author Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari
 #' @return  The resulted plot of \code{ \link[CINNA]{visualize_dendrogram}}function will be saved in the given directory.#' @importFrom igraph alpha.centrality
 #' @importFrom igraph bonpow
 #' @importFrom igraph constraint
@@ -1954,6 +2042,7 @@ print_visualize_heatmap <- function( x, scale = TRUE, file=NULL ){
 #' @importFrom igraph page_rank
 #' @importFrom igraph betweenness
 #' @importFrom igraph subgraph.centrality
+#' @importFrom igraph strength
 #' @importFrom sna flowbet
 #' @importFrom sna infocent
 #' @importFrom sna loadcent
@@ -2053,7 +2142,13 @@ print_visualize_dendrogram <- function( x, centrality.type="Degree Centrality",
       "Load Centrality"=function(x)loadcent(y),
       "Flow Betweenness Centrality"=function(x)flowbet(y),
       "Information Centrality"=function(x)infocent(y),
-      "Harary Centrality" = function(x)graphcent(y, gmode="graph", diag=T, cmode="directed")
+      "Harary Centrality" = function(x)graphcent(y, gmode="graph", diag=T, cmode="directed"),
+      "Dangalchev Closeness Centrality"= function(x)dangalchev_closeness_centrality(x, vids = V(x), mode = "all", weights = NULL),
+      "Group Centrality"= function(x)group_centrality(x, vids = V(x)),
+      "Harmonic Centrality"= function(x)harmonic_centrality(x, vids = V(x), mode = "all", weights = NULL),
+      "Local Bridging Centrality"= function(x)local_bridging_centrality(x, vids = V(x)),
+      "Wiener Index Centrality"= function(x)wiener_index_centrality(x, vids = V(x), mode ="all", weights = NULL),
+      "Weighted Vertex Degree" = function(x)strength(x, vids = V(x), mode ="all", weights = NULL)
 
 
     )
@@ -2133,7 +2228,7 @@ print_visualize_dendrogram <- function( x, centrality.type="Degree Centrality",
 #' to be computed. The proper values are "pearson", "kendall", or "spearman". (default="pearson")
 #' @param file A character string naming the .pdf file to print into. If NULL the result would
 #' be printed to the exist directory.(default=NULL)
-#' @author Minoo Ashtiani, Mohieddin Jafari
+#' @author Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari
 #' @return  The resulted plot of \code{ \link[CINNA]{visualize_correlations}}function will be saved in the given directory.#' @importFrom igraph alpha.centrality
 #' @importFrom corrplot corrplot.mixed
 
@@ -2197,7 +2292,7 @@ print_visualize_correlations <- function(x, scale=TRUE,method = c("pearson", "ke
 #' @param computed_centrality_value A vector containing the values of calculated centrality measure for each node(default=NULL)
 #' @param centrality.type	The type of centrality which should be calculated(default="Degree Centrality")
 #' @param file A character string naming the .pdf file to print into. If NULL the result would be printed to the exist directory.(default=NULL)
-#' @author Minoo Ashtiani, Mohieddin Jafari
+#' @author Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari
 #' @return  The resulted plot of \code{ \link[CINNA]{visualize_graph}}function will be saved in the given directory.#' @importFrom igraph alpha.centrality
 #' @importFrom igraph is.directed
 #' @importFrom igraph alpha.centrality
@@ -2213,6 +2308,7 @@ print_visualize_correlations <- function(x, scale=TRUE,method = c("pearson", "ke
 #' @importFrom igraph page_rank
 #' @importFrom igraph betweenness
 #' @importFrom igraph subgraph.centrality
+#' @importFrom igraph strength
 #' @importFrom sna flowbet
 #' @importFrom sna infocent
 #' @importFrom sna loadcent
@@ -2308,7 +2404,13 @@ print_visualize_graph <- function( x , computed_centrality_value=NULL , centrali
       "Load Centrality"=function(x)loadcent(y),
       "Flow Betweenness Centrality"=function(x)flowbet(y),
       "Information Centrality"=function(x)infocent(y),
-      "Harary Centrality" = function(x)graphcent(y, gmode="graph", diag=T, cmode="directed")
+      "Harary Centrality" = function(x)graphcent(y, gmode="graph", diag=T, cmode="directed"),
+      "Dangalchev Closeness Centrality"= function(x)dangalchev_closeness_centrality(x, vids = V(x), mode = "all", weights = NULL),
+      "Group Centrality"= function(x)group_centrality(x, vids = V(x)),
+      "Harmonic Centrality"= function(x)harmonic_centrality(x, vids = V(x), mode = "all", weights = NULL),
+      "Local Bridging Centrality"= function(x)local_bridging_centrality(x, vids = V(x)),
+      "Wiener Index Centrality"= function(x)wiener_index_centrality(x, vids = V(x), mode ="all", weights = NULL),
+      "Weighted Vertex Degree" = function(x)strength(x, vids = V(x), mode ="all", weights = NULL)
 
 
     )
@@ -2366,7 +2468,7 @@ print_visualize_graph <- function( x , computed_centrality_value=NULL , centrali
 #' variance(default=TRUE)
 #' @param ncp	number of dimensions in final results (default=5)
 #' @return  The result values of \code{ \link[CINNA]{pca_centralities}}function will be saved in the given directory.#' @importFrom igraph alpha.centrality
-#' @author Minoo Ashtiani, Mohieddin Jafari
+#' @author Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari
 #' @importFrom FactoMineR PCA
 
 summary_pca_centralities <- function( x , scale.unit = TRUE,ncp = 5){
@@ -2391,11 +2493,11 @@ summary_pca_centralities <- function( x , scale.unit = TRUE,ncp = 5){
 #' @param directed a boolean constant, Whether to create a directed graph(default=TRUE)
 #' @param bipartite_proj Whether the bipartite network must be projected or not(default=FALSE)
 #' @param num_proj A number which shows the number of projects especifically for bipartite graphs.(default=1)
-#' @author Minoo Ashtiani, Mohieddin Jafari
+#' @author Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari
 #' @return  The result values of \code{ \link[CINNA]{graph_extract_components}}function will be saved in the given directory.#' @importFrom igraph alpha.centrality
 #' @importFrom igraph is_igraph
 #' @importFrom igraph is_bipartite
-#' @importFrom igraph bipartite_projection
+#' @importFrom igraph bipartite.projection
 #' @importFrom igraph is_simple
 #' @importFrom igraph simplify
 #' @importFrom igraph clusters
@@ -2416,7 +2518,7 @@ summary_graph_extract_components <- function( x, directed = TRUE, bipartite_proj
 
       if (is_bipartite(x)){
 
-        x <- bipartite_projection(x)[[num_proj]]
+        x <- bipartite.projection(x)[[num_proj]]
 
         if (!is_simple(x))   x<-simplify(x)
 
@@ -2475,7 +2577,7 @@ summary_graph_extract_components <- function( x, directed = TRUE, bipartite_proj
 #' mean, third qarter and maximum values of computed centrality measures.
 #' @param x centrality measure calculation results
 #' @return a list concluding summary results for each centrality measure value
-#' @author Minoo Ashtiani, Mohieddin Jafari
+#' @author Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari
 #' @return  The result values of \code{ \link[CINNA]{calculate_centralities}}function will be saved in the given directory.#' @importFrom igraph alpha.centrality
 
 summary_calculate_centralities <- function(x){
@@ -2504,7 +2606,7 @@ summary_calculate_centralities <- function(x){
 #'
 #' costs	The cost for every object after the final iteration
 #'
-#' @author Minoo Ashtiani, Mohieddin Jafari
+#' @author Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari
 #' @importFrom Rtsne Rtsne
 
 
@@ -2573,7 +2675,7 @@ summary_tsne_centralities<-function( x , dims = 2, perplexity = 5, scale = TRUE)
 #' @seealso \code{\link[Rtsne]{Rtsne}}
 #' @return It resturns cost plot of tsne results which displays centralities in order of their corresponding costs.
 #'
-#' @author Minoo Ashtiani, Mohieddin Jafari
+#' @author Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari
 #' @references
 #' van der Maaten, L. (2014). Accelerating t SNE using Tree Based Algorithms. Journal of Machine Learning Research, 15, 3221–3245.
 #' Van Der Maaten, L. J. P., & Hinton, G. E. (2008). Visualizing high dimensional data using t sne. Journal of Machine Learning Research, 9, 2579–2605.
@@ -2642,7 +2744,7 @@ tsne_centralities <- function( x , dims = 2, perplexity = 5, scale = TRUE){
 #' @param x a list containing the centrality measure values
 #' @param file A character string naming the .pdf file to print into.
 #' If NULL the result would be printed to the exist directory.(default=NULL)
-#' @author Minoo Ashtiani, Mohieddin Jafari
+#' @author Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari
 #' @return  Print out  \code{ \link[CINNA]{calculate_centralities}}function will be saved in the given directory.
 #' @importFrom utils write.csv
 
@@ -2658,3 +2760,333 @@ print_calculate_centralities<- function(x , file = NULL){
     write.csv(c,"Computed.centrality.values.txt", file = file)
   }
 }
+
+
+#' @title Dangalchev Closeness Centrality
+#'
+#' @description This function computes Dangalchev Closeness Centrality.
+#' This can be access by computing a network resistance. More specifically, it measures the closeness by removing nodes and edges.
+#' The evalauation of this measure of closeness will be easier
+#' and this can be useful for unconnected graphs too.
+#'
+#' @param x An igraph or a network object
+#' @param vids Nodes to be considered in the calculation
+#' @param mode A Character value, indicating whether the shortest paths "in" or "out" of the nodes in the directed graphs should be considered. For undirected graphs we use "all".
+#' @param weights Numeric vector indicating weights of the edges
+#'
+#' @seealso \code{\link[centiserve]{closeness.residual}}
+#' @return
+#' a vector including centrality values for each node
+#' @author Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari
+#' @references
+#' DANGALCHEV, C. 2006. Residual closeness in networks. Physica A: Statistical Mechanics and its Applications, 365, 556-564. DOI: 10.1016/j.physa.2005.12.020
+#'
+#' @examples
+#'
+#' data(zachary)
+#'
+#' dangalchev_closeness_centrality(zachary)
+#'
+#' @export
+#' @importFrom igraph distances
+#' @importFrom igraph V
+#' @importFrom igraph is_igraph
+#' @importFrom igraph is_named
+#' @importFrom igraph getIgraphOpt
+#' @importFrom intergraph asIgraph
+
+dangalchev_closeness_centrality<-function (x, vids = V(x), mode = c("all", "out", "in"), weights = NULL){
+
+  if (!(class(x)%in%"igraph"|| class(x)%in%"network")) stop("The input is not an igraph or a
+                                                            network object")
+
+  if (is_igraph(x)){
+
+    distMat<-1/2^distances(x)
+
+    res <- rowSums(distMat) - diag(distMat)
+
+    if (getIgraphOpt("add.vertex.names") && is_named(x)) {
+      names(res) <- V(x)$name[vids]
+
+    }
+  }
+
+  else{
+
+    x<-asIgraph(x)
+
+    distMat<-1/2^distances(x)
+
+    res <- rowSums(distMat) - diag(distMat)
+
+    if (getIgraphOpt("add.vertex.names") && is_named(x)) {
+      names(res) <- V(x)$name[vids]
+
+    }
+  }
+  return(res)
+}
+
+
+#' @title Local Bridging Centrality
+#'
+#' @description This function computes Local Bridging Centrality. This classifies nodes regarding their structural links among the dense components.
+#'
+#' @param x An igraph or a network object
+#' @param vids Nodes to be considered in the calculation
+#'
+#' @seealso \code{\link[igraph]{betweenness}}
+#' @return
+#' a vector including centrality values for each node
+#'
+#' @author Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari
+#' @references
+#' Macker, J.P., 2016, November. An improved local bridging centrality model for distributed network analytics. In Military Communications Conference, MILCOM 2016-2016 IEEE (pp. 600-605). IEEE. DOI: 10.1109/MILCOM.2016.7795393
+#'
+#' @examples
+#'
+#' data(zachary)
+#'
+#' local_bridging_centrality(zachary)
+#'
+#' @export
+#' @importFrom igraph degree
+#' @importFrom igraph neighbors
+#' @importFrom igraph V
+#' @importFrom igraph is_igraph
+#' @importFrom igraph is_named
+#' @importFrom igraph getIgraphOpt
+#' @importFrom intergraph asIgraph
+
+local_bridging_centrality<-function (x, vids = V(x)){
+
+  if (!(class(x)%in%"igraph"|| class(x)%in%"network")) stop("The input is not an igraph or a
+                                                            network object")
+
+  f <- function(v){
+    (1/degree(x,v))/sum(1/degree(x,neighbors(x,v,'all')))}
+
+  if (is_igraph(x)){
+
+    results <- sapply(V(x),f)
+
+    if (getIgraphOpt("add.vertex.names") && is_named(x)) {
+      names(results) <- V(x)$name[vids]
+    }
+  }
+
+  else{
+
+    x<-asIgraph(x)
+
+    results <- sapply(V(x),f)
+
+    if (getIgraphOpt("add.vertex.names") && is_named(x)) {
+      names(results) <- V(x)$name[vids]
+    }
+  }
+  return(results)
+}
+
+#' @title Wiener Index Centrality
+#'
+#' @description This function computes Wiener Index Centrality.
+#' The Wiener index computes the sum of the all shortest paths
+#' between a node v and all other related nodes in the graph.
+#' Fundementally, it's like to the closeness but here since the reciprocal is not computed, the value has the opposite meaning.
+#'
+#' @param x An igraph or a network object
+#' @param vids Nodes to be considered in the calculation
+#' @param mode A Character value, indicating whether the shortest paths "in" or "out" of the nodes in the directed graphs should be considered. For undirected graphs we use "all".
+#' @param weights Numeric vector indicating weights of the edges
+#'
+#' @return
+#' a vector including centrality values for each node
+#' @author Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari
+#' @references
+#' Scardoni, G. and Carlo Laudanna, C.B.M.C., 2011. Network centralities for Cytoscape. University of Verona.
+#'
+#' @examples
+#'
+#' data(zachary)
+#'
+#' wiener_index_centrality(zachary)
+#'
+#' @export
+#' @importFrom igraph shortest.paths
+#' @importFrom igraph V
+#' @importFrom igraph is_igraph
+#' @importFrom igraph is_named
+#' @importFrom igraph getIgraphOpt
+#' @importFrom intergraph asIgraph
+
+wiener_index_centrality<-function (x, vids = V(x), mode = c("all", "out", "in"), weights = NULL){
+
+  if (!(class(x)%in%"igraph"|| class(x)%in%"network")) stop("The input is not an igraph or a
+                                                            network object")
+  if (is_igraph(x)){
+
+    distMat<- shortest.paths(x , mode = mode[1], weights = weights)
+    diag(distMat)<-0
+
+    res <- rowSums(distMat) - diag(distMat)
+
+    if (getIgraphOpt("add.vertex.names") && is_named(x)) {
+      names(res) <- V(x)$name[vids]
+
+    }
+
+  }
+
+  else{
+
+    x<-asIgraph(x)
+
+    distMat<- shortest.paths(x , mode = mode[1], weights = weights)
+    diag(distMat)<-0
+
+    res <- rowSums(distMat) - diag(distMat)
+
+    if (getIgraphOpt("add.vertex.names") && is_named(x)) {
+      names(res) <- V(x)$name[vids]
+
+    }
+
+  }
+  return(res=res)
+}
+
+
+#' @title Harmonic Centrality
+#'
+#' @description This function computes Harmonic Centrality.
+#' The harmonic metric defines as the denormalized reciprocal of the harmonic mean of all distances.
+#'
+#' @param x An igraph or a network object
+#' @param vids Nodes to be considered in the calculation
+#' @param mode a character value, “out” for out-degree, “in” for in-degree or “total” for the sum of the two. For undirected graphs this argument is ignored. “all” is a synonym of “total”.
+#' @param weights  Numeric vector indicating weights of the edges
+#'
+#' @return
+#' a vector including centrality values for each node
+#'
+#' @author Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari
+#'
+#' @references
+#' BOLDI, P. & VIGNA, S. 2014. Axioms for centrality. Internet Mathematics, 00-00.
+#'
+#' MARCHIORI, M. & LATORA, V. 2000. Harmony in the small-world. Physica A: Statistical Mechanics and its Applications, 285, 539-546.
+#'
+#' OPSAHL, T., AGNEESSENS, F. & SKVORETZ, J. 2010. Node centrality in weighted networks: Generalizing degree and shortest paths. Social Networks, 32, 245-251.
+#'
+#' OPSAHL, T. 2010. Closeness centrality in networks with disconnected components (http://toreopsahl.com/2010/03/20/closeness-centrality-in-networks-with-disconnected-components/)
+#'
+#' @examples
+#'
+#' data(zachary)
+#'
+#' harmonic_centrality(zachary)
+#'
+#' @export
+#' @importFrom igraph distances
+#' @importFrom igraph vcount
+#' @importFrom intergraph asIgraph
+
+harmonic_centrality <- function (x, vids = V(x), mode = c("all", "out", "in"), weights = NULL){
+
+  if (!(class(x)%in%"igraph"|| class(x)%in%"network")) stop("The input is not an igraph or a
+                                                            network object")
+  if (is_igraph(x)){
+
+    distMat<-1/distances(x, mode = mode[1], weights = weights)
+    diag(distMat)<-0
+
+    res <- rowSums(distMat) - diag(distMat)
+
+    if (getIgraphOpt("add.vertex.names") && is_named(x)) {
+      names(res) <- V(x)$name[vids]
+
+    }
+
+  }
+  else{
+
+    x<-asIgraph(x)
+
+    distMat<-1/distances(x, mode = mode[1], weights = weights)
+    diag(distMat)<-0
+
+    res <- rowSums(distMat) - diag(distMat)
+
+    if (getIgraphOpt("add.vertex.names") && is_named(x)) {
+      names(res) <- V(x)$name[vids]
+
+    }
+  }
+
+  return(res)
+}
+
+#' @title Group Centrality
+#'
+#' @description This function computes group Centrality. So, it considers a consistent ranking of
+#' each node to be calculated such that scores diverse possible synergies among possible groups of vertices.
+#'
+#' @param x An igraph or a network object
+#' @param vids Nodes to be considered in the calculation
+#'
+#' @return
+#' a vector including centrality values for each node
+#'
+#' @author Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari
+#' @references
+#' Michalak, T.P., Aadithya, K.V., Szczepanski, P.L., Ravindran, B. and Jennings, N.R., 2013. Efficient computation of the Shapley value for game-theoretic network centrality. Journal of Artificial Intelligence Research, 46, pp.607-650.
+#'
+#' https://www.civilica.com/Paper-IBIS07-IBIS07_127.html
+#'
+#' @examples
+#'
+#' data(zachary)
+#'
+#' group_centrality(zachary)
+#'
+#' @export
+#' @importFrom igraph neighbors
+#' @importFrom igraph degree
+#' @importFrom igraph V
+#' @importFrom igraph is_igraph
+#' @importFrom igraph is_named
+#' @importFrom igraph getIgraphOpt
+#' @importFrom intergraph asIgraph
+
+group_centrality<-function (x, vids = V(x)){
+
+  if (!(class(x)%in%"igraph"|| class(x)%in%"network")) stop("The input is not an igraph or a
+                                                            network object")
+
+  f <- function(v){ 1/(1 + degree(x,v)) + sum(1/(1+degree(x,neighbors(x,v,'all'))))}
+
+  if (is_igraph(x)){
+
+    results <- sapply(V(x),f)
+
+    if (getIgraphOpt("add.vertex.names") && is_named(x)) {
+      names(results) <- V(x)$name[vids]
+    }
+  }
+
+  else{
+
+    x<-asIgraph(x)
+
+    results <- sapply(V(x),f)
+
+    if (getIgraphOpt("add.vertex.names") && is_named(x)) {
+      names(results) <- V(x)$name[vids]
+    }
+  }
+  return(results)
+}
+
+

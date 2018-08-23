@@ -25,7 +25,7 @@ to a bipartite graph. TRUE value specifies the biprtite graph and vice versa.(de
 If it was FALSE then the diagonal spotted as zeros.(default=TRUE)}
 }
 \value{
-a list including the componets of the input as igraph objects
+a list including the components of the input graph as igraph objects
 }
 \description{
 This function extracts all components of the input with various formats
@@ -41,5 +41,5 @@ The result would be a list including components as seperated graphs.
 \code{\link[igraph]{graph_from_adjacency_matrix}}
 }
 \author{
-Minoo Ashtiani, Mohieddin Jafari
+Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari
 }

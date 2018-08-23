@@ -22,5 +22,5 @@ The resulted plot of \code{ \link[CINNA]{visualize_association}}function will be
 This function prints regression plot between pair of centrality measures
 }
 \author{
-Minoo Ashtiani, Mohieddin Jafari
+Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari
 }

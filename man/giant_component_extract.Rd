@@ -18,7 +18,7 @@ giant_component_extract(x, directed = TRUE, bipartite_proj = FALSE,
 bipartite graphs.(default=1)}
 }
 \value{
-the giant componet of the input as igraph object
+a list contatining the giant componet of the input graph. The first element is an igraph object and the second is the edgelist of that.
 }
 \description{
 This function extracts the largest connected or the giant component
@@ -46,5 +46,5 @@ Newman, M. (2010). Networks. Oxford University Press.
 \code{\link[igraph]{induced.subgraph}},\code{\link[igraph]{clusters}}
 }
 \author{
-Minoo Ashtiani, Mohieddin Jafari
+Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari
 }

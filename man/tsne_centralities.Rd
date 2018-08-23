@@ -35,5 +35,5 @@ Van Der Maaten, L. J. P., & Hinton, G. E. (2008). Visualizing high dimensional d
 \code{\link[Rtsne]{Rtsne}}
 }
 \author{
-Minoo Ashtiani, Mohieddin Jafari
+Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari
 }

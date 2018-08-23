@@ -21,5 +21,5 @@ The result values of \code{ \link[CINNA]{pca_centralities}}function will be save
 This function summarizes PCA result related to centrality measures.
 }
 \author{
-Minoo Ashtiani, Mohieddin Jafari
+Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari
 }

@@ -30,5 +30,5 @@ proper_centralities(zachary)
 \code{\link[CINNA]{calculate_centralities}}
 }
 \author{
-Minoo Ashtiani, Mohieddin Jafari
+Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari
 }

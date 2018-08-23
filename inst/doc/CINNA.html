@@ -12,7 +12,7 @@
 
 <meta name="author" content="Minoo Ashtiani, Mohieddin Jafari" />
 
-<meta name="date" content="2018-05-09" />
+<meta name="date" content="2018-08-23" />
 
 <title>CINNA</title>
 
@@ -280,7 +280,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 
 <h1 class="title toc-ignore">CINNA</h1>
 <h4 class="author"><em>Minoo Ashtiani, Mohieddin Jafari</em></h4>
-<h4 class="date"><em>2018-05-09</em></h4>
+<h4 class="date"><em>2018-08-23</em></h4>
 
 
 <div id="TOC">
@@ -463,9 +463,9 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <p>“graph.extract.components” function is able to read <code>igraph</code> and <code>network</code> objects and returns their components as a list of <code>igraph</code> objects. This function also has this ability to recognized bipartite graphs and user can decide that which project is suitable for his analysis. In order to use this function, we use zachary data set and develop it in all of our functions.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">graph_extract_components</span>(zachary)</a></code></pre></div>
 <pre><code>## [[1]]
-## IGRAPH 327c83b U--- 34 78 -- 
+## IGRAPH 78aa918 U--- 34 78 -- 
 ## + attr: id (v/n)
-## + edges from 327c83b:
+## + edges from 78aa918:
 ##  [1]  1-- 2  1-- 3  2-- 3  1-- 4  2-- 4  3-- 4  1-- 5  1-- 6  1-- 7  5-- 7
 ## [11]  6-- 7  1-- 8  2-- 8  3-- 8  4-- 8  1-- 9  3-- 9  3--10  1--11  5--11
 ## [21]  6--11  1--12  1--13  4--13  1--14  2--14  3--14  4--14  6--17  7--17
@@ -477,58 +477,74 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <p>This results the only component of the zachary graph. This function is also applicable for bipartite networks. Using the <code>num_proj</code> argument, user can decide on which projection is interested to work on. As an example of bipartite graphs, we use <code>drugTarget</code> network as follows:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">data</span>(<span class="st">&quot;drugTarget&quot;</span>)</a>
 <a class="sourceLine" id="cb6-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb6-3" data-line-number="3">drug_comp &lt;-<span class="st"> </span><span class="kw">graph_extract_components</span>( drugTarget, <span class="dt">directed =</span> <span class="ot">TRUE</span> , <span class="dt">bipartite_proj=</span><span class="ot">TRUE</span>, <span class="dt">num_proj=</span><span class="dv">2</span>)</a></code></pre></div>
-<pre><code>## Warning in bipartite_projection(x): vertex types converted to logical</code></pre>
+<a class="sourceLine" id="cb6-3" data-line-number="3">drug_comp &lt;-<span class="st"> </span><span class="kw">graph_extract_components</span>( drugTarget, <span class="dt">directed =</span> <span class="ot">TRUE</span>, <span class="dt">bipartite_proj =</span> <span class="ot">TRUE</span>, <span class="dt">num_proj =</span> <span class="dv">1</span>)</a></code></pre></div>
+<pre><code>## Warning in bipartite.projection(x): vertex types converted to logical</code></pre>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">head</span>(drug_comp)</a></code></pre></div>
 <pre><code>## [[1]]
-## IGRAPH 32829f3 UNW- 131 560 -- 
+## IGRAPH 78b0d43 UNW- 11 55 -- 
 ## + attr: id (v/n), name (v/c), weight (e/n)
-## + edges from 32829f3 (vertex names):
-##  [1] O00555--O15399 O15399--O60391 O43497--P00915 P00915--P00918
-##  [5] O15554--P03886 P03372--P04278 P00915--P05023 P00918--P05023
-##  [9] P03372--P06401 P07550--P08172 P08172--P08173 P07550--P08588
-## [13] P08172--P08588 P08588--P08908 P08172--P08912 P08173--P08912
-## [17] P07550--P08913 P08588--P09172 P03372--P10275 P04278--P10275
-## [21] P07550--P11229 P08172--P11229 P08173--P11229 P08588--P11229
-## [25] P08912--P11229 O00555--P14416 O43497--P14416 P08172--P14416
-## [29] P08173--P14416 P08588--P14416 P08908--P14416 P08912--P14416
+## + edges from 78b0d43 (vertex names):
+##  [1] Abacavir     --Delavirdine   Abacavir     --Didanosine   
+##  [3] Delavirdine  --Didanosine    Abacavir     --Efavirenz    
+##  [5] Delavirdine  --Efavirenz     Didanosine   --Efavirenz    
+##  [7] Abacavir     --Emtricitabine Delavirdine  --Emtricitabine
+##  [9] Didanosine   --Emtricitabine Efavirenz    --Emtricitabine
+## [11] Abacavir     --Lamivudine    Delavirdine  --Lamivudine   
+## [13] Didanosine   --Lamivudine    Efavirenz    --Lamivudine   
+## [15] Emtricitabine--Lamivudine    Abacavir     --Nevirapine   
 ## + ... omitted several edges
 ## 
 ## [[2]]
-## IGRAPH 32829f3 UNW- 6 15 -- 
+## IGRAPH 78b0fb4 UNW- 5 10 -- 
 ## + attr: id (v/n), name (v/c), weight (e/n)
-## + edges from 32829f3 (vertex names):
-##  [1] O00764--P34896 O00764--P35520 P34896--P35520 O00764--Q96GD0
-##  [5] P34896--Q96GD0 P35520--Q96GD0 O00764--Q9NVS9 P34896--Q9NVS9
-##  [9] P35520--Q9NVS9 Q96GD0--Q9NVS9 O00764--Q9Y617 P34896--Q9Y617
-## [13] P35520--Q9Y617 Q96GD0--Q9Y617 Q9NVS9--Q9Y617
+## + edges from 78b0fb4 (vertex names):
+##  [1] Abarelix   --Ganirelix   Abarelix   --Gonadorelin
+##  [3] Ganirelix  --Gonadorelin Abarelix   --Leuprolide 
+##  [5] Ganirelix  --Leuprolide  Gonadorelin--Leuprolide 
+##  [7] Abarelix   --Nafarelin   Ganirelix  --Nafarelin  
+##  [9] Gonadorelin--Nafarelin   Leuprolide --Nafarelin  
 ## 
 ## [[3]]
-## IGRAPH 3282c6f UNW- 2 1 -- 
+## IGRAPH 78b0fb4 UNW- 3 3 -- 
 ## + attr: id (v/n), name (v/c), weight (e/n)
-## + edge from 3282c6f (vertex names):
-## [1] O14646--P11388
+## + edges from 78b0fb4 (vertex names):
+## [1] Abciximab   --Eptifibatide Abciximab   --Tirofiban   
+## [3] Eptifibatide--Tirofiban   
 ## 
 ## [[4]]
-## IGRAPH 3282c6f UNW- 7 10 -- 
+## IGRAPH 78b1496 UNW- 482 8179 -- 
 ## + attr: id (v/n), name (v/c), weight (e/n)
-## + edges from 3282c6f (vertex names):
-##  [1] O14659--P00374 O14659--P04818 P00374--P04818 P04818--P23921
-##  [5] P09884--P23921 P04818--P27707 P23921--P27707 P04818--P30085
-##  [9] P23921--P30085 P27707--P30085
+## + edges from 78b1496 (vertex names):
+##  [1] Acamprosate   --Alprazolam    Adinazolam    --Alprazolam   
+##  [3] Acebutolol    --Alprenolol    Albuterol     --Alprenolol   
+##  [5] Acetophenazine--Amantadine    Acebutolol    --Amiodarone   
+##  [7] Alfuzosin     --Amiodarone    Alprenolol    --Amiodarone   
+##  [9] Acetazolamide --Amlodipine    Amitriptyline --Amoxapine    
+## [11] Alfuzosin     --Amphetamine   Amiodarone    --Amphetamine  
+## [13] Aminophylline --Anagrelide    Alfentanil    --Anileridine  
+## [15] Acetophenazine--Apomorphine   Amantadine    --Apomorphine  
+## + ... omitted several edges
 ## 
 ## [[5]]
-## IGRAPH 3282c6f UNW- 2 1 -- 
+## IGRAPH 78b1496 UNW- 4 4 -- 
 ## + attr: id (v/n), name (v/c), weight (e/n)
-## + edge from 3282c6f (vertex names):
-## [1] O14987--P21731
+## + edges from 78b1496 (vertex names):
+## [1] Acarbose   --Bentiromide Acarbose   --Miglitol   
+## [3] Bentiromide--Miglitol    Bentiromide--Orlistat   
 ## 
 ## [[6]]
-## IGRAPH 3282c6f UNW- 4 5 -- 
+## IGRAPH 78b1708 UNW- 34 522 -- 
 ## + attr: id (v/n), name (v/c), weight (e/n)
-## + edges from 3282c6f (vertex names):
-## [1] O15528--P11473 P11473--Q02318 O15528--Q6VVX0 P11473--Q6VVX0
-## [5] Q02318--Q6VVX0</code></pre>
+## + edges from 78b1708 (vertex names):
+##  [1] Acetaminophen--Aspirin     Acetaminophen--Balsalazide
+##  [3] Aspirin      --Balsalazide Acetaminophen--Bromfenac  
+##  [5] Aspirin      --Bromfenac   Balsalazide  --Bromfenac  
+##  [7] Acetaminophen--Carprofen   Aspirin      --Carprofen  
+##  [9] Balsalazide  --Carprofen   Bromfenac    --Carprofen  
+## [11] Acetaminophen--Celecoxib   Aspirin      --Celecoxib  
+## [13] Balsalazide  --Celecoxib   Bromfenac    --Celecoxib  
+## [15] Carprofen    --Celecoxib   Acetaminophen--Ciclopirox 
+## + ... omitted several edges</code></pre>
 <p>It will return all components of the second projection of the network.</p>
 </div>
 <div id="the-segregation-of-other-graph-formats" class="section level3">
@@ -539,8 +555,8 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <a class="sourceLine" id="cb10-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb10-4" data-line-number="4"><span class="kw">misc_extract_components</span>(zachary_edgelist)</a></code></pre></div>
 <pre><code>## [[1]]
-## IGRAPH 3294075 D--- 34 78 -- 
-## + edges from 3294075:
+## IGRAPH 78c3c32 D--- 34 78 -- 
+## + edges from 78c3c32:
 ##  [1]  1-&gt; 2  1-&gt; 3  2-&gt; 3  1-&gt; 4  2-&gt; 4  3-&gt; 4  1-&gt; 5  1-&gt; 6  1-&gt; 7  5-&gt; 7
 ## [11]  6-&gt; 7  1-&gt; 8  2-&gt; 8  3-&gt; 8  4-&gt; 8  1-&gt; 9  3-&gt; 9  3-&gt;10  1-&gt;11  5-&gt;11
 ## [21]  6-&gt;11  1-&gt;12  1-&gt;13  4-&gt;13  1-&gt;14  2-&gt;14  3-&gt;14  4-&gt;14  6-&gt;17  7-&gt;17
@@ -555,9 +571,9 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <p>In the most of research topics of network analysis, network features are related to the largest connected component of a graph<span class="citation">(Newman 2010)</span>. In order to get that for an <code>igraph</code> or a <code>network</code> object, <code>giant_component_extract</code> function is specified. For using this function we can do:</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw">giant_component_extract</span>(zachary)</a></code></pre></div>
 <pre><code>## [[1]]
-## IGRAPH 329dccf U--- 34 78 -- 
+## IGRAPH 78c6349 U--- 34 78 -- 
 ## + attr: id (v/n)
-## + edges from 329dccf:
+## + edges from 78c6349:
 ##  [1]  1-- 2  1-- 3  2-- 3  1-- 4  2-- 4  3-- 4  1-- 5  1-- 6  1-- 7  5-- 7
 ## [11]  6-- 7  1-- 8  2-- 8  3-- 8  4-- 8  1-- 9  3-- 9  3--10  1--11  5--11
 ## [21]  6--11  1--12  1--13  4--13  1--14  2--14  3--14  4--14  6--17  7--17
@@ -700,7 +716,12 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ## [41] &quot;Stress Centrality&quot;                               
 ## [42] &quot;Load Centrality&quot;                                 
 ## [43] &quot;Flow Betweenness Centrality&quot;                     
-## [44] &quot;Information Centrality&quot;</code></pre>
+## [44] &quot;Information Centrality&quot;                          
+## [45] &quot;Dangalchev Closeness Centrality&quot;                 
+## [46] &quot;Group Centrality&quot;                                
+## [47] &quot;Harmonic Centrality&quot;                             
+## [48] &quot;Local Bridging Centrality&quot;                       
+## [49] &quot;Wiener Index Centrality&quot;</code></pre>
 <p>It returns the full names of suitable centrality types for the input graph. The input must have a class of <code>igraph</code> object.</p>
 </div>
 <div id="centrality-computations" class="section level3">
@@ -755,7 +776,12 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ## [41] &quot;Stress Centrality&quot;                               
 ## [42] &quot;Load Centrality&quot;                                 
 ## [43] &quot;Flow Betweenness Centrality&quot;                     
-## [44] &quot;Information Centrality&quot;</code></pre>
+## [44] &quot;Information Centrality&quot;                          
+## [45] &quot;Dangalchev Closeness Centrality&quot;                 
+## [46] &quot;Group Centrality&quot;                                
+## [47] &quot;Harmonic Centrality&quot;                             
+## [48] &quot;Local Bridging Centrality&quot;                       
+## [49] &quot;Wiener Index Centrality&quot;</code></pre>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1">calc_cent &lt;-<span class="st"> </span><span class="kw">calculate_centralities</span>(zachary, <span class="dt">include  =</span> pr_cent[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>])</a></code></pre></div>
 <p>The result would be a list of computed centralities.</p>
 </div>
@@ -799,7 +825,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <p>On of the way of complex large network visualizations(more than 100 nodes and 200 edges) is using heat map<span class="citation">(Pryke, Mostaghim, and Nazemi 2007)</span>. <code>visualize_heatmap</code> function demonstrates a heat map plot between the centrality values. The input is a list containing the computed values.</p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="kw">visualize_heatmap</span>( calc_cent , <span class="dt">scale =</span> <span class="ot">TRUE</span>  )</a></code></pre></div>
 <div class="figure">
-<img src="data:image/png;base64,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" alt="Observed centrality measure heatmap. The colors from blue to red displays scaled centrality values." />
+<img src="data:image/png;base64,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" alt="Observed centrality measure heatmap. The colors from blue to red displays scaled centrality values." />
 <p class="caption">Observed centrality measure heatmap. The colors from blue to red displays scaled centrality values.</p>
 </div>
 </div>
