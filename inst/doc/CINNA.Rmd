@@ -1,6 +1,6 @@
 ---
 title: "CINNA"
-author: "Minoo Ashtiani, Mohieddin Jafari"
+author: "Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari"
 date: "`r Sys.Date()`"
 output:
  rmarkdown::html_vignette:

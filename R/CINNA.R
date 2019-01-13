@@ -84,7 +84,7 @@ graph_extract_components <- function( x, directed = TRUE, bipartite_proj=FALSE, 
 
     x<-graph_from_edgelist(edgelist, directed = TRUE)
 
-    if (!is_simple(x))  gr<-simplify(x)
+    if (!is_simple(x))  x<-simplify(x)
 
     cl <- clusters(x)
 
@@ -305,7 +305,7 @@ giant_component_extract <- function( x, directed = TRUE, bipartite_proj=FALSE ,n
 
     x <- graph_from_edgelist(edgelist, directed = directed)
 
-    if (!is_simple(x))  gr<-simplify(x)
+    if (!is_simple(x))  x<-simplify(x)
 
     cl <- clusters(x)
 
