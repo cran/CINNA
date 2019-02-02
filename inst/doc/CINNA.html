@@ -12,7 +12,7 @@
 
 <meta name="author" content="Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari" />
 
-<meta name="date" content="2019-01-13" />
+<meta name="date" content="2019-01-26" />
 
 <title>CINNA</title>
 
@@ -92,7 +92,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">CINNA</h1>
 <h4 class="author"><em>Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari</em></h4>
-<h4 class="date"><em>2019-01-13</em></h4>
+<h4 class="date"><em>2019-01-26</em></h4>
 
 
 <div id="TOC">
@@ -275,9 +275,9 @@ zachary</code></pre></div>
 <p>“graph.extract.components” function is able to read <code>igraph</code> and <code>network</code> objects and returns their components as a list of <code>igraph</code> objects. This function also has this ability to recognized bipartite graphs and user can decide that which project is suitable for his analysis. In order to use this function, we use zachary data set and develop it in all of our functions.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">graph_extract_components</span>(zachary)</code></pre></div>
 <pre><code>## [[1]]
-## IGRAPH 8d25f80 U--- 34 78 -- 
+## IGRAPH df0bf8d U--- 34 78 -- 
 ## + attr: id (v/n)
-## + edges from 8d25f80:
+## + edges from df0bf8d:
 ##  [1]  1-- 2  1-- 3  2-- 3  1-- 4  2-- 4  3-- 4  1-- 5  1-- 6  1-- 7  5-- 7
 ## [11]  6-- 7  1-- 8  2-- 8  3-- 8  4-- 8  1-- 9  3-- 9  3--10  1--11  5--11
 ## [21]  6--11  1--12  1--13  4--13  1--14  2--14  3--14  4--14  6--17  7--17
@@ -293,9 +293,9 @@ drug_comp &lt;-<span class="st"> </span><span class="kw">graph_extract_component
 <pre><code>## Warning in bipartite.projection(x): vertex types converted to logical</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(drug_comp)</code></pre></div>
 <pre><code>## [[1]]
-## IGRAPH 8d2d336 UNW- 11 55 -- 
+## IGRAPH df12f45 UNW- 11 55 -- 
 ## + attr: id (v/n), name (v/c), weight (e/n)
-## + edges from 8d2d336 (vertex names):
+## + edges from df12f45 (vertex names):
 ##  [1] Abacavir     --Delavirdine   Abacavir     --Didanosine   
 ##  [3] Delavirdine  --Didanosine    Abacavir     --Efavirenz    
 ##  [5] Delavirdine  --Efavirenz     Didanosine   --Efavirenz    
@@ -307,9 +307,9 @@ drug_comp &lt;-<span class="st"> </span><span class="kw">graph_extract_component
 ## + ... omitted several edges
 ## 
 ## [[2]]
-## IGRAPH 8d2d336 UNW- 5 10 -- 
+## IGRAPH df12f45 UNW- 5 10 -- 
 ## + attr: id (v/n), name (v/c), weight (e/n)
-## + edges from 8d2d336 (vertex names):
+## + edges from df12f45 (vertex names):
 ##  [1] Abarelix   --Ganirelix   Abarelix   --Gonadorelin
 ##  [3] Ganirelix  --Gonadorelin Abarelix   --Leuprolide 
 ##  [5] Ganirelix  --Leuprolide  Gonadorelin--Leuprolide 
@@ -317,16 +317,16 @@ drug_comp &lt;-<span class="st"> </span><span class="kw">graph_extract_component
 ##  [9] Gonadorelin--Nafarelin   Leuprolide --Nafarelin  
 ## 
 ## [[3]]
-## IGRAPH 8d2d5a7 UNW- 3 3 -- 
+## IGRAPH df131b6 UNW- 3 3 -- 
 ## + attr: id (v/n), name (v/c), weight (e/n)
-## + edges from 8d2d5a7 (vertex names):
+## + edges from df131b6 (vertex names):
 ## [1] Abciximab   --Eptifibatide Abciximab   --Tirofiban   
 ## [3] Eptifibatide--Tirofiban   
 ## 
 ## [[4]]
-## IGRAPH 8d2d819 UNW- 482 8179 -- 
+## IGRAPH df13427 UNW- 482 8179 -- 
 ## + attr: id (v/n), name (v/c), weight (e/n)
-## + edges from 8d2d819 (vertex names):
+## + edges from df13427 (vertex names):
 ##  [1] Acamprosate   --Alprazolam    Adinazolam    --Alprazolam   
 ##  [3] Acebutolol    --Alprenolol    Albuterol     --Alprenolol   
 ##  [5] Acetophenazine--Amantadine    Acebutolol    --Amiodarone   
@@ -338,16 +338,16 @@ drug_comp &lt;-<span class="st"> </span><span class="kw">graph_extract_component
 ## + ... omitted several edges
 ## 
 ## [[5]]
-## IGRAPH 8d2d819 UNW- 4 4 -- 
+## IGRAPH df13427 UNW- 4 4 -- 
 ## + attr: id (v/n), name (v/c), weight (e/n)
-## + edges from 8d2d819 (vertex names):
+## + edges from df13427 (vertex names):
 ## [1] Acarbose   --Bentiromide Acarbose   --Miglitol   
 ## [3] Bentiromide--Miglitol    Bentiromide--Orlistat   
 ## 
 ## [[6]]
-## IGRAPH 8d2da8a UNW- 34 522 -- 
+## IGRAPH df13697 UNW- 34 522 -- 
 ## + attr: id (v/n), name (v/c), weight (e/n)
-## + edges from 8d2da8a (vertex names):
+## + edges from df13697 (vertex names):
 ##  [1] Acetaminophen--Aspirin     Acetaminophen--Balsalazide
 ##  [3] Aspirin      --Balsalazide Acetaminophen--Bromfenac  
 ##  [5] Aspirin      --Bromfenac   Balsalazide  --Bromfenac  
@@ -367,8 +367,8 @@ zachary_edgelist &lt;-<span class="st"> </span><span class="kw">as_edgelist</spa
 
 <span class="kw">misc_extract_components</span>(zachary_edgelist)</code></pre></div>
 <pre><code>## [[1]]
-## IGRAPH 8d50ea9 D--- 34 78 -- 
-## + edges from 8d50ea9:
+## IGRAPH df27a17 D--- 34 78 -- 
+## + edges from df27a17:
 ##  [1]  1-&gt; 2  1-&gt; 3  2-&gt; 3  1-&gt; 4  2-&gt; 4  3-&gt; 4  1-&gt; 5  1-&gt; 6  1-&gt; 7  5-&gt; 7
 ## [11]  6-&gt; 7  1-&gt; 8  2-&gt; 8  3-&gt; 8  4-&gt; 8  1-&gt; 9  3-&gt; 9  3-&gt;10  1-&gt;11  5-&gt;11
 ## [21]  6-&gt;11  1-&gt;12  1-&gt;13  4-&gt;13  1-&gt;14  2-&gt;14  3-&gt;14  4-&gt;14  6-&gt;17  7-&gt;17
@@ -383,9 +383,9 @@ zachary_edgelist &lt;-<span class="st"> </span><span class="kw">as_edgelist</spa
 <p>In the most of research topics of network analysis, network features are related to the largest connected component of a graph<span class="citation">(Newman 2010)</span>. In order to get that for an <code>igraph</code> or a <code>network</code> object, <code>giant_component_extract</code> function is specified. For using this function we can do:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">giant_component_extract</span>(zachary)</code></pre></div>
 <pre><code>## [[1]]
-## IGRAPH 8d54a42 U--- 34 78 -- 
+## IGRAPH df2c85a U--- 34 78 -- 
 ## + attr: id (v/n)
-## + edges from 8d54a42:
+## + edges from df2c85a:
 ##  [1]  1-- 2  1-- 3  2-- 3  1-- 4  2-- 4  3-- 4  1-- 5  1-- 6  1-- 7  5-- 7
 ## [11]  6-- 7  1-- 8  2-- 8  3-- 8  4-- 8  1-- 9  3-- 9  3--10  1--11  5--11
 ## [21]  6--11  1--12  1--13  4--13  1--14  2--14  3--14  4--14  6--17  7--17

@@ -1,4 +1,4 @@
-2f3b0034d1310badeb5181edab1d35ee *DESCRIPTION
+5752b4bab8a5414758797cdfdd1703af *DESCRIPTION
 6e9760ab7ca14aff01321ccac11b734a *NAMESPACE
 de7fbce5cc1e2735c6175828f3292b4d *R/CINNA.R
 473672082f65baeeecfdefe11a031dd3 *R/Cortex.R
@@ -14,7 +14,7 @@ e6aa5eb710a6716d3adbee4f8f547d16 *data/drugTarget.rda
 99460e7c75340caeb865bef42d1fab71 *data/zachary.rda
 6c3e3274770cee61436ed486486a0ab0 *inst/doc/CINNA.R
 7ab13dc3a7847c865b7983ed2c22d06b *inst/doc/CINNA.Rmd
-7cc0db21e000b17a64df1267482a9993 *inst/doc/CINNA.html
+f5117e0423b6f867fa5c1b9f95eff882 *inst/doc/CINNA.html
 6b12927f2ac0314bc4b37293b1f82351 *man/calculate_centralities.Rd
 155c64b1a8231c306af0a40efdf67fdc *man/cortex.Rd
 f9be51c853a9ef7f7e6249b39e88704c *man/dangalchev_closeness_centrality.Rd
