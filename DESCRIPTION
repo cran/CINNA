@@ -1,7 +1,7 @@
 Package: CINNA
 Title: Deciphering Central Informative Nodes in Network Analysis
-Version: 1.1.52
-Date: 2019-01-26
+Version: 1.1.53
+Date: 2019-02-25
 Authors@R: c(person("Minoo", "Ashtiani", role = c("aut", "cre"), email = "ashtiani.minoo@gmail.com"),
               person("Mehdi", "Mirzaie", role = "ctb"),
               person("Mohieddin", "Jafari", role = "ctb"))
@@ -16,10 +16,10 @@ Imports: igraph, network, sna, centiserve, FactoMineR, factoextra,
         GGally, pheatmap, corrplot, dendextend, viridis, ggplot2,
         Rtsne, qdapTools, plyr, circlize, intergraph
 NeedsCompilation: no
-Packaged: 2019-01-26 12:50:12 UTC; Minoo
+Packaged: 2019-02-25 09:53:20 UTC; Minoo
 Author: Minoo Ashtiani [aut, cre],
   Mehdi Mirzaie [ctb],
   Mohieddin Jafari [ctb]
 Maintainer: Minoo Ashtiani <ashtiani.minoo@gmail.com>
 Repository: CRAN
-Date/Publication: 2019-02-02 22:13:42 UTC
+Date/Publication: 2019-02-25 12:50:14 UTC

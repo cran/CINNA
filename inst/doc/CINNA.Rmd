@@ -21,7 +21,11 @@ Centrality is defined as a measure for identifying the most important vertices w
 
 For the examples in the following sections, we assume that the `CINNA` package has been properly installed into the R environment. This can be done by typing
 
-> install.packages("CINNA")
+```{r, eval=F, echo=T}
+
+install.packages("CINNA")
+
+```
 
 into the R console. The `igraph`[@Csardi2006] ,`network`[@Butts2015;@Butts2008],`sna`[@ButtsCT2008;@Butts2007] and `centiserve`[@Jalili2015] packages are required and must be installed in your R environment as well. These are analogous to installing `CINNA` and for more other calculations, packages such as `FactoMineR`[@Sebastien2008], `plyr`[@Wickham2011] `qdapTools`[@Rinker2015], `Rtsne`[@Krijthe2015] are necessary. For some plots, `factoextra`[@Kassambara2015], `GGally`[@Barret2016], `pheatmap`[@kolde2015], `corrplot`[@Taiyun2016], `dendextend`[@Galili2015], `circlize`[@Gu2014], `viridis`[@Garnier2017] and `ggplot2`[@Wickham2016] packages must be installed too. After installations, the `CINNA` package can be loaded via
 

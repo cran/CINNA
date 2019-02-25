@@ -12,7 +12,7 @@
 
 <meta name="author" content="Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari" />
 
-<meta name="date" content="2019-01-26" />
+<meta name="date" content="2019-02-25" />
 
 <title>CINNA</title>
 
@@ -92,7 +92,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">CINNA</h1>
 <h4 class="author"><em>Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari</em></h4>
-<h4 class="date"><em>2019-01-26</em></h4>
+<h4 class="date"><em>2019-02-25</em></h4>
 
 
 <div id="TOC">
@@ -132,9 +132,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p><code>CINNA</code> is an R package submitted on CRAN repository which has been written for centrality analysis in network science. It can be useful for assembling, comparing, evaluating and visualizing several types of centrality measures. This document is an introduction to the usage of this package and includes some user interface examples.</p>
 <p>Centrality is defined as a measure for identifying the most important vertices within a network in graph theory. Several centrality types have been provided to compute central nodes by different formulas, while some analysis are needed to evaluate the most informative ones. In this package, we have prepared these resolutions and some examples of real networks.</p>
 <p>For the examples in the following sections, we assume that the <code>CINNA</code> package has been properly installed into the R environment. This can be done by typing</p>
-<blockquote>
-<p>install.packages(“CINNA”)</p>
-</blockquote>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;CINNA&quot;</span>)</code></pre></div>
 <p>into the R console. The <code>igraph</code><span class="citation">(Csardi and Nepusz 2006)</span> ,<code>network</code><span class="citation">(Data. 2015; Butts 2008)</span>,<code>sna</code><span class="citation">(CT 2008; CT 2007)</span> and <code>centiserve</code><span class="citation">(Jalili et al. 2015)</span> packages are required and must be installed in your R environment as well. These are analogous to installing <code>CINNA</code> and for more other calculations, packages such as <code>FactoMineR</code><span class="citation">(Sebastien Le 2008)</span>, <code>plyr</code><span class="citation">(Wickham 2011)</span> <code>qdapTools</code><span class="citation">(Rinker 2015)</span>, <code>Rtsne</code><span class="citation">(Krijthe 2015)</span> are necessary. For some plots, <code>factoextra</code><span class="citation">(Kassambara, n.d.)</span>, <code>GGally</code><span class="citation">(Barret Schloerke and Larmarange 2016)</span>, <code>pheatmap</code><span class="citation">(Kolde 2015)</span>, <code>corrplot</code><span class="citation">(Simko and Viliam 2016)</span>, <code>dendextend</code><span class="citation">(Galili 2015)</span>, <code>circlize</code><span class="citation">(Gu et al. 2014)</span>, <code>viridis</code><span class="citation">(Garnier 2017)</span> and <code>ggplot2</code><span class="citation">(<span class="citeproc-not-found" data-reference-id="Wickham2016"><strong>???</strong></span>)</span> packages must be installed too. After installations, the <code>CINNA</code> package can be loaded via</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(CINNA)</code></pre></div>
 </div>
@@ -275,9 +273,9 @@ zachary</code></pre></div>
 <p>“graph.extract.components” function is able to read <code>igraph</code> and <code>network</code> objects and returns their components as a list of <code>igraph</code> objects. This function also has this ability to recognized bipartite graphs and user can decide that which project is suitable for his analysis. In order to use this function, we use zachary data set and develop it in all of our functions.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">graph_extract_components</span>(zachary)</code></pre></div>
 <pre><code>## [[1]]
-## IGRAPH df0bf8d U--- 34 78 -- 
+## IGRAPH 22b0c42 U--- 34 78 -- 
 ## + attr: id (v/n)
-## + edges from df0bf8d:
+## + edges from 22b0c42:
 ##  [1]  1-- 2  1-- 3  2-- 3  1-- 4  2-- 4  3-- 4  1-- 5  1-- 6  1-- 7  5-- 7
 ## [11]  6-- 7  1-- 8  2-- 8  3-- 8  4-- 8  1-- 9  3-- 9  3--10  1--11  5--11
 ## [21]  6--11  1--12  1--13  4--13  1--14  2--14  3--14  4--14  6--17  7--17
@@ -293,9 +291,9 @@ drug_comp &lt;-<span class="st"> </span><span class="kw">graph_extract_component
 <pre><code>## Warning in bipartite.projection(x): vertex types converted to logical</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(drug_comp)</code></pre></div>
 <pre><code>## [[1]]
-## IGRAPH df12f45 UNW- 11 55 -- 
+## IGRAPH 22b72bb UNW- 11 55 -- 
 ## + attr: id (v/n), name (v/c), weight (e/n)
-## + edges from df12f45 (vertex names):
+## + edges from 22b72bb (vertex names):
 ##  [1] Abacavir     --Delavirdine   Abacavir     --Didanosine   
 ##  [3] Delavirdine  --Didanosine    Abacavir     --Efavirenz    
 ##  [5] Delavirdine  --Efavirenz     Didanosine   --Efavirenz    
@@ -307,9 +305,9 @@ drug_comp &lt;-<span class="st"> </span><span class="kw">graph_extract_component
 ## + ... omitted several edges
 ## 
 ## [[2]]
-## IGRAPH df12f45 UNW- 5 10 -- 
+## IGRAPH 22b72bb UNW- 5 10 -- 
 ## + attr: id (v/n), name (v/c), weight (e/n)
-## + edges from df12f45 (vertex names):
+## + edges from 22b72bb (vertex names):
 ##  [1] Abarelix   --Ganirelix   Abarelix   --Gonadorelin
 ##  [3] Ganirelix  --Gonadorelin Abarelix   --Leuprolide 
 ##  [5] Ganirelix  --Leuprolide  Gonadorelin--Leuprolide 
@@ -317,16 +315,16 @@ drug_comp &lt;-<span class="st"> </span><span class="kw">graph_extract_component
 ##  [9] Gonadorelin--Nafarelin   Leuprolide --Nafarelin  
 ## 
 ## [[3]]
-## IGRAPH df131b6 UNW- 3 3 -- 
+## IGRAPH 22b752c UNW- 3 3 -- 
 ## + attr: id (v/n), name (v/c), weight (e/n)
-## + edges from df131b6 (vertex names):
+## + edges from 22b752c (vertex names):
 ## [1] Abciximab   --Eptifibatide Abciximab   --Tirofiban   
 ## [3] Eptifibatide--Tirofiban   
 ## 
 ## [[4]]
-## IGRAPH df13427 UNW- 482 8179 -- 
+## IGRAPH 22b779d UNW- 482 8179 -- 
 ## + attr: id (v/n), name (v/c), weight (e/n)
-## + edges from df13427 (vertex names):
+## + edges from 22b779d (vertex names):
 ##  [1] Acamprosate   --Alprazolam    Adinazolam    --Alprazolam   
 ##  [3] Acebutolol    --Alprenolol    Albuterol     --Alprenolol   
 ##  [5] Acetophenazine--Amantadine    Acebutolol    --Amiodarone   
@@ -338,16 +336,16 @@ drug_comp &lt;-<span class="st"> </span><span class="kw">graph_extract_component
 ## + ... omitted several edges
 ## 
 ## [[5]]
-## IGRAPH df13427 UNW- 4 4 -- 
+## IGRAPH 22b779d UNW- 4 4 -- 
 ## + attr: id (v/n), name (v/c), weight (e/n)
-## + edges from df13427 (vertex names):
+## + edges from 22b779d (vertex names):
 ## [1] Acarbose   --Bentiromide Acarbose   --Miglitol   
 ## [3] Bentiromide--Miglitol    Bentiromide--Orlistat   
 ## 
 ## [[6]]
-## IGRAPH df13697 UNW- 34 522 -- 
+## IGRAPH 22b7a0e UNW- 34 522 -- 
 ## + attr: id (v/n), name (v/c), weight (e/n)
-## + edges from df13697 (vertex names):
+## + edges from 22b7a0e (vertex names):
 ##  [1] Acetaminophen--Aspirin     Acetaminophen--Balsalazide
 ##  [3] Aspirin      --Balsalazide Acetaminophen--Bromfenac  
 ##  [5] Aspirin      --Bromfenac   Balsalazide  --Bromfenac  
@@ -367,8 +365,8 @@ zachary_edgelist &lt;-<span class="st"> </span><span class="kw">as_edgelist</spa
 
 <span class="kw">misc_extract_components</span>(zachary_edgelist)</code></pre></div>
 <pre><code>## [[1]]
-## IGRAPH df27a17 D--- 34 78 -- 
-## + edges from df27a17:
+## IGRAPH 22cab0b D--- 34 78 -- 
+## + edges from 22cab0b:
 ##  [1]  1-&gt; 2  1-&gt; 3  2-&gt; 3  1-&gt; 4  2-&gt; 4  3-&gt; 4  1-&gt; 5  1-&gt; 6  1-&gt; 7  5-&gt; 7
 ## [11]  6-&gt; 7  1-&gt; 8  2-&gt; 8  3-&gt; 8  4-&gt; 8  1-&gt; 9  3-&gt; 9  3-&gt;10  1-&gt;11  5-&gt;11
 ## [21]  6-&gt;11  1-&gt;12  1-&gt;13  4-&gt;13  1-&gt;14  2-&gt;14  3-&gt;14  4-&gt;14  6-&gt;17  7-&gt;17
@@ -383,9 +381,9 @@ zachary_edgelist &lt;-<span class="st"> </span><span class="kw">as_edgelist</spa
 <p>In the most of research topics of network analysis, network features are related to the largest connected component of a graph<span class="citation">(Newman 2010)</span>. In order to get that for an <code>igraph</code> or a <code>network</code> object, <code>giant_component_extract</code> function is specified. For using this function we can do:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">giant_component_extract</span>(zachary)</code></pre></div>
 <pre><code>## [[1]]
-## IGRAPH df2c85a U--- 34 78 -- 
+## IGRAPH 22ce328 U--- 34 78 -- 
 ## + attr: id (v/n)
-## + edges from df2c85a:
+## + edges from 22ce328:
 ##  [1]  1-- 2  1-- 3  2-- 3  1-- 4  2-- 4  3-- 4  1-- 5  1-- 6  1-- 7  5-- 7
 ## [11]  6-- 7  1-- 8  2-- 8  3-- 8  4-- 8  1-- 9  3-- 9  3--10  1--11  5--11
 ## [21]  6--11  1--12  1--13  4--13  1--14  2--14  3--14  4--14  6--17  7--17
