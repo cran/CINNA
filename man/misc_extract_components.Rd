@@ -4,8 +4,14 @@
 \alias{misc_extract_components}
 \title{Component extraction of miscellaneous graph formats}
 \usage{
-misc_extract_components(x, directed = TRUE, mode = "directed",
-  weighted = NULL, unibipartite = FALSE, diag = TRUE)
+misc_extract_components(
+  x,
+  directed = TRUE,
+  mode = "directed",
+  weighted = NULL,
+  unibipartite = FALSE,
+  diag = TRUE
+)
 }
 \arguments{
 \item{x}{The input could be an edgelist and an adjacency matrix}

@@ -4,8 +4,14 @@
 \alias{pca_centralities}
 \title{Ranking centrality measure based on contributions}
 \usage{
-pca_centralities(x, scale.unit = TRUE, cut.off = 80, ncp = 5,
-  graph = FALSE, axes = c(1, 2))
+pca_centralities(
+  x,
+  scale.unit = TRUE,
+  cut.off = 80,
+  ncp = 5,
+  graph = FALSE,
+  axes = c(1, 2)
+)
 }
 \arguments{
 \item{x}{a list containg the computed centrality values}

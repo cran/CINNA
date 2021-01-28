@@ -4,8 +4,7 @@
 \alias{calculate_centralities}
 \title{Centrality measure calculation}
 \usage{
-calculate_centralities(x, except = NULL, include = NULL,
-  weights = NULL)
+calculate_centralities(x, except = NULL, include = NULL, weights = NULL)
 }
 \arguments{
 \item{x}{the component of a network as an igraph object}

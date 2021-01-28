@@ -4,7 +4,9 @@
 \name{zachary}
 \alias{zachary}
 \title{Zachary Karate Club Network}
-\format{an igraph object with "gml" format}
+\format{
+an igraph object with "gml" format
+}
 \usage{
 zachary
 }

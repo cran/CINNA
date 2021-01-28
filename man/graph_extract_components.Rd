@@ -4,8 +4,12 @@
 \alias{graph_extract_components}
 \title{Component extraction of a graph}
 \usage{
-graph_extract_components(x, directed = TRUE, bipartite_proj = FALSE,
-  num_proj = 1)
+graph_extract_components(
+  x,
+  directed = TRUE,
+  bipartite_proj = FALSE,
+  num_proj = 1
+)
 }
 \arguments{
 \item{x}{An igraph or a network object}

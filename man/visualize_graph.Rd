@@ -4,8 +4,11 @@
 \alias{visualize_graph}
 \title{Graph visualization based on a specific centrality measure}
 \usage{
-visualize_graph(x, computed_centrality_value = NULL,
-  centrality.type = "Degree Centrality")
+visualize_graph(
+  x,
+  computed_centrality_value = NULL,
+  centrality.type = "Degree Centrality"
+)
 }
 \arguments{
 \item{x}{an igraph object}

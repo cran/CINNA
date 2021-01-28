@@ -4,8 +4,12 @@
 \alias{giant_component_extract}
 \title{Giant component extraction of a graph}
 \usage{
-giant_component_extract(x, directed = TRUE, bipartite_proj = FALSE,
-  num_proj = 1)
+giant_component_extract(
+  x,
+  directed = TRUE,
+  bipartite_proj = FALSE,
+  num_proj = 1
+)
 }
 \arguments{
 \item{x}{An igraph or a network object}

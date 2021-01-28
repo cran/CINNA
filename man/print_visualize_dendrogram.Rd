@@ -4,8 +4,13 @@
 \alias{print_visualize_dendrogram}
 \title{Print dendrogram plot of a graph}
 \usage{
-print_visualize_dendrogram(x, centrality.type = "Degree Centrality",
-  computed_centrality_value = NULL, k = 4, file = NULL)
+print_visualize_dendrogram(
+  x,
+  centrality.type = "Degree Centrality",
+  computed_centrality_value = NULL,
+  k = 4,
+  file = NULL
+)
 }
 \arguments{
 \item{x}{an igraph object}

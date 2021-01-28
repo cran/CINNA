@@ -4,8 +4,12 @@
 \alias{dangalchev_closeness_centrality}
 \title{Dangalchev Closeness Centrality}
 \usage{
-dangalchev_closeness_centrality(x, vids = V(x), mode = c("all", "out",
-  "in"), weights = NULL)
+dangalchev_closeness_centrality(
+  x,
+  vids = V(x),
+  mode = c("all", "out", "in"),
+  weights = NULL
+)
 }
 \arguments{
 \item{x}{An igraph or a network object}

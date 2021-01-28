@@ -1,25 +1,25 @@
-## ---- eval=F, echo=T-----------------------------------------------------
+## ---- eval=F, echo=T----------------------------------------------------------
 #  
 #  install.packages("CINNA")
 #  
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 
 library(CINNA)
 
 
-## ----warning=FALSE,message=FALSE-----------------------------------------
+## ----warning=FALSE,message=FALSE----------------------------------------------
 
 data("zachary")
 zachary
 
 
-## ----warning=FALSE,message=FALSE-----------------------------------------
+## ----warning=FALSE,message=FALSE----------------------------------------------
 
 graph_extract_components(zachary)
 
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 
 data("drugTarget")
 
@@ -27,29 +27,29 @@ drug_comp <- graph_extract_components( drugTarget, directed = TRUE, bipartite_pr
 head(drug_comp)
 
 
-## ----warning=FALSE,message=FALSE-----------------------------------------
+## ----warning=FALSE,message=FALSE----------------------------------------------
 library(igraph)
 zachary_edgelist <- as_edgelist(zachary)
 
 misc_extract_components(zachary_edgelist)
 
 
-## ----warning=FALSE,message=FALSE-----------------------------------------
+## ----warning=FALSE,message=FALSE----------------------------------------------
 
 giant_component_extract(zachary)
 
 
-## ----warning=FALSE,message=FALSE-----------------------------------------
+## ----warning=FALSE,message=FALSE----------------------------------------------
 
 proper_centralities(zachary)
 
 
-## ----warning=FALSE, message=FALSE----------------------------------------
+## ----warning=FALSE, message=FALSE---------------------------------------------
 
 calculate_centralities(zachary, include = "Degree Centrality")
 
 
-## ----warning=FALSE,message=FALSE-----------------------------------------
+## ----warning=FALSE,message=FALSE----------------------------------------------
 
 pr_cent <- proper_centralities(zachary)
 

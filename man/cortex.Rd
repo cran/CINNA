@@ -4,7 +4,9 @@
 \name{cortex}
 \alias{cortex}
 \title{Macaque Visual Cortex Network}
-\format{an igraph object with "gml" format}
+\format{
+an igraph object with "gml" format
+}
 \usage{
 data("cortex")
 }

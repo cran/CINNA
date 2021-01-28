@@ -4,7 +4,9 @@
 \name{drugTarget}
 \alias{drugTarget}
 \title{Drug Target Network}
-\format{an igraph object with "gml" format}
+\format{
+an igraph object with "gml" format
+}
 \usage{
 drugTarget
 }

@@ -4,8 +4,12 @@
 \alias{print_visualize_graph}
 \title{Print visualized based on centrality values graph}
 \usage{
-print_visualize_graph(x, computed_centrality_value = NULL,
-  centrality.type = "Degree Centrality", file = NULL)
+print_visualize_graph(
+  x,
+  computed_centrality_value = NULL,
+  centrality.type = "Degree Centrality",
+  file = NULL
+)
 }
 \arguments{
 \item{x}{an igraph object}

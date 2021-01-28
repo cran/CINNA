@@ -4,7 +4,9 @@
 \name{kangaroo}
 \alias{kangaroo}
 \title{Kangaroo Network}
-\format{an igraph object with "gml" format}
+\format{
+an igraph object with "gml" format
+}
 \usage{
 kangaroo
 }

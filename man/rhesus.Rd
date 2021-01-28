@@ -4,7 +4,9 @@
 \name{rhesus}
 \alias{rhesus}
 \title{Moreno Rhesus Network}
-\format{an igraph object with "gml" format}
+\format{
+an igraph object with "gml" format
+}
 \usage{
 rhesus
 }

@@ -4,8 +4,12 @@
 \alias{harmonic_centrality}
 \title{Harmonic Centrality}
 \usage{
-harmonic_centrality(x, vids = V(x), mode = c("all", "out", "in"),
-  weights = NULL)
+harmonic_centrality(
+  x,
+  vids = V(x),
+  mode = c("all", "out", "in"),
+  weights = NULL
+)
 }
 \arguments{
 \item{x}{An igraph or a network object}

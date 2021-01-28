@@ -1251,7 +1251,7 @@ pca_centralities <- function( x , scale.unit = TRUE, cut.off = 80, ncp = 5,graph
   PCs <- table(res_pca$eig[,"cumulative percentage of variance"] > cut.off)["FALSE"] + 1
   if(PCs %in% NA) PCs=1
 
-  fviz_contrib(res_pca, choice = "var", axes = PCs, color = "black", fill = "turquoise")+
+  fviz_contrib(res_pca, choice = "var", axes = 1:PCs, color = "black", fill = "turquoise")+
     labs(x="\nCentrality measures", y="Contributions\n") +
     theme_grey() +ggtitle("Contribution of variables via PCA")+
     theme(axis.text.x=element_text(angle=45, vjust=0.5),plot.title = element_text(hjust = 0.5)

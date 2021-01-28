@@ -4,8 +4,12 @@
 \alias{summary_graph_extract_components}
 \title{Summarize component extraction of a graph}
 \usage{
-summary_graph_extract_components(x, directed = TRUE,
-  bipartite_proj = FALSE, num_proj = 1)
+summary_graph_extract_components(
+  x,
+  directed = TRUE,
+  bipartite_proj = FALSE,
+  num_proj = 1
+)
 }
 \arguments{
 \item{x}{An igraph or a network object}

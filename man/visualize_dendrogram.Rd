@@ -4,8 +4,12 @@
 \alias{visualize_dendrogram}
 \title{Dendrogram plot among centrality measures}
 \usage{
-visualize_dendrogram(x, centrality.type = "Degree Centrality",
-  computed_centrality_value = NULL, k = 4)
+visualize_dendrogram(
+  x,
+  centrality.type = "Degree Centrality",
+  computed_centrality_value = NULL,
+  k = 4
+)
 }
 \arguments{
 \item{x}{an igraph object}

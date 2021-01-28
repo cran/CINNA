@@ -4,8 +4,12 @@
 \alias{print_visualize_correlations}
 \title{Print centrality correlation plot}
 \usage{
-print_visualize_correlations(x, scale = TRUE, method = c("pearson",
-  "kendall", "spearman"), file = NULL)
+print_visualize_correlations(
+  x,
+  scale = TRUE,
+  method = c("pearson", "kendall", "spearman"),
+  file = NULL
+)
 }
 \arguments{
 \item{x}{a list indicating calculated centrality measures which is the output of

@@ -4,8 +4,12 @@
 \alias{wiener_index_centrality}
 \title{Wiener Index Centrality}
 \usage{
-wiener_index_centrality(x, vids = V(x), mode = c("all", "out", "in"),
-  weights = NULL)
+wiener_index_centrality(
+  x,
+  vids = V(x),
+  mode = c("all", "out", "in"),
+  weights = NULL
+)
 }
 \arguments{
 \item{x}{An igraph or a network object}
