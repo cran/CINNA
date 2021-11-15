@@ -37,7 +37,7 @@
 
 graph_extract_components <- function( x, directed = TRUE, bipartite_proj=FALSE, num_proj=1){
 
-  if(!(class(x)%in%"igraph"|| class(x)%in%"network")) stop("The input is not an igraph or a
+  if(!("igraph" %in% class(x)|| "network" %in% class(x))) stop("The input is not an igraph or a
                                                            network object")
 
   if(is_igraph(x)){
@@ -261,7 +261,7 @@ misc_extract_components <- function( x ,directed = TRUE, mode = "directed",
 
 giant_component_extract <- function( x, directed = TRUE, bipartite_proj=FALSE ,num_proj=1){
 
-  if (!(class(x)%in%"igraph"|| class(x)%in%"network")) stop("The input is not an igraph or a network object")
+  if (!("igraph" %in% class(x)|| "network" %in% class(x))) stop("The input is not an igraph or a network object")
 
   if (is_igraph(x)){
 
@@ -799,7 +799,7 @@ proper_centralities<-function(x){
 
 calculate_centralities <- function( x, except = NULL, include = NULL, weights = NULL){
 
-  if(!(class(x)%in%"igraph" && is_connected(x) )) stop("The input is not an igraph object
+  if (!("igraph" %in% class(x) && is_connected(x))) stop("The input is not an igraph object
                                                        or may not be connected.")
   y <- as_edgelist(x)
   y <- network(y)
@@ -807,57 +807,57 @@ calculate_centralities <- function( x, except = NULL, include = NULL, weights = 
   if (is_directed(x) && is_weighted(x) ){
 
     centrality_funcs <- list(
-      "Alpha Centrality" = function(x) alpha.centrality(x, weights = NULL),
-      "Burt's Constraint" = function(x)constraint(x, weights = NULL),
+      "Alpha Centrality" = function(x) alpha.centrality(x, weights = weights),
+      "Burt's Constraint" = function(x)constraint(x, weights = weights),
       "Page Rank" = function(x)page_rank(x)$vector,
-      "Average Distance" = function(x)averagedis(x, weights = NULL),
-      "Barycenter Centrality" = function(x)barycenter(x, weights = NULL),
+      "Average Distance" = function(x)averagedis(x, weights = weights),
+      "Barycenter Centrality" = function(x)barycenter(x, weights = weights),
       "BottleNeck Centrality" = function(x)bottleneck(x),
-      "Centroid value" = function(x)centroid(x, weights = NULL),
-      "Closeness Centrality (Freeman)" = function(x)closeness.freeman(x, weights = NULL),
+      "Centroid value" = function(x)centroid(x, weights = weights),
+      "Closeness Centrality (Freeman)" = function(x)closeness.freeman(x, weights = weights),
       "ClusterRank" = function(x)clusterrank(x),
-      "Decay Centrality" = function(x)decay(x, weights = NULL),
+      "Decay Centrality" = function(x)decay(x, weights = weights),
       "Degree Centrality" = function(x)centr_degree(x)$res,
       "Diffusion Degree" = function(x)diffusion.degree(x),
       "DMNC - Density of Maximum Neighborhood Component" = function(x)dmnc(x),
       "Eccentricity Centrality" = function(x)eccentricity(x),
-      "eigenvector centralities" = function(x)eigen_centrality(x, weights = NULL)$vector,
+      "eigenvector centralities" = function(x)eigen_centrality(x, weights = weights)$vector,
       "K-core Decomposition" = function(x)coreness(x),
-      "Geodesic K-Path Centrality" = function(x)geokpath(x, weights = NULL),
+      "Geodesic K-Path Centrality" = function(x)geokpath(x, weights = weights),
       "Katz Centrality (Katz Status Index)" = function(x)katzcent(x),
-      "Kleinberg's authority centrality scores" = function(x)authority_score(x, weights = NULL)$vector,
-      "Kleinberg's hub centrality scores" = function(x)hub_score(x, weights = NULL)$vector,
-      "clustering coefficient" = function(x)transitivity(x, weights = NULL,type="local"),
-      "Lin Centrality" = function(x)lincent(x, weights = NULL),
+      "Kleinberg's authority centrality scores" = function(x)authority_score(x, weights = weights)$vector,
+      "Kleinberg's hub centrality scores" = function(x)hub_score(x, weights = weights)$vector,
+      "clustering coefficient" = function(x)transitivity(x, weights = weights,type="local"),
+      "Lin Centrality" = function(x)lincent(x, weights = weights),
       "Lobby Index (Centrality)" = function(x)lobby(x),
       "Markov Centrality" = function(x)markovcent(x),
-      "Radiality Centrality" = function(x)radiality(x, weights = NULL),
+      "Radiality Centrality" = function(x)radiality(x, weights = weights),
       "Shortest-Paths Betweenness Centrality" = function(x)betweenness(x),
-      "Current-Flow Closeness Centrality" = function(x)closeness.currentflow(x, weights = NULL),
-      "Closeness centrality (Latora)" = function(x)closeness.latora(x, weights = NULL),
+      "Current-Flow Closeness Centrality" = function(x)closeness.currentflow(x, weights = weights),
+      "Closeness centrality (Latora)" = function(x)closeness.latora(x, weights = weights),
       "Communicability Betweenness Centrality" = function(x)communibet(x),
       "Community Centrality" = function(x)communitycent(x),
       "Cross-Clique Connectivity" = function(x)crossclique(x),
-      "Entropy Centrality" = function(x)entropy(x, weights = NULL),
+      "Entropy Centrality" = function(x)entropy(x, weights = weights),
       "EPC - Edge Percolated Component" = function(x)epc(x),
       "Laplacian Centrality" = function(x)laplacian(x),
       "Leverage Centrality" = function(x)leverage(x),
       "MNC - Maximum Neighborhood Component" = function(x)mnc(x),
-      "Hubbell Index" = function(x)hubbell(x, weights = NULL),
+      "Hubbell Index" = function(x)hubbell(x, weights = weights),
       "Semi Local Centrality" = function(x)semilocal(x),
-      "Closeness Vitality" = function(x)closeness.vitality(x, weights = NULL),
-      "Residual Closeness Centrality" = function(x)closeness.residual(x, weights = NULL),
+      "Closeness Vitality" = function(x)closeness.vitality(x, weights = weights),
+      "Residual Closeness Centrality" = function(x)closeness.residual(x, weights = weights),
       "Stress Centrality" = function(x)stresscent(y),
       "Load Centrality" = function(x)loadcent(y),
       "Flow Betweenness Centrality" = function(x)flowbet(y),
       "Information Centrality" = function(x)infocent(y),
-      "Weighted Vertex Degree" = function(x)strength(x, vids = V(x), mode ="all", weights = NULL),
+      "Weighted Vertex Degree" = function(x)strength(x, vids = V(x), mode ="all", weights = weights),
       "Harary Centrality" = function(x)graphcent(y, gmode="graph", diag=T, cmode="directed"),
-      "Dangalchev Closeness Centrality"= function(x)dangalchev_closeness_centrality(x, vids = V(x), mode = "all", weights = NULL),
+      "Dangalchev Closeness Centrality"= function(x)dangalchev_closeness_centrality(x, vids = V(x), mode = "all", weights = weights),
       "Group Centrality"= function(x)group_centrality(x, vids = V(x)),
-      "Harmonic Centrality"= function(x)harmonic_centrality(x, vids = V(x), mode = "all", weights = NULL),
+      "Harmonic Centrality"= function(x)harmonic_centrality(x, vids = V(x), mode = "all", weights = weights),
       "Local Bridging Centrality"= function(x)local_bridging_centrality(x, vids = V(x)),
-      "Wiener Index Centrality"= function(x)wiener_index_centrality(x, vids = V(x), mode ="all", weights = NULL)
+      "Wiener Index Centrality"= function(x)wiener_index_centrality(x, vids = V(x), mode ="all", weights = weights)
     )
 
     if (!is.null(include)){
@@ -910,54 +910,54 @@ calculate_centralities <- function( x, except = NULL, include = NULL, weights = 
     centrality_funcs <- list(
       "subgraph centrality scores" = function(x)subgraph.centrality(x),
       "Topological Coefficient" = function(x)topocoefficient(x),
-      "Average Distance" = function(x)averagedis(x, weights = NULL),
-      "Barycenter Centrality" = function(x)barycenter(x, weights = NULL),
+      "Average Distance" = function(x)averagedis(x, weights = weights),
+      "Barycenter Centrality" = function(x)barycenter(x, weights = weights),
       "BottleNeck Centrality" = function(x)bottleneck(x),
-      "Centroid value" = function(x)centroid(x, weights = NULL),
-      "Closeness Centrality (Freeman)" = function(x)closeness.freeman(x, weights = NULL),
+      "Centroid value" = function(x)centroid(x, weights = weights),
+      "Closeness Centrality (Freeman)" = function(x)closeness.freeman(x, weights = weights),
       "ClusterRank" = function(x)clusterrank(x),
-      "Decay Centrality" = function(x)decay(x, weights = NULL),
+      "Decay Centrality" = function(x)decay(x, weights = weights),
       "Degree Centrality" = function(x)centr_degree(x)$res,
       "Diffusion Degree" = function(x)diffusion.degree(x),
       "DMNC - Density of Maximum Neighborhood Component" = function(x)dmnc(x),
       "Eccentricity Centrality" = function(x)eccentricity(x),
-      "eigenvector centralities" = function(x)eigen_centrality(x, weights = NULL)$vector,
+      "eigenvector centralities" = function(x)eigen_centrality(x, weights = weights)$vector,
       "K-core Decomposition" = function(x)coreness(x),
-      "Geodesic K-Path Centrality" = function(x)geokpath(x, weights = NULL),
+      "Geodesic K-Path Centrality" = function(x)geokpath(x, weights = weights),
       "Katz Centrality (Katz Status Index)" = function(x)katzcent(x),
-      "Kleinberg's authority centrality scores" = function(x)authority_score(x, weights = NULL)$vector,
-      "Kleinberg's hub centrality scores" = function(x)hub_score(x, weights = NULL)$vector,
-      "clustering coefficient" = function(x)transitivity(x, weights = NULL,type="local"),
-      "Lin Centrality" = function(x)lincent(x, weights = NULL),
+      "Kleinberg's authority centrality scores" = function(x)authority_score(x, weights = weights)$vector,
+      "Kleinberg's hub centrality scores" = function(x)hub_score(x, weights = weights)$vector,
+      "clustering coefficient" = function(x)transitivity(x, weights = weights,type="local"),
+      "Lin Centrality" = function(x)lincent(x, weights = weights),
       "Lobby Index (Centrality)" = function(x)lobby(x),
       "Markov Centrality" = function(x)markovcent(x),
-      "Radiality Centrality" = function(x)radiality(x, weights = NULL),
+      "Radiality Centrality" = function(x)radiality(x, weights = weights),
       "Shortest-Paths Betweenness Centrality" = function(x)betweenness(x),
-      "Current-Flow Closeness Centrality" = function(x)closeness.currentflow(x, weights = NULL),
-      "Closeness centrality (Latora)" = function(x)closeness.latora(x, weights = NULL),
+      "Current-Flow Closeness Centrality" = function(x)closeness.currentflow(x, weights = weights),
+      "Closeness centrality (Latora)" = function(x)closeness.latora(x, weights = weights),
       "Communicability Betweenness Centrality" = function(x)communibet(x),
       "Community Centrality" = function(x)communitycent(x),
       "Cross-Clique Connectivity" = function(x)crossclique(x),
-      "Entropy Centrality" = function(x)entropy(x, weights = NULL),
+      "Entropy Centrality" = function(x)entropy(x, weights = weights),
       "EPC - Edge Percolated Component" = function(x)epc(x),
       "Laplacian Centrality" = function(x)laplacian(x),
       "Leverage Centrality" = function(x)leverage(x),
       "MNC - Maximum Neighborhood Component" = function(x)mnc(x),
-      "Hubbell Index" = function(x)hubbell(x, weights = NULL),
+      "Hubbell Index" = function(x)hubbell(x, weights = weights),
       "Semi Local Centrality" = function(x)semilocal(x),
-      "Closeness Vitality" = function(x)closeness.vitality(x, weights = NULL),
-      "Residual Closeness Centrality" = function(x)closeness.residual(x, weights = NULL),
+      "Closeness Vitality" = function(x)closeness.vitality(x, weights = weights),
+      "Residual Closeness Centrality" = function(x)closeness.residual(x, weights = weights),
       "Stress Centrality" = function(x)stresscent(y),
       "Load Centrality" = function(x)loadcent(y),
       "Flow Betweenness Centrality" = function(x)flowbet(y),
       "Information Centrality" = function(x)infocent(y),
-      "Weighted Vertex Degree" = function(x)strength(x, vids = V(x), mode ="all", weights = NULL),
+      "Weighted Vertex Degree" = function(x)strength(x, vids = V(x), mode ="all", weights = weights),
       "Harary Centrality" = function(x)graphcent(y, gmode="graph", diag=T, cmode="undirected"),
-      "Dangalchev Closeness Centrality"= function(x)dangalchev_closeness_centrality(x, vids = V(x), mode = "all", weights = NULL),
+      "Dangalchev Closeness Centrality"= function(x)dangalchev_closeness_centrality(x, vids = V(x), mode = "all", weights = weights),
       "Group Centrality"= function(x)group_centrality(x, vids = V(x)),
-      "Harmonic Centrality"= function(x)harmonic_centrality(x, vids = V(x), mode = "all", weights = NULL),
+      "Harmonic Centrality"= function(x)harmonic_centrality(x, vids = V(x), mode = "all", weights = weights),
       "Local Bridging Centrality"= function(x)local_bridging_centrality(x, vids = V(x)),
-      "Wiener Index Centrality"= function(x)wiener_index_centrality(x, vids = V(x), mode ="all", weights = NULL)
+      "Wiener Index Centrality"= function(x)wiener_index_centrality(x, vids = V(x), mode ="all", weights = weights)
     )
 
     if (!is.null(include)){
@@ -1331,7 +1331,7 @@ visualize_graph <- function( x , computed_centrality_value=NULL , centrality.typ
 
   if (is.null(computed_centrality_value)){
 
-    if (!(class(x)%in%"igraph" && is_connected(x) )) stop("The input is not an igraph object
+    if (!("igraph" %in% class(x) && is_connected(x) )) stop("The input is not an igraph object
                                                           or may not be connected.")
 
     y <- as_edgelist(x)
@@ -1724,7 +1724,7 @@ visualize_dendrogram <- function( x, centrality.type="Degree Centrality", comput
 
   if (is.null(computed_centrality_value)){
 
-    if (!(class(x)%in%"igraph" && is_connected(x) )) stop("The input is not an igraph object
+    if (!("igraph" %in% class(x) && is_connected(x) )) stop("The input is not an igraph object
                                                           or may not be connected.")
 
     y <- as_edgelist(x)
@@ -2089,7 +2089,7 @@ print_visualize_dendrogram <- function( x, centrality.type="Degree Centrality",
 
   if (is.null(computed_centrality_value)){
 
-    if (!(class(x)%in%"igraph" && is_connected(x) )) stop("The input is not an igraph object
+    if (!("igraph" %in% class(x) && is_connected(x) )) stop("The input is not an igraph object
                                                        or may not be connected.")
     y <- as_edgelist(x)
     y <- network(y)
@@ -2350,7 +2350,7 @@ print_visualize_graph <- function( x , computed_centrality_value=NULL , centrali
 
   if (is.null(computed_centrality_value)){
 
-    if (!(class(x)%in%"igraph" && is_connected(x) )) stop("The input is not an igraph object
+    if (!("igraph" %in% class(x) && is_connected(x) )) stop("The input is not an igraph object
                                                        or may not be connected.")
 
     y <- as_edgelist(x)
@@ -2510,7 +2510,7 @@ summary_pca_centralities <- function( x , scale.unit = TRUE,ncp = 5){
 
 summary_graph_extract_components <- function( x, directed = TRUE, bipartite_proj = FALSE , num_proj = 1){
 
-  if (!(class(x)%in%"igraph"|| class(x)%in%"network")) stop("The input is not an igraph or a network object")
+  if (!("igraph" %in% class(x) || ("network" %in% class(x) ))) stop("The input is not an igraph or a network object")
 
   if (is_igraph(x)) {
 
@@ -2797,7 +2797,7 @@ print_calculate_centralities<- function(x , file = NULL){
 
 dangalchev_closeness_centrality<-function (x, vids = V(x), mode = c("all", "out", "in"), weights = NULL){
 
-  if (!(class(x)%in%"igraph"|| class(x)%in%"network")) stop("The input is not an igraph or a
+  if (!("igraph" %in% class(x) || "network" %in% class(x))) stop("The input is not an igraph or a
                                                             network object")
 
   if (is_igraph(x)){
@@ -2861,7 +2861,7 @@ dangalchev_closeness_centrality<-function (x, vids = V(x), mode = c("all", "out"
 
 local_bridging_centrality<-function (x, vids = V(x)){
 
-  if (!(class(x)%in%"igraph"|| class(x)%in%"network")) stop("The input is not an igraph or a
+  if (!("igraph" %in% class(x)|| "network" %in% class(x))) stop("The input is not an igraph or a
                                                             network object")
 
   f <- function(v){
@@ -2923,7 +2923,7 @@ local_bridging_centrality<-function (x, vids = V(x)){
 
 wiener_index_centrality<-function (x, vids = V(x), mode = c("all", "out", "in"), weights = NULL){
 
-  if (!(class(x)%in%"igraph"|| class(x)%in%"network")) stop("The input is not an igraph or a
+  if (!("igraph" %in% class(x)||"network" %in% class(x))) stop("The input is not an igraph or a
                                                             network object")
   if (is_igraph(x)){
 
@@ -2995,7 +2995,7 @@ wiener_index_centrality<-function (x, vids = V(x), mode = c("all", "out", "in"),
 
 harmonic_centrality <- function (x, vids = V(x), mode = c("all", "out", "in"), weights = NULL){
 
-  if (!(class(x)%in%"igraph"|| class(x)%in%"network")) stop("The input is not an igraph or a
+  if (!("igraph" %in% class(x) || "network" %in% class(x))) stop("The input is not an igraph or a
                                                             network object")
   if (is_igraph(x)){
 
@@ -3062,7 +3062,7 @@ harmonic_centrality <- function (x, vids = V(x), mode = c("all", "out", "in"), w
 
 group_centrality<-function (x, vids = V(x)){
 
-  if (!(class(x)%in%"igraph"|| class(x)%in%"network")) stop("The input is not an igraph or a
+  if (!("igraph" %in% class(x)|| "network" %in% class(x))) stop("The input is not an igraph or a
                                                             network object")
 
   f <- function(v){ 1/(1 + degree(x,v)) + sum(1/(1+degree(x,neighbors(x,v,'all'))))}
