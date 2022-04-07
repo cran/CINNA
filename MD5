@@ -1,6 +1,6 @@
-2c6b10634adcc3640bb0f9c3df21bedf *DESCRIPTION
+1d4e1fcbb9018457a99c895479cf0b49 *DESCRIPTION
 87f9965955af39c75f9981c46e45dd61 *NAMESPACE
-0bca941d8187fab7952702913ae7dc9c *R/CINNA.R
+60c969edbc6fd03de16025b565d53b65 *R/CINNA.R
 473672082f65baeeecfdefe11a031dd3 *R/Cortex.R
 3829ed0969302012f4b7f8b9c6fb8f2f *R/Drugtarget.R
 787f1c4c013eabd6854014ec0e41aec6 *R/Kangaroo.R
@@ -14,8 +14,8 @@ e6aa5eb710a6716d3adbee4f8f547d16 *data/drugTarget.rda
 99460e7c75340caeb865bef42d1fab71 *data/zachary.rda
 fc604d6fdd9a43ecad51f00443e389f4 *inst/CITATION
 8460d50c7ce598d78121412f0d9007ae *inst/doc/CINNA.R
-701e13dda415bf6096253c95fecd4413 *inst/doc/CINNA.Rmd
-a015308b605babb038274f185da789a5 *inst/doc/CINNA.html
+25977856bbc417c21d30513351e664fa *inst/doc/CINNA.Rmd
+8e472742f541aab3899054b684c9d677 *inst/doc/CINNA.html
 d847a6949deca97d464c69c5a75f1676 *man/calculate_centralities.Rd
 7d0063916ddc1daaa5498e350e238d62 *man/cortex.Rd
 1782e7d61f3903a4595ab8668b5465d1 *man/dangalchev_closeness_centrality.Rd
@@ -50,5 +50,5 @@ d912c15292a4cb8b02e4acc0a294940e *man/visualize_heatmap.Rd
 236a320354bdb7e7835e5972c29ca4cf *man/visualize_pair_correlation.Rd
 8a292404cd3e320e71a0fa4861a033c4 *man/wiener_index_centrality.Rd
 9c1257b0ec341708aa0a363e9b7a383e *man/zachary.Rd
-701e13dda415bf6096253c95fecd4413 *vignettes/CINNA.Rmd
-19b1236c77717a690a01196ff7af3369 *vignettes/bibliography.bib
+25977856bbc417c21d30513351e664fa *vignettes/CINNA.Rmd
+9d2453323638a8940852f2c1ac0346e7 *vignettes/bibliography.bib

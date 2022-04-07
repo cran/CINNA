@@ -2624,11 +2624,11 @@ summary_tsne_centralities<-function( x , dims = 2, perplexity = 5, scale = TRUE)
 
     x <- x[!duplicated(x), ]
 
-    tsne.Y <- Rtsne(t(x), dims = dims, perplexity = perplexity)$Y
+    tsne.Y <- Rtsne(t(x), dims = dims, perplexity = perplexity, check_duplicates = FALSE)$Y
 
     rownames(tsne.Y)<-colnames(x)
 
-    cost <- Rtsne(t(x), dims = dims, perplexity = perplexity)$cost
+    cost <- Rtsne(t(x), dims = dims, perplexity = perplexity ,check_duplicates = FALSE)$cost
 
     names(cost) <- colnames(x)
 
@@ -2643,11 +2643,11 @@ summary_tsne_centralities<-function( x , dims = 2, perplexity = 5, scale = TRUE)
 
     x <- x[!duplicated(x), ]
 
-    tsne.Y <- Rtsne(t(x), dims = dims, perplexity = perplexity)$Y
+    tsne.Y <- Rtsne(t(x), dims = dims, perplexity = perplexity,check_duplicates = FALSE)$Y
 
     rownames(tsne.Y) <- colnames(x)
 
-    cost <- Rtsne(t(x), dims = dims, perplexity = perplexity)$cost
+    cost <- Rtsne(t(x), dims = dims, perplexity = perplexity,check_duplicates = FALSE)$cost
 
     names(cost) <- colnames(x)
 
@@ -2702,7 +2702,7 @@ tsne_centralities <- function( x , dims = 2, perplexity = 5, scale = TRUE){
 
     x <- x[!duplicated(x), ]
 
-    cost <- Rtsne(t(x), dims = dims, perplexity = perplexity)$cost
+    cost <- Rtsne(t(x), dims = dims, perplexity = perplexity,check_duplicates = FALSE)$cost
 
     names(cost) <- colnames(x)
 
@@ -2721,7 +2721,7 @@ tsne_centralities <- function( x , dims = 2, perplexity = 5, scale = TRUE){
 
     x <- x[!duplicated(x), ]
 
-    cost <- Rtsne(t(x), dims = dims, perplexity = perplexity)$cost
+    cost <- Rtsne(t(x), dims = dims, perplexity = perplexity,check_duplicates = FALSE)$cost
 
     names(cost) <- colnames(x)
 

@@ -53,7 +53,7 @@ We collected five graphs instances based on factual datasets and natural network
 
 Edge Type: Friendship
 
-Node Type: Person
+Node Type: People
 
 Avg Edges: 77.50
 
