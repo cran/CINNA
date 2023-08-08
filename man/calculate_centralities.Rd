@@ -13,22 +13,25 @@ calculate_centralities(x, except = NULL, include = NULL, weights = NULL)
 
 \item{include}{A vector including names of centrality measures which should be computed.}
 
-\item{weights}{A character scalar specifying the edge attribute to use.(default=NULL)}
+\item{weights}{A character scalar specifying the edge attribute to use. (default=NULL)}
 }
 \value{
-A list concluding centrality measure values in which the columns indicate centralities
-and the rows show the vertices.
+A list containing centrality measure values. Each column indicates a centrality measure, and each row corresponds to a vertex.
+        The structure of the output is as follows:
+        - The list has named elements, where each element represents a centrality measure.
+        - The value of each element is a numeric vector, where each element of the vector corresponds to a vertex in the network.
+        - The order of vertices in the numeric vectors matches the order of vertices in the input igraph object.
+        - The class of the output is "centrality".
 }
 \description{
 This function computes multitude centrality measures of an igraph object.
 }
 \details{
 This function calculates various types of centrality measures which are applicable to the network topology
-and returns the results as a list. In "except" argument, you can specify centrality measures which is
+and returns the results as a list. In the "except" argument, you can specify centrality measures that are
 not necessary to calculate.
 }
 \examples{
-
 data("zachary")
 p <- proper_centralities(zachary)
 calculate_centralities(zachary, include = "Degree Centrality")
@@ -163,26 +166,26 @@ DANGALCHEV, C. 2006. Residual closeness in networks. Physica A: Statistical Mech
 Alain Barrat, Marc Barthelemy, Romualdo Pastor-Satorras, Alessandro Vespignani: The architecture of complex weighted networks, Proc. Natl. Acad. Sci. USA 101, 3747 (2004)
 }
 \seealso{
-\code{ \link[igraph]{alpha.centrality}},\code{ \link[igraph]{bonpow}},\code{ \link[igraph]{constraint}},
-\code{ \link[igraph]{centr_degree}},\code{ \link[igraph]{eccentricity}},\code{ \link[igraph]{eigen_centrality}},
-\code{ \link[igraph]{coreness}},\code{ \link[igraph]{authority_score}},\code{ \link[igraph]{hub_score}},
-\code{ \link[igraph]{transitivity}},\code{ \link[igraph]{page_rank}},\code{ \link[igraph]{betweenness}} ,
-\code{ \link[igraph]{subgraph.centrality}}, \code{ \link[sna]{flowbet}},\code{ \link[sna]{infocent}},
-\code{ \link[sna]{loadcent}},\code{ \link[sna]{stresscent}},\code{ \link[sna]{graphcent}}, \code{ \link[centiserve]{topocoefficient}},
-\code{ \link[centiserve]{closeness.currentflow}},\code{ \link[centiserve]{closeness.latora}},
-\code{ \link[centiserve]{communibet}}, \code{ \link[centiserve]{communitycent}},
-\code{ \link[centiserve]{crossclique}},\code{ \link[centiserve]{entropy}},
-\code{ \link[centiserve]{epc}},\code{ \link[centiserve]{laplacian}},\code{ \link[centiserve]{leverage}},
-\code{ \link[centiserve]{mnc}},\code{ \link[centiserve]{hubbell}}, \code{ \link[centiserve]{semilocal}},
-\code{ \link[centiserve]{closeness.vitality}},
-\code{ \link[centiserve]{closeness.residual}},\code{ \link[centiserve]{lobby}},
-\code{ \link[centiserve]{markovcent}},\code{ \link[centiserve]{radiality}},\code{ \link[centiserve]{lincent}},
-\code{ \link[centiserve]{geokpath}}, \code{ \link[centiserve]{katzcent}},\code{ \link[centiserve]{diffusion.degree}},
-\code{ \link[centiserve]{dmnc}},\code{ \link[centiserve]{centroid}},\code{ \link[centiserve]{closeness.freeman}},
-\code{ \link[centiserve]{clusterrank}},\code{ \link[centiserve]{decay}},
-\code{ \link[centiserve]{barycenter}},\code{ \link[centiserve]{bottleneck}},\code{ \link[centiserve]{averagedis}},
-\code{ \link[CINNA]{local_bridging_centrality}},\code{ \link[CINNA]{wiener_index_centrality}},\code{ \link[CINNA]{group_centrality}},
-\code{ \link[CINNA]{dangalchev_closeness_centrality}},\code{ \link[CINNA]{harmonic_centrality}},\code{ \link[igraph]{strength}}
+\code{\link[igraph]{alpha.centrality}}, \code{\link[igraph]{bonpow}}, \code{\link[igraph]{constraint}},
+  \code{\link[igraph]{centr_degree}}, \code{\link[igraph]{eccentricity}}, \code{\link[igraph]{eigen_centrality}},
+  \code{\link[igraph]{coreness}}, \code{\link[igraph]{authority_score}}, \code{\link[igraph]{hub_score}},
+  \code{\link[igraph]{transitivity}}, \code{\link[igraph]{page_rank}}, \code{\link[igraph]{betweenness}},
+  \code{\link[igraph]{subgraph.centrality}}, \code{\link[sna]{flowbet}}, \code{\link[sna]{infocent}},
+  \code{\link[sna]{loadcent}}, \code{\link[sna]{stresscent}}, \code{\link[sna]{graphcent}}, \code{\link[centiserve]{topocoefficient}},
+  \code{\link[centiserve]{closeness.currentflow}}, \code{\link[centiserve]{closeness.latora}},
+  \code{\link[centiserve]{communibet}}, \code{\link[centiserve]{communitycent}},
+  \code{\link[centiserve]{crossclique}}, \code{\link[centiserve]{entropy}},
+  \code{\link[centiserve]{epc}}, \code{\link[centiserve]{laplacian}}, \code{\link[centiserve]{leverage}},
+  \code{\link[centiserve]{mnc}}, \code{\link[centiserve]{hubbell}}, \code{\link[centiserve]{semilocal}},
+  \code{\link[centiserve]{closeness.vitality}},
+  \code{\link[centiserve]{closeness.residual}}, \code{\link[centiserve]{lobby}},
+  \code{\link[centiserve]{markovcent}}, \code{\link[centiserve]{radiality}}, \code{\link[centiserve]{lincent}},
+  \code{\link[centiserve]{geokpath}}, \code{\link[centiserve]{katzcent}}, \code{\link[centiserve]{diffusion.degree}},
+  \code{\link[centiserve]{dmnc}}, \code{\link[centiserve]{centroid}}, \code{\link[centiserve]{closeness.freeman}},
+  \code{\link[centiserve]{clusterrank}}, \code{\link[centiserve]{decay}},
+  \code{\link[centiserve]{barycenter}}, \code{\link[centiserve]{bottleneck}}, \code{\link[centiserve]{averagedis}},
+  \code{\link[CINNA]{local_bridging_centrality}}, \code{\link[CINNA]{wiener_index_centrality}}, \code{\link[CINNA]{group_centrality}},
+  \code{\link[CINNA]{dangalchev_closeness_centrality}}, \code{\link[CINNA]{harmonic_centrality}}, \code{\link[igraph]{strength}}
 }
 \author{
 Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari

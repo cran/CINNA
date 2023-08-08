@@ -12,7 +12,12 @@ visualize_heatmap(x, scale = TRUE)
 \item{scale}{Whether the centrality values should be scaled or not}
 }
 \value{
-The correlation plot
+The function generates a heatmap plot between pairs of centrality measures.
+The function takes a list x as input, which contains the computed centrality measures.
+If the scale parameter is set to TRUE, the centrality values will be scaled before plotting the heatmap.
+The function creates a heatmap plot, where each cell represents the correlation between a pair of centrality measures.
+The color of each cell indicates the strength and direction of the correlation.
+The function returns the heatmap plot.
 }
 \description{
 This function draws heatmap between pair of centrality measures

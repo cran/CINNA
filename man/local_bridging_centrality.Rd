@@ -7,15 +7,16 @@
 local_bridging_centrality(x, vids = V(x))
 }
 \arguments{
-\item{x}{An igraph or a network object}
+\item{x}{An igraph or a network object.}
 
-\item{vids}{Nodes to be considered in the calculation}
+\item{vids}{Nodes to be considered in the calculation.}
 }
 \value{
-a vector including centrality values for each node
+A numeric vector including the centrality values for each node.
+The centrality values represent the Local Bridging Centrality measure for each node in the network.
 }
 \description{
-This function computes Local Bridging Centrality. This classifies nodes regarding their structural links among the dense components.
+This function computes the Local Bridging Centrality for nodes in a network. The Local Bridging Centrality classifies nodes based on their structural links among the dense components.
 }
 \examples{
 
@@ -25,7 +26,7 @@ local_bridging_centrality(zachary)
 
 }
 \references{
-Macker, J.P., 2016, November. An improved local bridging centrality model for distributed network analytics. In Military Communications Conference, MILCOM 2016-2016 IEEE (pp. 600-605). IEEE. DOI: 10.1109/MILCOM.2016.7795393
+Macker, J.P. (2016). An improved local bridging centrality model for distributed network analytics. In Military Communications Conference, MILCOM 2016-2016 IEEE (pp. 600-605). IEEE. DOI: 10.1109/MILCOM.2016.7795393
 }
 \seealso{
 \code{\link[igraph]{betweenness}}

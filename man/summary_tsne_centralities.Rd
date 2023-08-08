@@ -7,25 +7,23 @@
 summary_tsne_centralities(x, dims = 2, perplexity = 5, scale = TRUE)
 }
 \arguments{
-\item{x}{a list containg the computed cetrality values}
+\item{x}{A list containing the computed centrality values.}
 
-\item{dims}{integer; number of the outpu dimensions(default=2)}
+\item{dims}{An integer specifying the number of output dimensions (default = 2).}
 
-\item{perplexity}{numeric; A flexible measure of the efficient number of neighbors.
-The performance of SNE is fairly robust to changes in the perplexity, and typical
-values are between 5 and 50.(default=5)}
+\item{perplexity}{A numeric value representing a flexible measure of the efficient number of neighbors.
+The performance of t-SNE is fairly robust to changes in perplexity, and typical values are between 5 and 50 (default = 5).}
 
-\item{scale}{Whether the centrality values should be scaled or not(default=TRUE)}
+\item{scale}{A logical value indicating whether the centrality values should be scaled or not (default = TRUE).}
 }
 \value{
-It resturns a list containing below values:
-
-Y	Matrix containing the new representations for the objects
-
-costs	The cost for every object after the final iteration
+A list containing the following elements:
+- "Y": A matrix containing the new representations for the objects after t-SNE.
+- "costs": The cost for every object after the final iteration of t-SNE.
+The "costs" provide information about the optimization process.
 }
 \description{
-This function summarize tsne analysis results on centrality measures
+This function summarizes the t-SNE analysis results on centrality measures.
 }
 \seealso{
 \code{\link[Rtsne]{Rtsne}}

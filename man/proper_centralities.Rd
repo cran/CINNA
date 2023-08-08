@@ -7,18 +7,18 @@
 proper_centralities(x)
 }
 \arguments{
-\item{x}{an igraph object}
+\item{x}{An igraph object.}
 }
 \value{
-a list including the name of centrality measures which are suitable for the input graph
+A list including the names of centrality measures that are suitable for the input graph.
 }
 \description{
-This function indicates proper centrality measures of an
-igraph object based on the network topology
+This function indicates the proper centrality measures of an igraph object
+based on the network topology.
 }
 \details{
-This function represents a list including the names of centrality measures which are applicable
-for the input graph based on the topology
+This function returns a list including the names of centrality measures that are applicable
+for the input graph based on its topology.
 }
 \examples{
 

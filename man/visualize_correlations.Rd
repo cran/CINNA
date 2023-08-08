@@ -15,7 +15,13 @@ visualize_correlations(x, scale = TRUE, method = "pearson")
 to be computed. The proper values are "pearson", "kendall", or "spearman". (default="pearson")}
 }
 \value{
-The pairwise correlation plot
+The function generates a correlation plot between pairs of centrality measures.
+The function takes a list x as input, which contains the computed centrality measures.
+If the scale parameter is set to TRUE, the centrality values will be scaled before computing the correlations.
+The method parameter specifies the type of correlation coefficient to be computed: "pearson" (default), "kendall", or "spearman".
+The function creates a pairwise correlation plot, where each cell represents the correlation between a pair of centrality measures.
+The color of each cell indicates the strength and direction of the correlation, ranging from red (negative correlation) to blue (positive correlation).
+The function returns the pairwise correlation plot.
 }
 \description{
 This function draw correlation plot between pair of centrality measures

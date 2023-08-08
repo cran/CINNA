@@ -14,36 +14,38 @@ misc_extract_components(
 )
 }
 \arguments{
-\item{x}{The input could be an edgelist and an adjacency matrix}
+\item{x}{The input can be an edgelist, an adjacency matrix, or a graphNEL object.}
 
-\item{directed}{Whether to create a directed graph.(default=TRUE)}
+\item{directed}{Whether to create a directed graph. (default = TRUE)}
 
-\item{mode}{Character scalar, explain how should demonstrate the supplied matrix.
-Possible values are: directed, undirected, upper, lower, max, min, plus.(default="directed")}
+\item{mode}{Character scalar, explains how to interpret the supplied matrix.
+Possible values are: "directed", "undirected", "upper", "lower", "max", "min", "plus". (default = "directed")}
 
 \item{weighted}{An argument for specifying whether the graph should be weighted or not.
-If it is NULL then an unweighted graph is created.(default=NULL)}
+If it is NULL, then an unweighted graph is created. (default = NULL)}
 
-\item{unibipartite}{A boolean parameter describing whether the input edge list is corresponding
-to a bipartite graph. TRUE value specifies the biprtite graph and vice versa.(default=FALSE)}
+\item{unibipartite}{A boolean parameter describing whether the input edge list corresponds
+to a bipartite graph. A TRUE value specifies a bipartite graph, and vice versa. (default = FALSE)}
 
 \item{diag}{Logical scalar, whether to consider the diagonal of the matrix or not.
-If it was FALSE then the diagonal spotted as zeros.(default=TRUE)}
+If it is FALSE, then the diagonal is treated as zeros. (default = TRUE)}
 }
 \value{
-a list including the components of the input graph as igraph objects
+A list including the components of the input graph as igraph objects.
+Each element of the list represents a component and is an igraph object.
+The components are disconnected subgraphs of the input graph.
 }
 \description{
 This function extracts all components of the input with various formats
-and convert them as "igraph" objects.
+and converts them to "igraph" objects.
 }
 \details{
-This function assert components of the input object which can be an edgelist,
-an adjacency matrix and a graphNEL object.
-The result would be a list including components as seperated graphs.
+This function extracts components from the input object, which can be an edgelist,
+an adjacency matrix, or a graphNEL object. The result is a list including the components
+represented as separate graphs.
 }
 \seealso{
-\code{\link[igraph]{induced.subgraph}},\code{\link[igraph]{components}},
+\code{\link[igraph]{induced.subgraph}}, \code{\link[igraph]{components}},
 \code{\link[igraph]{graph_from_adjacency_matrix}}
 }
 \author{

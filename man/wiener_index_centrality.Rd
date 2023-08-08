@@ -12,22 +12,20 @@ wiener_index_centrality(
 )
 }
 \arguments{
-\item{x}{An igraph or a network object}
+\item{x}{An igraph or a network object.}
 
-\item{vids}{Nodes to be considered in the calculation}
+\item{vids}{Nodes to be considered in the calculation.}
 
-\item{mode}{A Character value, indicating whether the shortest paths "in" or "out" of the nodes in the directed graphs should be considered. For undirected graphs we use "all".}
+\item{mode}{A character value indicating whether the shortest paths "in" or "out" of the nodes in directed graphs should be considered. For undirected graphs, "all" is used.}
 
-\item{weights}{Numeric vector indicating weights of the edges}
+\item{weights}{Numeric vector indicating weights of the edges.}
 }
 \value{
-a vector including centrality values for each node
+A numeric vector including the centrality values for each node.
+The centrality values represent the Wiener Index Centrality measure for each node in the network.
 }
 \description{
-This function computes Wiener Index Centrality.
-The Wiener index computes the sum of the all shortest paths
-between a node v and all other related nodes in the graph.
-Fundementally, it's like to the closeness but here since the reciprocal is not computed, the value has the opposite meaning.
+This function computes the Wiener Index Centrality for nodes in a network. The Wiener index is a measure of centrality that computes the sum of all shortest paths between a node and all other related nodes in the graph. In essence, it is similar to closeness centrality, but without taking the reciprocal, resulting in a measure with the opposite meaning.
 }
 \examples{
 
@@ -37,7 +35,7 @@ wiener_index_centrality(zachary)
 
 }
 \references{
-Scardoni, G. and Carlo Laudanna, C.B.M.C., 2011. Network centralities for Cytoscape. University of Verona.
+Scardoni, G. and Carlo Laudanna, C.B.M.C. (2011). Network centralities for Cytoscape. University of Verona.
 }
 \author{
 Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari

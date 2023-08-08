@@ -14,7 +14,12 @@ visualize_pair_correlation(x, y, scale = TRUE)
 \item{scale}{Whether the centrality values should be scaled or not}
 }
 \value{
-The correlation plot
+The function computes and plots the correlation between two centrality measures.
+        The function takes two vectors, `x` and `y`, representing the centrality measures to be correlated.
+        If the `scale` parameter is set to `TRUE`, the centrality values will be scaled before computing the correlation.
+        The function creates a correlation plot, which includes a scatterplot of the centrality values and histograms of each measure.
+        The correlation coefficient between the two measures is displayed on the plot.
+        The function returns the correlation plot.
 }
 \description{
 This function computes and plots correlation between pair of centrality

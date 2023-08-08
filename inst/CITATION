@@ -1,14 +1,14 @@
 citHeader("To cite CINNA in publications use:")
 
-citEntry(
-  entry    = "Article",
-  title    = "CINNA: an R/CRAN package to decipher Central Informative Nodes in Network Analysis",
-  author   = "Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari",
-  journal  = "Bioinformatics",
-  year     = "15 April 2019",
-  volume   = "35",
-  number   = "8",
-  pages    = "1436–1437",
-  url      = "https://doi.org/10.1093/bioinformatics/bty819",
+bibentry(
+  bibtype   = "Article",
+  title     = "CINNA: an R/CRAN package to decipher Central Informative Nodes in Network Analysis",
+  author    = "Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari",
+  journal   = "Bioinformatics",
+  year      = "15 April 2019",
+  volume    = "35",
+  number    = "8",
+  pages     = "1436–1437",
+  url       = "https://doi.org/10.1093/bioinformatics/bty819",
   textVersion = paste("Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari, CINNA: an R/CRAN package to decipher Central Informative Nodes in Network Analysis, Bioinformatics, Volume 35, Issue 8, 15 April 2019, Pages 1436–1437, https://doi.org/10.1093/bioinformatics/bty819")
 )

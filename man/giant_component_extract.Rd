@@ -12,32 +12,34 @@ giant_component_extract(
 )
 }
 \arguments{
-\item{x}{An igraph or a network object}
+\item{x}{An igraph or a network object.}
 
-\item{directed}{Whether to create a directed graph(default=TRUE)}
+\item{directed}{Whether to create a directed graph. (default = TRUE)}
 
-\item{bipartite_proj}{Whether the bipartite network must be projected or not(default=FALSE)}
+\item{bipartite_proj}{Whether the bipartite network must be projected or not. (default = FALSE)}
 
-\item{num_proj}{A number which shows the number of projects especifically for
-bipartite graphs.(default=1)}
+\item{num_proj}{A number indicating the specific projection to work with, especially for
+bipartite graphs. (default = 1)}
 }
 \value{
-a list contatining the giant componet of the input graph. The first element is an igraph object and the second is the edgelist of that.
+A list containing the giant component of the input graph. The first element is an igraph object
+representing the giant component, and the second element is the corresponding edgelist.
 }
 \description{
-This function extracts the largest connected or the giant component
-of the input graph which can be an "igraph" object or a "network" object
-and convert them as "igraph" objects. For the bipartite graph, this will
-apply projection before extracting the components.
+This function extracts the largest connected component or the giant component
+of the input graph, which can be an "igraph" object or a "network" object, and converts
+it to an "igraph" object. For bipartite graphs, this function can perform projection
+before extracting the components.
 }
 \details{
-This function distinguishes the largest component of an "igraph" or a "network" object and
-illustrates them as a list which contains the edgelist of the giant component. If the input
-graph was bipartite and the "bipartite_proj" was TRUE, it will projet it and you can decide
-to which project you want to continue to work with that.
+This function identifies the largest component of an "igraph" or a "network" object
+and returns it as a list containing the giant component as an igraph object and its
+corresponding edgelist. If the input graph is bipartite and the "bipartite_proj" parameter
+is set to TRUE, the function can perform projection before extracting the components. You
+can specify which projection to work with using the "num_proj" parameter.
 }
 \examples{
-# a graph with 4 vertices
+# A graph with 4 vertices
 
 data(zachary)
 giant_component_extract(zachary)
@@ -47,7 +49,7 @@ giant_component_extract(zachary)
 Newman, M. (2010). Networks. Oxford University Press.
 }
 \seealso{
-\code{\link[igraph]{induced.subgraph}},\code{\link[igraph]{clusters}}
+\code{\link[igraph]{induced.subgraph}}, \code{\link[igraph]{clusters}}
 }
 \author{
 Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari

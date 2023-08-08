@@ -7,16 +7,20 @@
 summary_calculate_centralities(x)
 }
 \arguments{
-\item{x}{centrality measure calculation results}
+\item{x}{Centrality measure calculation results, typically a numeric vector.}
 }
 \value{
-a list concluding summary results for each centrality measure value
-
-The result values of \code{ \link[CINNA]{calculate_centralities}}function will be saved in the given directory.#' @importFrom igraph alpha.centrality
+A list summarizing the computed centrality measures. The list includes the following elements:
+- "minimum": The minimum value of the centrality measures.
+- "first_quartile": The first quartile (25th percentile) value of the centrality measures.
+- "median": The median (50th percentile) value of the centrality measures.
+- "mean": The mean value of the centrality measures.
+- "third_quartile": The third quartile (75th percentile) value of the centrality measures.
+- "maximum": The maximum value of the centrality measures.
 }
 \description{
-This function computes  minimum, first quater, median,
-mean, third qarter and maximum values of computed centrality measures.
+This function computes the minimum, first quartile, median,
+mean, third quartile, and maximum values of the computed centrality measures.
 }
 \author{
 Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari

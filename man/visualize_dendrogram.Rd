@@ -20,19 +20,22 @@ visualize_dendrogram(
 
 \item{k}{number of clusters(default=4)}
 }
+\value{
+The function generates a dendrogram plot of a graph's vertices based on a centrality measure.
+        The function takes an igraph object `x` as input, representing the graph.
+        The `centrality.type` parameter specifies the type of centrality measure to be considered (default is "Degree Centrality").
+        If the `computed_centrality_value` parameter is provided, it should be a vector containing the computed centrality values for each node.
+        Otherwise, the function will compute the specified centrality measure for the graph.
+        The `k` parameter specifies the number of clusters to be formed from the dendrogram (default is 4).
+        The function creates a dendrogram plot of the vertices, where the branching structure represents the hierarchical clustering based on the centrality measure.
+        The function returns the dendrogram plot.
+}
 \description{
 This function demonstrates the vertice dendrogram of a graph based
 on a centrality type.
 }
-\details{
-This function represents node dendrogram of a graph based on a centrality measure.
-If the favor centrality is not computed yet, by specifying the name of that it will compute it and show the result.
-}
 \references{
 Galili, T. (2015). dendextend: an R package for visualizing, adjusting and comparing trees of hierarchical clustering. Bioinformatics, 31(22), 3718–3720.
-}
-\seealso{
-\code{\link[stats]{dendrogram}}
 }
 \author{
 Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari

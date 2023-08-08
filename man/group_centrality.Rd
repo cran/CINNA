@@ -7,16 +7,15 @@
 group_centrality(x, vids = V(x))
 }
 \arguments{
-\item{x}{An igraph or a network object}
+\item{x}{An igraph or a network object.}
 
-\item{vids}{Nodes to be considered in the calculation}
+\item{vids}{Nodes to be considered in the calculation.}
 }
 \value{
-a vector including centrality values for each node
+A numeric vector of centrality values for each node. The length of the vector is equal to the number of nodes in the network.
 }
 \description{
-This function computes group Centrality. So, it considers a consistent ranking of
-each node to be calculated such that scores diverse possible synergies among possible groups of vertices.
+This function computes the Group Centrality for nodes in a network. Group centrality considers a consistent ranking of each node to be calculated, taking into account the diverse possible synergies among possible groups of vertices.
 }
 \examples{
 

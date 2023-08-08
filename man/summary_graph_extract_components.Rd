@@ -12,19 +12,24 @@ summary_graph_extract_components(
 )
 }
 \arguments{
-\item{x}{An igraph or a network object}
+\item{x}{An igraph or a network object.}
 
-\item{directed}{a boolean constant, Whether to create a directed graph(default=TRUE)}
+\item{directed}{A boolean value indicating whether to create a directed graph (default = TRUE).}
 
-\item{bipartite_proj}{Whether the bipartite network must be projected or not(default=FALSE)}
+\item{bipartite_proj}{A boolean value indicating whether the bipartite network should be projected (default = FALSE).}
 
-\item{num_proj}{A number which shows the number of projects especifically for bipartite graphs.(default=1)}
+\item{num_proj}{A number indicating the number of projects specifically for bipartite graphs (default = 1).}
 }
 \value{
-The result values of \code{ \link[CINNA]{graph_extract_components}}function will be saved in the given directory.#' @importFrom igraph alpha.centrality
+A list of igraph objects representing the extracted components of the graph.
+Each element in the list corresponds to a component, and each component is represented by an igraph object.
+The components are extracted based on the connectivity of the graph and can include single nodes, disconnected subgraphs, or connected subgraphs.
+If the graph is directed and the \code{directed} parameter is set to FALSE, the function returns the weakly connected components.
+If the graph is bipartite and the \code{bipartite_proj} parameter is set to TRUE, the function returns the projected graph components.
+If the graph is neither directed nor bipartite, the function returns the connected components.
 }
 \description{
-This function summarizes all components of the input which can be an "igraph" object or a "network" object
+This function summarizes all components of the input which can be an "igraph" object or a "network" object.
 }
 \author{
 Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari

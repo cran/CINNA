@@ -7,29 +7,34 @@
 tsne_centralities(x, dims = 2, perplexity = 5, scale = TRUE)
 }
 \arguments{
-\item{x}{a list containg the computed cetrality values}
+\item{x}{A list containing the computed centrality values.}
 
-\item{dims}{integer; number of the outpu dimensions(default=2)}
+\item{dims}{An integer specifying the number of output dimensions (default = 2).}
 
-\item{perplexity}{numeric; A flexible measure of the efficient number of neighbors.
-The performance of SNE is fairly robust to changes in the perplexity, and typical
-values are between 5 and 50.(default=5)}
+\item{perplexity}{A numeric value representing a flexible measure of the efficient number of neighbors.
+The performance of t-SNE is fairly robust to changes in perplexity, and typical values are between 5 and 50 (default = 5).}
 
-\item{scale}{Whether the centrality values should be scaled or not(default=TRUE)}
+\item{scale}{A logical value indicating whether the centrality values should be scaled or not (default = TRUE).}
 }
 \value{
-It resturns cost plot of tsne results which displays centralities in order of their corresponding costs.
+A cost plot of t-SNE results, which displays centralities in order of their corresponding costs.
+The cost plot provides information about the optimization process and the quality of the embedding.
+
+A cost plot of t-SNE results, which displays centralities in order of their corresponding costs.
+The cost plot is a ggplot object that represents the optimization process and the quality of the embedding.
+The x-axis represents the iterations of the t-SNE algorithm, and the y-axis represents the cost associated with each iteration.
+The cost measures the discrepancy between the original high-dimensional space and the low-dimensional embedding.
+By examining the cost plot, you can assess the convergence and stability of the t-SNE algorithm and evaluate the quality of the embedding.
 }
 \description{
-This function applies t-SNE, dimensionality reduction algorithm, on
-centrality measures.
+This function applies t-SNE, a dimensionality reduction algorithm, to centrality measures.
 }
 \details{
-t-SNE is a non-linear dimensionality reduction algorithm used for exploring high-dimensional data. Here, It maps multi-dimensional centrality measure data to less dimensions suitable to work with it.
+t-SNE is a non-linear dimensionality reduction algorithm used for exploring high-dimensional data. It maps multi-dimensional centrality measure data to a lower-dimensional space suitable for analysis and visualization.
 }
 \references{
-van der Maaten, L. (2014). Accelerating t SNE using Tree Based Algorithms. Journal of Machine Learning Research, 15, 3221–3245.
-Van Der Maaten, L. J. P., & Hinton, G. E. (2008). Visualizing high dimensional data using t sne. Journal of Machine Learning Research, 9, 2579–2605.
+van der Maaten, L. (2014). Accelerating t-SNE using Tree-Based Algorithms. Journal of Machine Learning Research, 15, 3221–3245.
+Van Der Maaten, L. J. P., & Hinton, G. E. (2008). Visualizing High-Dimensional Data Using t-SNE. Journal of Machine Learning Research, 9, 2579–2605.
 }
 \seealso{
 \code{\link[Rtsne]{Rtsne}}

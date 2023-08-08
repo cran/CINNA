@@ -12,20 +12,19 @@ harmonic_centrality(
 )
 }
 \arguments{
-\item{x}{An igraph or a network object}
+\item{x}{An igraph or a network object.}
 
-\item{vids}{Nodes to be considered in the calculation}
+\item{vids}{Nodes to be considered in the calculation.}
 
-\item{mode}{a character value, “out” for out-degree, “in” for in-degree or “total” for the sum of the two. For undirected graphs this argument is ignored. “all” is a synonym of “total”.}
+\item{mode}{A character value, indicating the type of degree to consider ("out" for out-degree, "in" for in-degree, "total" for the sum of the two). For undirected graphs, this argument is ignored. The default value is "total".}
 
-\item{weights}{Numeric vector indicating weights of the edges}
+\item{weights}{Numeric vector indicating weights of the edges.}
 }
 \value{
-a vector including centrality values for each node
+A numeric vector of centrality values for each node. The length of the vector is equal to the number of nodes in the network.
 }
 \description{
-This function computes Harmonic Centrality.
-The harmonic metric defines as the denormalized reciprocal of the harmonic mean of all distances.
+This function computes the Harmonic Centrality for nodes in a network. The harmonic centrality metric is defined as the denormalized reciprocal of the harmonic mean of all distances.
 }
 \examples{
 

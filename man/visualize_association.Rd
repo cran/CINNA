@@ -14,7 +14,13 @@ visualize_association(x, y, scale = TRUE)
 \item{scale}{Whether the centrality values should be scaled or not}
 }
 \value{
-The regression plot, and the values resulted by the regression process.
+The function returns a regression plot and the results of the regression analysis between two centrality measures.
+        The function takes two vectors, `x` and `y`, which represent the independent and dependent centrality measures, respectively.
+        If the `scale` parameter is set to `TRUE`, the centrality values will be scaled before performing the regression analysis.
+        The function applies regression analysis to estimate the association between the two centrality measures.
+        It creates a scatter plot of the centrality values, with a regression line representing the relationship between the variables.
+        Additionally, the plot includes confidence intervals around the regression line to show the uncertainty of the estimates.
+        The function returns the regression plot and the computed regression results.
 }
 \description{
 This function computes regression between pair of centrality measures
@@ -27,7 +33,8 @@ between variables.It asserts that the value of dependent variable changes when t
 value of independent variable varies.
 }
 \references{
-CHAMBERS, & M., J. (1992). Statistical Models in S. Wadsworth. Pacific Grove, California. Retrieved from
+Chambers, J. M. (1992). Statistical Models in S. Wadsworth. Pacific Grove, California. Retrieved from
+  [Link to the reference]
 
 Wilkinson, G. N., & Rogers, C. E. (1973). Symbolic Description of Factorial Models for Analysis of Variance. Applied Statistics, 22(3), 392.
 }

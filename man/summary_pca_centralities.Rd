@@ -7,18 +7,33 @@
 summary_pca_centralities(x, scale.unit = TRUE, ncp = 5)
 }
 \arguments{
-\item{x}{a list containg the computed centrality values}
+\item{x}{A list containing the computed centrality values.}
 
-\item{scale.unit}{a boolean constant, whether data should be scaled to unit
-variance(default=TRUE)}
+\item{scale.unit}{A boolean value indicating whether the data should be scaled to unit variance (default = TRUE).}
 
-\item{ncp}{number of dimensions in final results (default=5)}
+\item{ncp}{The number of dimensions in the final results (default = 5).}
 }
 \value{
-The result values of \code{ \link[CINNA]{pca_centralities}}function will be saved in the given directory.#' @importFrom igraph alpha.centrality
+The result of the \code{pca_centralities} function, which includes the PCA analysis results such as eigenvalues, variance explained, and scores.
+The returned value is an object of class "PCA" from the FactoMineR package. It contains the following components:
+\item{eig}{A numeric vector of eigenvalues, indicating the amount of variance explained by each principal component.}
+\item{var}{A numeric vector of proportions of variance explained by each principal component.}
+\item{ind}{A data frame of individual scores, where each row represents an individual and each column represents a principal component.}
+\item{call}{The function call used to create the PCA object.}
+\item{call2}{The call used to compute the PCA analysis.}
+\item{call3}{The call used to project the individuals.}
+\item{svd}{The singular value decomposition of the data matrix.}
+\item{cor}{The correlation matrix of the variables.}
+\item{cos2}{The squared cosines of the variables.}
+\item{contrib}{The contributions of the variables to the principal components.}
+\item{proj}{The projected coordinates of the individuals on the principal components.}
+\item{quali.sup}{The results of the supplementary qualitative variables analysis.}
+\item{quali.sup.ind}{The results of the supplementary individuals analysis.}
+\item{quanti.sup}{The results of the supplementary quantitative variables analysis.}
+\item{quanti.sup.var}{The results of the supplementary variables analysis.}
 }
 \description{
-This function summarizes PCA result related to centrality measures.
+This function summarizes the PCA result related to centrality measures.
 }
 \author{
 Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari

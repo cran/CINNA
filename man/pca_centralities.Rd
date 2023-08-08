@@ -2,52 +2,48 @@
 % Please edit documentation in R/CINNA.R
 \name{pca_centralities}
 \alias{pca_centralities}
-\title{Ranking centrality measure based on contributions}
+\title{PCA Centrality Measures}
 \usage{
 pca_centralities(
   x,
   scale.unit = TRUE,
   cut.off = 80,
-  ncp = 5,
+  ncp = 2,
   graph = FALSE,
   axes = c(1, 2)
 )
 }
 \arguments{
-\item{x}{a list containg the computed centrality values}
+\item{x}{a list containing the computed centrality values}
 
-\item{scale.unit}{a boolean constant, whether data should be scaled to unit
-variance(default=TRUE)}
+\item{scale.unit}{a boolean constant indicating whether data should be scaled to unit variance (default = TRUE)}
 
-\item{cut.off}{The intensity that must be exceeded in cumulative percentage of variance of eigen values.(default=80)}
+\item{cut.off}{The intensity that must be exceeded in cumulative percentage of variance of eigen values (default = 80)}
 
-\item{ncp}{number of dimensions in final results (default=5)}
+\item{ncp}{number of dimensions in the final results (default = 5)}
 
-\item{graph}{a boolean constant, whether the graph shoul be displayed}
+\item{graph}{a boolean constant indicating whether the graph should be displayed (default = FALSE)}
 
-\item{axes}{a length 2 vector describing the number of components to plot(default=c(1,2))}
+\item{axes}{a length 2 vector describing the number of components to plot (default = c(1, 2))}
 }
 \value{
-a plot illustrating significant centralities in the order of contribution
+A plot illustrating the contributions of variables to the principal components.
+The x-axis represents the centrality measures, and the y-axis represents the contribution.
+The higher the contribution value, the more important the centrality measure is in the ranking.
+The plot helps in identifying the most influential centrality measures.
 }
 \description{
-This function demonstrates ranks of centrality measures in order of information levels.
+This function performs Principal Component Analysis (PCA) on centrality measures.
+It computes the contributions of variables to the principal components and visualizes them.
 }
-\details{
-This function represents centralities in the ranking list based on variable contribution to
-make principal components.
-PCA is a method for drawing out important variables from a data set.
-It helps user to reduced the dimensions in high dimensional data.
-It is more common to use for more than 3 dimensional datasets.
-}
-\references{
-Husson, F., Lê, S., & Pagès, J. (2010). Exploratory Multivariate Analysis by Example using R. Chapman & Hall/CRC Computer Science & Data Analysis, 40(April), 240.
+\examples{
+# Create a data frame with multiple observations
+centralities <- data.frame(
+  Betweenness = c(0.2, 0.3, 0.5),
+ Closeness = c(0.4, 0.2, 0.6),
+  Degree = c(0.3, 0.1, 0.4),
+  Eigenvector = c(0.1, 0.5, 0.2)
+)
+pca_centralities(centralities)
 
-http://www.sthda.com/english/
-}
-\seealso{
-\code{\link[FactoMineR]{PCA}}
-}
-\author{
-Minoo Ashtiani, Mehdi Mirzaie, Mohieddin Jafari
 }

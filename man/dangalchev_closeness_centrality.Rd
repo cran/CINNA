@@ -12,22 +12,21 @@ dangalchev_closeness_centrality(
 )
 }
 \arguments{
-\item{x}{An igraph or a network object}
+\item{x}{An igraph or a network object.}
 
-\item{vids}{Nodes to be considered in the calculation}
+\item{vids}{Nodes to be considered in the calculation.}
 
-\item{mode}{A Character value, indicating whether the shortest paths "in" or "out" of the nodes in the directed graphs should be considered. For undirected graphs we use "all".}
+\item{mode}{A character value indicating whether the shortest paths "in" or "out" of the nodes in directed graphs should be considered. For undirected graphs, use "all".}
 
-\item{weights}{Numeric vector indicating weights of the edges}
+\item{weights}{A numeric vector indicating the weights of the edges.}
 }
 \value{
-a vector including centrality values for each node
+A numeric vector including the centrality values for each node.
+The centrality values represent the Dangalchev Closeness Centrality measure for each node in the network.
 }
 \description{
-This function computes Dangalchev Closeness Centrality.
-This can be access by computing a network resistance. More specifically, it measures the closeness by removing nodes and edges.
-The evalauation of this measure of closeness will be easier
-and this can be useful for unconnected graphs too.
+This function computes the Dangalchev Closeness Centrality for nodes in a network.
+The Dangalchev Closeness Centrality measures closeness by removing nodes and edges, allowing for easier evaluation and handling of unconnected graphs.
 }
 \examples{
 
@@ -37,7 +36,7 @@ dangalchev_closeness_centrality(zachary)
 
 }
 \references{
-DANGALCHEV, C. 2006. Residual closeness in networks. Physica A: Statistical Mechanics and its Applications, 365, 556-564. DOI: 10.1016/j.physa.2005.12.020
+Dangalchev, C. (2006). Residual closeness in networks. Physica A: Statistical Mechanics and its Applications, 365, 556-564. DOI: 10.1016/j.physa.2005.12.020
 }
 \seealso{
 \code{\link[centiserve]{closeness.residual}}

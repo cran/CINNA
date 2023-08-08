@@ -18,7 +18,14 @@ visualize_graph(
 \item{centrality.type}{The type of centrality which should be calculated.}
 }
 \value{
-a plot illustrating the graph
+A plot illustrating the input graph, where the size of nodes represents the calculated centrality values.
+The function takes an igraph object as input and either a vector of precomputed centrality values or the name of the desired centrality measure.
+If precomputed centrality values are provided in the computed_centrality_value argument, the graph will be plotted based on those values.
+If only the name of the desired centrality measure is provided in the centrality.type argument, the function will calculate the centrality values
+and then plot the graph.
+The plot shows the nodes of the graph, with their sizes indicating the centrality values. The larger the node, the higher the centrality value.
+This plot helps visualize the distribution of centrality values across the nodes of the graph.
+The function returns the plot and does not modify the input graph.
 }
 \description{
 This function demonstrates the input graph in which the size of nodes
